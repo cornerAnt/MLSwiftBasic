@@ -11,38 +11,48 @@ import UIKit
 class MBBaseVisualViewController: MBBaseViewController {
 
     var tableView:UITableView?
+    var gradient:Bool?
+    var lastY:CGFloat?
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
     }
 
     func scrollViewDidScroll(scrollView: UIScrollView) {
         var  scrollOffset:CGFloat = scrollView.contentOffset.y;
-        let hv = tableView!.tableHeaderView as! MBBaseVisualHeaderView
-        if (scrollOffset < 0) {
-            hv.height = hv.minimumHeight! - scrollOffset;
-        } else {
-            hv.height = hv.minimumHeight!
+        if (self.gradient == true){
+            if (scrollOffset <= 0) {
+                if(!(self.lastY > scrollOffset && self.navBar.alpha == 1.0)){
+                    self.navBar.alpha = (abs(scrollOffset) / TOP_Y > 1.0) ? 1.0 : abs(scrollOffset) / TOP_Y
+                }
+            }else{
+                if(self.lastY > scrollOffset && scrollView.dragging == true && scrollOffset + scrollView.frame.height < scrollView.contentSize.height){
+                    UIView.animateWithDuration(0.15, animations: { () -> Void in
+                        self.navBar.alpha = 1.0
+                    })
+                }else if(scrollView.dragging == true){
+                    UIView.animateWithDuration(0.15, animations: { () -> Void in
+                        self.navBar.alpha = 0.0
+                    })
+                }
+            }
+            self.lastY = scrollOffset
+        }else{
+            let hv = tableView!.tableHeaderView as! MBBaseVisualHeaderView
+            if (scrollOffset < 0) {
+                hv.height = hv.minimumHeight! - scrollOffset;
+            } else {
+                hv.height = hv.minimumHeight!
+            }
+            hv.setNeedsUpdateConstraints()
         }
-        hv.setNeedsUpdateConstraints()
     }
     
+    func setNavBarGradient(flag:Bool){
+        self.gradient = true
+    }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }

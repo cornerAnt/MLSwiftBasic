@@ -15,7 +15,6 @@ class Demo4ViewController: MBBaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.setupTopView()
     }
     
     func setupTopView(){

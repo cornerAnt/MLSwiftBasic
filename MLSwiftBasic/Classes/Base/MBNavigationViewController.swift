@@ -43,12 +43,6 @@ class MBNavigationViewController: UINavigationController {
             self.tabBarController!.tabBar.hidden = (childs.indexOfObject(vc!) > 0)
         }
         
-//        if vc != nil{
-//            if (self.view.subviews.last?.isKindOfClass(MBNavigationBarView.self) != nil) {
-//                self.view.subviews.last?.removeFromSuperview()
-//            }
-//        }
-        
         if self.tabBarController?.tabBar != nil{
             self.tabBarController!.tabBar.hidden = (childs.count > 0)
         }

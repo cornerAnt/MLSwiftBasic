@@ -16,7 +16,13 @@ class ViewController: MBBaseViewController {
 
     /// example list
     lazy var lists:NSArray = {
-        return ["demo1_custom_item","demo2_navigationColor","demo3_multiple_item","demo4_NormalDeveloper","demo5_visual"]
+        return ["demo1_自定义按钮",
+                "demo2_毛玻璃与透明导航栏",
+                "demo3_多个Item",
+                "demo4_设置多个右边Item",
+                "demo5_视觉动画",
+                "demo6_渐变导航栏"
+               ]
     }()
     
     override func viewDidLoad() {
@@ -81,6 +87,8 @@ class ViewController: MBBaseViewController {
             self.navigationController?.pushViewController(Demo4ViewController(), animated: true)
         }else if indexPath.row == 4 {
             self.navigationController?.pushViewController(Demo5ViewController(), animated: true)
+        }else if indexPath.row == 5 {
+            self.navigationController?.pushViewController(Demo6ViewController(), animated: true)
         }
     }
 }
