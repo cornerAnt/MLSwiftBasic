@@ -3,6 +3,7 @@ swift新项目用这个会非常方便.  自定义导航栏，一行代码轻轻
 
 ### Demo or Gif
 ![image](https://github.com/MakeZL/MLSwiftBasic/blob/master/MLSwiftBasic/Demo.gif)
+![image](https://github.com/MakeZL/MLSwiftBasic/blob/master/MLSwiftBasic/Demo2.gif)
 
 ### 新特性
 `懒人Swift基本框架，正提供各种简单，方便的接口 `
@@ -15,9 +16,9 @@ swift新项目用这个会非常方便.  自定义导航栏，一行代码轻轻
 
 `3> 正在筹备一些分类，期待您的PullRequest`
 
-准备迭代：
+`4> 正在准备滑动渐变的导航栏效果`
 
-4> 正在准备滑动渐变的导航栏效果
+准备迭代：
 
 5> iOS7的手势
 
