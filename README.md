@@ -109,7 +109,7 @@ MBBaseCommon.swift
 
 # License
 
-MLSelectPhoto is published under MIT License
+MLSwiftBasic is published under MIT License
 
     Copyright (c) 2015 MakeZL (@MakeZL)
     
