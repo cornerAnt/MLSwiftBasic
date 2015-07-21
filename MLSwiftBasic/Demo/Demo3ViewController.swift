@@ -30,5 +30,4 @@ class Demo3ViewController: MBBaseViewController {
         println("点击了btn")
         println(button)
     }
-    
 }

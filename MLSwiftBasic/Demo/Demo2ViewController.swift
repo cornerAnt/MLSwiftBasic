@@ -25,8 +25,4 @@ class Demo2ViewController: MBBaseViewController {
         imageView.blurImage()
         self.view.insertSubview(imageView, atIndex: 0)
     }
-    
-    
-    
-
 }
