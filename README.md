@@ -32,7 +32,7 @@ Use cocoapods
 
 ``` ruby
 pod 'MLSwiftBasic', '1.1.0'
-
+```
 
 
 # Use
