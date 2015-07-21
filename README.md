@@ -1,5 +1,5 @@
 # MLSwiftBasic
-swift新项目用这个会非常方便.  自定义导航栏，一行代码轻轻松松完成 (左边按钮、右边按钮、标题、多个按钮、自动返回按钮、标题、图片)。 会不断提供Swift分类
+集合`自定义导航栏`、`下拉刷新/上拉加载更多`、`视觉效果`、`好用分类`等等一系列，却耦合性很低的Swift库!
 
 ### Demo or Gif
 ![image](https://github.com/MakeZL/MLSwiftBasic/blob/master/MLSwiftBasic/Demo1.gif)
@@ -23,7 +23,15 @@ swift新项目用这个会非常方便.  自定义导航栏，一行代码轻轻
 
 准备迭代：
 
-5> iOS7的手势
+6> iOS7的手势
+
+
+# Installation
+
+Use cocoapods  
+
+``` ruby
+pod 'MLSwiftBasic', '1.1.0'
 
 # Use
 import Class

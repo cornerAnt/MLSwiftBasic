@@ -16,7 +16,7 @@ Pod::Spec.new do |s|
   #
 
   s.name         = "MLSwiftBasic"
-  s.version      = "0.1.0"
+  s.version      = "1.1.0"
   s.summary      = "UI and animation of the basic framework of swift!"
   s.homepage     = "https://github.com/MakeZL/MLSwiftBasic"
 
@@ -78,7 +78,7 @@ Pod::Spec.new do |s|
   #  Not including the public_header_files will make all headers public.
   #
 
-  s.source_files  = "MLSwiftBasic/Classes/*.swift"
+  s.source_files  = "MLSwiftBasic/Classes/**/*"
   #s.exclude_files = "Classes/Exclude"
 
   # s.public_header_files = "Classes/**/*.h"
@@ -93,7 +93,7 @@ Pod::Spec.new do |s|
   #
 
   # s.resource  = "icon.png"
-  # s.resources = "MLSwiftBasic/ZLSwiftRefresh.bundle/*.png"
+  s.resource = "MLSwiftBasic/ZLSwiftRefresh.bundle"
 
   # s.preserve_paths = "FilesToSave", "MoreFilesToSave"
 
