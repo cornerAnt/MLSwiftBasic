@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		480FFE7A1B5E06060045556A /* ZLSwiftRefresh.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 480FFE791B5E06060045556A /* ZLSwiftRefresh.bundle */; };
+		480FFE7C1B5E0CD70045556A /* Demo7ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 480FFE7B1B5E0CD70045556A /* Demo7ViewController.swift */; };
+		483612BB1B5D0356005EF531 /* ZLSwiftConstDefine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 483612B71B5D0356005EF531 /* ZLSwiftConstDefine.swift */; };
+		483612BC1B5D0356005EF531 /* ZLSwiftFootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 483612B81B5D0356005EF531 /* ZLSwiftFootView.swift */; };
+		483612BD1B5D0356005EF531 /* ZLSwiftHeadView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 483612B91B5D0356005EF531 /* ZLSwiftHeadView.swift */; };
+		483612BE1B5D0356005EF531 /* ZLSwiftRefreshExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 483612BA1B5D0356005EF531 /* ZLSwiftRefreshExtension.swift */; };
 		4849872F1B4A5A1200051493 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4849872E1B4A5A1200051493 /* AppDelegate.swift */; };
 		484987311B4A5A1200051493 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 484987301B4A5A1200051493 /* ViewController.swift */; };
 		484987341B4A5A1200051493 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 484987321B4A5A1200051493 /* Main.storyboard */; };
@@ -41,6 +47,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		480FFE791B5E06060045556A /* ZLSwiftRefresh.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = ZLSwiftRefresh.bundle; sourceTree = "<group>"; };
+		480FFE7B1B5E0CD70045556A /* Demo7ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Demo7ViewController.swift; sourceTree = "<group>"; };
+		483612B71B5D0356005EF531 /* ZLSwiftConstDefine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZLSwiftConstDefine.swift; sourceTree = "<group>"; };
+		483612B81B5D0356005EF531 /* ZLSwiftFootView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZLSwiftFootView.swift; sourceTree = "<group>"; };
+		483612B91B5D0356005EF531 /* ZLSwiftHeadView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZLSwiftHeadView.swift; sourceTree = "<group>"; };
+		483612BA1B5D0356005EF531 /* ZLSwiftRefreshExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZLSwiftRefreshExtension.swift; sourceTree = "<group>"; };
 		484987291B4A5A1200051493 /* MLSwiftBasic.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MLSwiftBasic.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4849872D1B4A5A1200051493 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4849872E1B4A5A1200051493 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -86,6 +98,26 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		483612B51B5D0356005EF531 /* Refresh */ = {
+			isa = PBXGroup;
+			children = (
+				483612B61B5D0356005EF531 /* ZLSwifthRefresh */,
+			);
+			path = Refresh;
+			sourceTree = "<group>";
+		};
+		483612B61B5D0356005EF531 /* ZLSwifthRefresh */ = {
+			isa = PBXGroup;
+			children = (
+				480FFE791B5E06060045556A /* ZLSwiftRefresh.bundle */,
+				483612B71B5D0356005EF531 /* ZLSwiftConstDefine.swift */,
+				483612B81B5D0356005EF531 /* ZLSwiftFootView.swift */,
+				483612B91B5D0356005EF531 /* ZLSwiftHeadView.swift */,
+				483612BA1B5D0356005EF531 /* ZLSwiftRefreshExtension.swift */,
+			);
+			path = ZLSwifthRefresh;
+			sourceTree = "<group>";
+		};
 		484987201B4A5A1200051493 = {
 			isa = PBXGroup;
 			children = (
@@ -147,6 +179,7 @@
 		484987561B4A5F2500051493 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				483612B51B5D0356005EF531 /* Refresh */,
 				484987571B4A5F2500051493 /* Base */,
 				4849875B1B4A5F2500051493 /* Category */,
 			);
@@ -185,6 +218,7 @@
 				48EB19A91B4A7F0400F75A5F /* Demo4ViewController.swift */,
 				487D67A41B5BB46E007871CF /* Demo5ViewController.swift */,
 				487D67AB1B5BE240007871CF /* Demo6ViewController.swift */,
+				480FFE7B1B5E0CD70045556A /* Demo7ViewController.swift */,
 			);
 			path = Demo;
 			sourceTree = "<group>";
@@ -273,6 +307,7 @@
 				484987391B4A5A1200051493 /* LaunchScreen.xib in Resources */,
 				484987361B4A5A1200051493 /* Images.xcassets in Resources */,
 				48EB19A61B4A6FA500F75A5F /* makezl.jpeg in Resources */,
+				480FFE7A1B5E06060045556A /* ZLSwiftRefresh.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -291,20 +326,25 @@
 			buildActionMask = 2147483647;
 			files = (
 				484987691B4A6AF800051493 /* MB+UIImageView.swift in Sources */,
+				483612BB1B5D0356005EF531 /* ZLSwiftConstDefine.swift in Sources */,
 				487D67A51B5BB46E007871CF /* Demo5ViewController.swift in Sources */,
 				484987651B4A61BA00051493 /* MBBaseCommon.swift in Sources */,
+				483612BC1B5D0356005EF531 /* ZLSwiftFootView.swift in Sources */,
 				484987671B4A665600051493 /* Demo2ViewController.swift in Sources */,
 				487D67A91B5BB718007871CF /* MBBaseVisualHeaderView.swift in Sources */,
 				484987601B4A5F2500051493 /* MB+UIColor.swift in Sources */,
 				484987311B4A5A1200051493 /* ViewController.swift in Sources */,
 				487D67A71B5BB635007871CF /* MBBaseVisualViewController.swift in Sources */,
 				4849875D1B4A5F2500051493 /* MBBaseViewController.swift in Sources */,
+				483612BE1B5D0356005EF531 /* ZLSwiftRefreshExtension.swift in Sources */,
 				4849875F1B4A5F2500051493 /* MBNavigationViewController.swift in Sources */,
 				4849872F1B4A5A1200051493 /* AppDelegate.swift in Sources */,
 				48EB19AA1B4A7F0400F75A5F /* Demo4ViewController.swift in Sources */,
 				48EB19A81B4A75D600F75A5F /* Demo3ViewController.swift in Sources */,
 				484987631B4A5F4500051493 /* Demo1ViewController.swift in Sources */,
 				487D67AC1B5BE240007871CF /* Demo6ViewController.swift in Sources */,
+				480FFE7C1B5E0CD70045556A /* Demo7ViewController.swift in Sources */,
+				483612BD1B5D0356005EF531 /* ZLSwiftHeadView.swift in Sources */,
 				4849875E1B4A5F2500051493 /* MBNavigationBarView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

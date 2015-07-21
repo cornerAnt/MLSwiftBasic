@@ -14,6 +14,7 @@ class Demo6ViewController: MBBaseVisualViewController,UITableViewDataSource,UITa
         super.viewDidLoad()
         
         self.setNavBarViewBackgroundColor(UIColor(rgba: "0c8eee"))
+        // 设置是否要渐变
         self.setNavBarGradient(true)
         self.setupTableView()
     }
@@ -36,6 +37,4 @@ class Demo6ViewController: MBBaseVisualViewController,UITableViewDataSource,UITa
         cell.textLabel?.text = "Test \(indexPath.row)"
         return cell
     }
-    
-
 }

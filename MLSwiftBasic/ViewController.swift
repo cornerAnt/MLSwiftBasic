@@ -19,9 +19,10 @@ class ViewController: MBBaseViewController {
         return ["demo1_自定义按钮",
                 "demo2_毛玻璃与透明导航栏",
                 "demo3_多个Item",
-                "demo4_设置多个右边Item",
+                "demo4_下拉刷新/上拉加载更多（效果1）",
                 "demo5_视觉动画",
-                "demo6_渐变导航栏"
+                "demo6_渐变导航栏效果",
+                "demo7_下拉刷新/上拉加载更多（效果2）"
                ]
     }()
     
@@ -89,6 +90,8 @@ class ViewController: MBBaseViewController {
             self.navigationController?.pushViewController(Demo5ViewController(), animated: true)
         }else if indexPath.row == 5 {
             self.navigationController?.pushViewController(Demo6ViewController(), animated: true)
+        }else if indexPath.row == 6 {
+            self.navigationController?.pushViewController(Demo7ViewController(), animated: true)
         }
     }
 }
