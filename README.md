@@ -31,8 +31,12 @@
 Use cocoapods  
 
 ``` ruby
-pod 'MLSwiftBasic', '1.1.0'
-```
+source 'https://github.com/CocoaPods/Specs.git'
+platform :ios, '8.0'
+use_frameworks!
+
+pod 'MLSwiftBasic', '~> 1.1.1'
+``` 
 
 
 # Use

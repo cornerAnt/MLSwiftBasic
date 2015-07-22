@@ -16,7 +16,7 @@ Pod::Spec.new do |s|
   #
 
   s.name         = "MLSwiftBasic"
-  s.version      = "1.1.0"
+  s.version      = "1.1.1"
   s.summary      = "UI and animation of the basic framework of swift!"
   s.homepage     = "https://github.com/MakeZL/MLSwiftBasic"
 
@@ -104,7 +104,7 @@ Pod::Spec.new do |s|
   #  the lib prefix of their name.
   #
 
-  # s.framework  = "SomeFramework"
+  s.framework  = "UIKit"
   # s.frameworks = "SomeFramework", "AnotherFramework"
 
   # s.library   = "iconv"
