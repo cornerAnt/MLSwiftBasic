@@ -16,13 +16,14 @@ class ViewController: MBBaseViewController {
 
     /// example list
     lazy var lists:NSArray = {
-        return ["demo1_自定义按钮",
-                "demo2_毛玻璃与透明导航栏",
-                "demo3_多个Item",
-                "demo4_下拉刷新/上拉加载更多（效果1）",
-                "demo5_视觉动画",
-                "demo6_渐变导航栏效果",
-                "demo7_下拉刷新/上拉加载更多（效果2）"
+        return ["Demo1_自定义导航栏(标题、右边按钮宽度)",
+                "Demo2_自定义导航栏(多个Item/Item事件)",
+                "Demo3_提示HUD",
+                "Demo4_渐变导航栏效果",
+                "Demo5_视觉动画",
+                "Demo6_下拉刷新/上拉更多1(娃娃脸)",
+                "Demo7_下拉刷新/上拉更多2(箭头动画)",
+                "Demo8_下拉刷新/上拉更多3(自定义动画)"
                ]
     }()
     
@@ -46,7 +47,7 @@ class ViewController: MBBaseViewController {
     }
     
     override func titleStr() -> String {
-        return "ML"
+        return "MLSwiftBasic Framework!"
     }
     
     /**
@@ -92,6 +93,8 @@ class ViewController: MBBaseViewController {
             self.navigationController?.pushViewController(Demo6ViewController(), animated: true)
         }else if indexPath.row == 6 {
             self.navigationController?.pushViewController(Demo7ViewController(), animated: true)
+        }else if indexPath.row == 7 {
+            self.navigationController?.pushViewController(Demo8ViewController(), animated: true)
         }
     }
 }

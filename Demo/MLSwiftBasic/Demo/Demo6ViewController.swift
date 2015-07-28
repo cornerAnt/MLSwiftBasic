@@ -1,3 +1,5 @@
+//  github: https://github.com/MakeZL/MLSwiftBasic
+//  author: @email <120886865@qq.com>
 //
 //  Demo6ViewController.swift
 //  MLSwiftBasic
@@ -8,14 +10,14 @@
 
 import UIKit
 
-class Demo6ViewController: MBBaseVisualViewController,UITableViewDataSource,UITableViewDelegate{
+/// 上拉加载更多/下拉刷新Demo Refresh
+class Demo6ViewController: MBBaseViewController,UITableViewDataSource,UITableViewDelegate{
 
+    var listsCount = 20
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self.setNavBarViewBackgroundColor(UIColor(rgba: "0c8eee"))
-        // 设置是否要渐变
-        self.setNavBarGradient(true)
         self.setupTableView()
     }
     
@@ -25,10 +27,35 @@ class Demo6ViewController: MBBaseVisualViewController,UITableViewDataSource,UITa
         tableView.dataSource = self
         tableView.delegate = self
         self.view.insertSubview(tableView, atIndex: 0)
+        
+        // 进入下拉刷新状态
+        tableView.nowRefresh { () -> Void in
+            dispatch_after(dispatch_time(
+                DISPATCH_TIME_NOW,
+                Int64(2.0 * Double(NSEC_PER_SEC))
+                ), dispatch_get_main_queue(), { () -> Void in
+                    // 结束动画
+                    tableView.doneRefresh()
+            })
+        }
+        
+        // 上拉加载更多
+        tableView.toLoadMoreAction { () -> Void in
+            // 结束动画
+            tableView.doneRefresh()
+            tableView.reloadData()
+            // 假设服务器就100条数据
+            if self.listsCount == 100{
+                // 表示数据加载完毕
+                tableView.endLoadMoreData()
+            }else{
+                self.listsCount += 20
+            }
+        }
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 30
+        return listsCount
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -36,5 +63,9 @@ class Demo6ViewController: MBBaseVisualViewController,UITableViewDataSource,UITa
         var cell:UITableViewCell = tableView.dequeueReusableCellWithIdentifier(identifier, forIndexPath: indexPath) as! UITableViewCell
         cell.textLabel?.text = "Test \(indexPath.row)"
         return cell
+    }
+    
+    override func titleStr() -> String {
+        return "下拉刷新/上拉加载更多"
     }
 }

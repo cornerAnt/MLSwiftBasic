@@ -11,18 +11,26 @@
 import UIKit
 
 class Demo2ViewController: MBBaseViewController {
-
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        self.setNavBarViewBackgroundColor(UIColor.clearColor())
-        self.setupBgView()
+        
+        self.setNavBarViewBackgroundColor(UIColor.blueColor())
     }
     
-    func setupBgView(){
-        var imageView = UIImageView(frame: self.view.bounds)
-        imageView.image = UIImage(named : "di-tu")!
-        imageView.blurImage()
-        self.view.insertSubview(imageView, atIndex: 0)
+    override func titleImg() -> String {
+        return "makezl.jpeg"
+    }
+    
+    override func rightTitles() -> NSArray {
+        return ["M", "L"]
+    }
+    
+    override func titleClick() {
+        println("监听事件..")
+    }
+    
+    override func rightClickAtIndexBtn(button: UIButton) {
+        println("点击了btn")
+        println(button)
     }
 }

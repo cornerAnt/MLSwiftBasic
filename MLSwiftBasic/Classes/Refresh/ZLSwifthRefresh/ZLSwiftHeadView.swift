@@ -61,8 +61,10 @@ public class ZLSwiftHeadView: UIView {
                     self.headImageView.image = self.imageBundleWithNamed(named: "arrow")
                 }
             }else{
-                var image = self.pullImages[newValue.toInt()!]
-                self.headImageView.image = image
+                if (self.pullImages.count > newValue.toInt()){
+                    var image = self.pullImages[newValue.toInt()!]
+                    self.headImageView.image = image
+                }
             }
         }
         
@@ -74,7 +76,7 @@ public class ZLSwiftHeadView: UIView {
     func setupUI(){
         
         var headImageView:UIImageView = UIImageView(frame: CGRectZero)
-        headImageView.contentMode = .ScaleAspectFit
+        headImageView.contentMode = .Center
         headImageView.clipsToBounds = true;
         self.addSubview(headImageView)
         self.headImageView = headImageView

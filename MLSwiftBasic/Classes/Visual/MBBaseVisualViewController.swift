@@ -20,6 +20,7 @@ class MBBaseVisualViewController: MBBaseViewController {
     func scrollViewDidScroll(scrollView: UIScrollView) {
         var  scrollOffset:CGFloat = scrollView.contentOffset.y;
         if (self.gradient == true){
+            // 渐变导航栏
             if (scrollOffset <= 0) {
                 if(!(self.lastY > scrollOffset && self.navBar.alpha == 1.0)){
                     self.navBar.alpha = (abs(scrollOffset) / TOP_Y > 1.0) ? 1.0 : abs(scrollOffset) / TOP_Y

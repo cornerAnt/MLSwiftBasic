@@ -7,6 +7,8 @@
 ![image](https://github.com/MakeZL/MLSwiftBasic/blob/master/ScreenShots/Demo3.gif)
 
 ### 新特性
+`下拉刷新\上拉加载更多`
+
 `懒人Swift基本框架，正提供各种简单，方便的接口 `
 
 目前支持的功能：
@@ -24,6 +26,16 @@
 准备迭代：
 
 6> iOS7的手势
+
+8> 相册多选
+
+9> 图片浏览器
+
+10> 字典转模型
+
+11> 提示框HUD
+
+12> CoreText解析HTML标签
 
 
 # Installation
