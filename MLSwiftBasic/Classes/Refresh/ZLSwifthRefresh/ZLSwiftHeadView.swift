@@ -208,7 +208,7 @@ public class ZLSwiftHeadView: UIView {
             
         }else{
             // 上拉刷新
-            if (!self.headImageView.isAnimating()){
+            if (self.activityView?.isAnimating() == false){
                 self.headLabel.text = ZLSwithRefreshHeadViewText
             }
             
@@ -221,7 +221,7 @@ public class ZLSwiftHeadView: UIView {
             refreshTempAction = self.action
         }
         
-        if (self.headImageView.isAnimating()){
+        if (self.activityView?.isAnimating() == true){
             self.headLabel.text = ZLSwithRefreshLoadingText
         }
         
