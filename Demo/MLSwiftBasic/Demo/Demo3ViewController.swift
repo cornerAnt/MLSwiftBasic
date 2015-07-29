@@ -43,19 +43,19 @@ class Demo3ViewController: MBBaseViewController,UITableViewDataSource,UITableVie
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         
         if (indexPath.row == 0){
-            MLHUDView.ShowSuccessMessage("请求成功..")
+            MLProgressHUD.showSuccessMessage("请求成功..")
         }else if (indexPath.row == 1){
-            MLHUDView.ShowSuccessMessage("请求成功..", durationAfterDismiss: 2.0)
+            MLProgressHUD.showSuccessMessage("请求成功..", durationAfterDismiss: 2.0)
         }else if (indexPath.row == 2){
-            MLHUDView.ShowErrorMessage("请求失败..")
+            MLProgressHUD.showErrorMessage("请求失败..")
         }else if (indexPath.row == 3){
-            MLHUDView.ShowErrorMessage("请求失败..", durationAfterDismiss: 2.0)
+            MLProgressHUD.showErrorMessage("请求失败..", durationAfterDismiss: 2.0)
         }else if (indexPath.row == 4){
-            MLHUDView.ShowProgress(0.5, message: "已经缓冲到\(0.5 * 100)%")
+            MLProgressHUD.showProgress(0.5, message: "已经缓冲到\(0.5 * 100)%")
         }else if (indexPath.row == 5){
-            MLHUDView.ShowProgress(0.9, message: "已经缓冲到\(0.9 * 100)%", durationAfterDismiss: 2.0)
+            MLProgressHUD.showProgress(0.9, message: "已经缓冲到\(0.9 * 100)%", durationAfterDismiss: 2.0)
         }else if (indexPath.row == 6){
-            MLHUDView.ShowWaiting()
+            MLProgressHUD.showWaiting()
         }
     }
     

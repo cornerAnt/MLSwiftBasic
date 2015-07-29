@@ -25,7 +25,9 @@
 
 准备迭代：
 
-6> iOS7的手势
+6> 提示框HUD
+
+7> iOS7的手势
 
 8> 相册多选
 
@@ -33,9 +35,9 @@
 
 10> 字典转模型
 
-11> 提示框HUD
+11> CoreText解析HTML库
 
-12> CoreText解析HTML标签
+12> 联系通讯录
 
 
 # Installation

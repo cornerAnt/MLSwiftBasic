@@ -1,5 +1,5 @@
 //
-//  MLHUDView.swift
+//  MLProgressHUD.swift
 //  MLSwiftBasic
 //
 //  Created by 张磊 on 15/7/23.
@@ -13,10 +13,11 @@ enum HUDStatus: Int{
     case Progress = 1
 }
 
-var hudView:MLHUDView!
+var hudView:MLProgressHUD!
 var hudStatus:HUDStatus?
+var timer:NSTimer?
 
-class MLHUDView: UIView {
+class MLProgressHUD: UIView {
     
     // Init Data
     var progress:CGFloat? {
@@ -27,7 +28,6 @@ class MLHUDView: UIView {
         }
     }
     var message:String?
-    var timer:NSTimer?
     var duration:CGFloat?
     var timerIndex:Int!
     
@@ -42,8 +42,9 @@ class MLHUDView: UIView {
     convenience init(message:String){
         self.init()
         
-        hudView = MLHUDView(frame: UIScreen.mainScreen().bounds)
+        hudView = MLProgressHUD(frame: UIScreen.mainScreen().bounds)
         hudView.layer.cornerRadius = 5.0;
+        hudView.alpha = 0
         hudView.backgroundColor = UIColor.clearColor()
         UIApplication.sharedApplication().keyWindow?.addSubview(hudView)
 
@@ -70,6 +71,10 @@ class MLHUDView: UIView {
         msgLbl.text = message
         msgView.addSubview(msgLbl)
         self.msgLbl = msgLbl
+        
+        UIView.animateWithDuration(0.25, animations: { () -> Void in
+            hudView.alpha = 1
+        })
     }
     
     convenience init(message:String, duration:CGFloat){
@@ -108,8 +113,9 @@ class MLHUDView: UIView {
     }
     
     func removeTimer(){
-        timer?.invalidate()
-        timer = nil
+        if timer != nil {
+            timer!.invalidate()
+        }
     }
     
     func startTimer(){
@@ -126,46 +132,46 @@ class MLHUDView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    class func ShowMessage(str:String!) -> MLHUDView {
-        return MLHUDView(message: str)
+    class func showMessage(str:String!) -> MLProgressHUD {
+        return MLProgressHUD(message: str)
     }
     
-    class func ShowMessage(str:String!,durationAfterDismiss duration:CGFloat) -> MLHUDView {
+    class func showMessage(str:String!,durationAfterDismiss duration:CGFloat) -> MLProgressHUD {
         
-        return MLHUDView(message: str, duration: duration)
+        return MLProgressHUD(message: str, duration: duration)
     }
     
-    class func ShowSuccessMessage(str:String!) -> MLHUDView {
+    class func showSuccessMessage(str:String!) -> MLProgressHUD {
         
-        return MLHUDView(message: str)
+        return MLProgressHUD(message: str)
     }
     
-    class func ShowSuccessMessage(str:String!,durationAfterDismiss duration:CGFloat) -> MLHUDView {
+    class func showSuccessMessage(str:String!,durationAfterDismiss duration:CGFloat) -> MLProgressHUD {
         
-        return MLHUDView(message: str, duration: duration)
+        return MLProgressHUD(message: str, duration: duration)
     }
     
-    class func ShowErrorMessage(str:String!) -> MLHUDView {
+    class func showErrorMessage(str:String!) -> MLProgressHUD {
         
-        return MLHUDView(message: str)
+        return MLProgressHUD(message: str)
     }
     
-    class func ShowErrorMessage(str:String!,durationAfterDismiss duration:CGFloat) -> MLHUDView {
+    class func showErrorMessage(str:String!,durationAfterDismiss duration:CGFloat) -> MLProgressHUD {
         
-        return MLHUDView(message: str, duration: duration)
+        return MLProgressHUD(message: str, duration: duration)
     }
     
-    class func ShowProgress(progress:CGFloat!,message:String!) -> MLHUDView {
+    class func showProgress(progress:CGFloat!,message:String!) -> MLProgressHUD {
         hudStatus = HUDStatus.Progress
         if (hudView != nil){
             hudView.progress = progress
             hudView.message = message
             return hudView
         }
-        return MLHUDView(progress: progress, message: message)
+        return MLProgressHUD(progress: progress, message: message)
     }
     
-    class func ShowProgress(progress:CGFloat!,message:String!,durationAfterDismiss duration:CGFloat) -> MLHUDView {
+    class func showProgress(progress:CGFloat!,message:String!,durationAfterDismiss duration:CGFloat) -> MLProgressHUD {
         hudStatus = HUDStatus.Progress
         if (hudView != nil && hudView.superview != nil){
             hudView.progress = progress
@@ -173,22 +179,26 @@ class MLHUDView: UIView {
             hudView.duration = duration
             return hudView
         }
-        return MLHUDView(progress: progress, message: message,duration: duration)
+        return MLProgressHUD(progress: progress, message: message,duration: duration)
     }
     
-    class func ShowWaiting() -> MLHUDView {
+    class func showWaiting() -> MLProgressHUD {
         
-        return MLHUDView()
+        return MLProgressHUD()
     }
     
-    class func ShowWaiting(#duration:CGFloat) -> MLHUDView {
+    class func showWaiting(#duration:CGFloat) -> MLProgressHUD {
         
-        return MLHUDView()
+        return MLProgressHUD()
     }
     
     func dismiss() {
         hudStatus = HUDStatus.Message
         self.removeTimer()
-        self.removeFromSuperview()
+        UIView.animateWithDuration(0.25, animations: { () -> Void in
+            // 不是正在的移除, 只是alpha = 0
+            hudView.alpha = 0
+        })
+//        self.removeFromSuperview()
     }
 }
