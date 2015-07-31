@@ -55,7 +55,7 @@ class Demo3ViewController: MBBaseViewController,UITableViewDataSource,UITableVie
         }else if (indexPath.row == 5){
             MLProgressHUD.showProgress(0.9, message: "已经缓冲到\(0.9 * 100)%", durationAfterDismiss: 2.0)
         }else if (indexPath.row == 6){
-            MLProgressHUD.showWaiting()
+            MLProgressHUD.showWaiting("等待中...",duration:2.0)
         }
     }
     

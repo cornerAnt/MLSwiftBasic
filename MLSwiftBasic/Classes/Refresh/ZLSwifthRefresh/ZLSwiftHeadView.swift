@@ -122,9 +122,14 @@ public class ZLSwiftHeadView: UIView {
     }
     
     func stopAnimation(){
+        self.nowLoading = false
         self.headLabel.text = ZLSwithRefreshHeadViewText
         UIView.animateWithDuration(0.25, animations: { () -> Void in
-            self.scrollView.contentInset = UIEdgeInsetsMake(self.getNavigationHeight(), 0, self.scrollView.contentInset.bottom, 0)
+            if (abs(self.scrollView.contentOffset.y) >= self.getNavigationHeight() + ZLSwithRefreshHeadViewHeight){
+                self.scrollView.contentInset = UIEdgeInsetsMake(self.getNavigationHeight(), 0, self.scrollView.contentInset.bottom, 0)
+            }else{
+                self.scrollView.contentInset = UIEdgeInsetsMake(self.getNavigationHeight() + self.scrollView.contentOffset.y, 0, self.scrollView.contentInset.bottom, 0)
+            }
         })
         
         if (self.animationStatus == .headerViewRefreshArrowAnimation){
@@ -208,7 +213,9 @@ public class ZLSwiftHeadView: UIView {
             
         }else{
             // 上拉刷新
-            if (self.activityView?.isAnimating() == false){
+            if (nowLoading == true){
+                self.headLabel.text = ZLSwithRefreshLoadingText
+            }else if(scrollView.dragging == true){
                 self.headLabel.text = ZLSwithRefreshHeadViewText
             }
             
@@ -221,10 +228,10 @@ public class ZLSwiftHeadView: UIView {
             refreshTempAction = self.action
         }
         
-        if (self.activityView?.isAnimating() == true){
+        // 上拉刷新
+        if (nowLoading == true){
             self.headLabel.text = ZLSwithRefreshLoadingText
         }
-        
         if (scrollViewContentOffsetY <= 0){
             var v:CGFloat = scrollViewContentOffsetY + scrollView.contentInset.top
             if ((!self.customAnimation) && (v < -animations || v > animations)){

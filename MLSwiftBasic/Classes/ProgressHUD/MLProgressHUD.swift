@@ -11,6 +11,7 @@ import UIKit
 enum HUDStatus: Int{
     case Message = 0
     case Progress = 1
+    case Waiting = 2
 }
 
 var hudView:MLProgressHUD!
@@ -27,6 +28,7 @@ class MLProgressHUD: UIView {
             }
         }
     }
+    
     var message:String?
     var duration:CGFloat?
     var timerIndex:Int!
@@ -50,20 +52,17 @@ class MLProgressHUD: UIView {
 
         var maskView = UIView()
         maskView.frame = UIScreen.mainScreen().bounds
-        maskView.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.5)
+        maskView.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.3)
         hudView.addSubview(maskView)
-        
+
         var width:CGFloat = 100
         var msgView = UIView(frame: CGRectMake(CGFloat(UIScreen.mainScreen().bounds.width - width) * 0.5, CGFloat(UIScreen.mainScreen().bounds.height - width) * 0.5, width, width))
         msgView.layer.cornerRadius = 5.0;
-        msgView.backgroundColor = UIColor.lightGrayColor()
+        msgView.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.2)
         msgView.clipsToBounds = true
         hudView.addSubview(msgView)
         self.msgView = msgView
-        
-        let tap = UITapGestureRecognizer(target: hudView, action: Selector("dismiss"))
-        maskView.addGestureRecognizer(tap)
-        
+
         var msgLbl = UILabel(frame: msgView.bounds)
         msgLbl.font = UIFont.systemFontOfSize(14)
         msgLbl.textColor = UIColor.whiteColor()
@@ -71,6 +70,20 @@ class MLProgressHUD: UIView {
         msgLbl.text = message
         msgView.addSubview(msgLbl)
         self.msgLbl = msgLbl
+        
+        if hudStatus?.rawValue == HUDStatus.Waiting.rawValue {
+            var activityView = UIActivityIndicatorView()
+            if count(message) > 0 {
+                activityView.frame = CGRectMake((msgView.frame.width - 12) * 0.5, (msgView.frame.height - 12) * 0.4, 12, 12)
+            }else{
+                activityView.frame = CGRectMake((msgView.frame.width - 12) * 0.5, (msgView.frame.height - 12) * 0.5, 12, 12)
+            }
+            activityView.startAnimating()
+            msgView.addSubview(activityView)
+            
+            msgLbl.frame.origin.y = CGRectGetMaxY(activityView.frame)
+            msgLbl.frame.size.height = msgView.frame.height - CGRectGetMaxY(activityView.frame)
+        }
         
         UIView.animateWithDuration(0.25, animations: { () -> Void in
             hudView.alpha = 1
@@ -92,9 +105,10 @@ class MLProgressHUD: UIView {
         
         self.msgLbl?.text = ""
         self.msgView?.frame.size.width = 200
-        self.msgLbl?.frame.size.width = self.msgView!.frame.size.width * progress
+        self.msgLbl?.frame.size.width = self.msgView!.frame.size.width * progress!
         self.msgLbl?.backgroundColor = UIColor.redColor()
         self.msgView?.center.x = self.msgView!.frame.size.width
+
     }
     
     convenience init(progress:CGFloat!,message:String!,duration:CGFloat!){
@@ -120,8 +134,10 @@ class MLProgressHUD: UIView {
     
     func startTimer(){
         self.timerIndex = self.timerIndex+1
-        if hudStatus!.rawValue == HUDStatus.Progress.rawValue{
-            self.msgLbl?.frame.size.width += 10
+        if hudStatus != nil {
+            if hudStatus!.rawValue == HUDStatus.Progress.rawValue{
+                self.msgLbl?.frame.size.width += 10
+            }
         }
         if CGFloat(self.timerIndex) > self.duration {
             hudView.dismiss()
@@ -163,42 +179,32 @@ class MLProgressHUD: UIView {
     
     class func showProgress(progress:CGFloat!,message:String!) -> MLProgressHUD {
         hudStatus = HUDStatus.Progress
-        if (hudView != nil){
-            hudView.progress = progress
-            hudView.message = message
-            return hudView
-        }
         return MLProgressHUD(progress: progress, message: message)
     }
     
     class func showProgress(progress:CGFloat!,message:String!,durationAfterDismiss duration:CGFloat) -> MLProgressHUD {
         hudStatus = HUDStatus.Progress
-        if (hudView != nil && hudView.superview != nil){
-            hudView.progress = progress
-            hudView.message = message
-            hudView.duration = duration
-            return hudView
-        }
         return MLProgressHUD(progress: progress, message: message,duration: duration)
     }
     
-    class func showWaiting() -> MLProgressHUD {
-        
-        return MLProgressHUD()
+    class func showWaiting(message: String!) -> MLProgressHUD {
+        hudStatus = HUDStatus.Waiting
+        return MLProgressHUD(message: message)
     }
     
-    class func showWaiting(#duration:CGFloat) -> MLProgressHUD {
-        
-        return MLProgressHUD()
+    class func showWaiting(message: String!,duration:CGFloat) -> MLProgressHUD {
+        hudStatus = HUDStatus.Waiting
+        return MLProgressHUD(message: message,duration: duration)
     }
     
     func dismiss() {
         hudStatus = HUDStatus.Message
         self.removeTimer()
+        
         UIView.animateWithDuration(0.25, animations: { () -> Void in
-            // 不是正在的移除, 只是alpha = 0
             hudView.alpha = 0
-        })
-//        self.removeFromSuperview()
+        }) { (flag:Bool) -> Void in
+            hudView.removeFromSuperview()
+        }
     }
 }
