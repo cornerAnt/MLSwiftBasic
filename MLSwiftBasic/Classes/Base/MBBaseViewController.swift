@@ -140,9 +140,9 @@ class MBBaseViewController: UIViewController,MBNavigationBarViewDelegate {
     }
     
     func setupMenuClickEvent(){
+        self.navBar.titleButton.addTarget(self, action: "titleClick", forControlEvents: .TouchUpInside)
         self.navBar.leftButton.addTarget(self, action:"leftClick", forControlEvents: .TouchUpInside)
         self.navBar.rightButton.addTarget(self, action:"rightClick", forControlEvents: .TouchUpInside)
-        self.navBar.titleButton.addTarget(self, action: "titleClick", forControlEvents: .TouchUpInside)
         
         for (var i = 0; i < self.navBar.rightTitles.count; i++){
             self.navBar.rightTitles[i].addTarget(self, action: "rightClickAtIndexBtn:", forControlEvents: .TouchUpInside)

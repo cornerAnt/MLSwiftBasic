@@ -33,3 +33,4 @@ let NAV_BG_COLOR = UIColor(rgba: "0c8eee")
 let TOP_Y:CGFloat = (CGFloat((UIDevice.currentDevice().systemVersion as NSString).floatValue) >= 7.0) ? 64.0 : 44.0
 // Margin
 let MARGIN_8:CGFloat = 8.0
+let ONE_PX:CGFloat = 1 / UIScreen.mainScreen().scale

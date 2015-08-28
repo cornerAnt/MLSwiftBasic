@@ -9,9 +9,42 @@
 import UIKit
 import AssetsLibrary
 
+class MLPhotoGroup: NSObject {
+    /// ALAssetsGroup
+    var group:ALAssetsGroup!
+    /// ALAssetsGroup Name
+    lazy var groupName:String = {
+        return self.group.valueForProperty("ALAssetsGroupPropertyName") as! String
+    }()
+    /// ALAssetsGroup ThumbImage
+    lazy var thumbImage:UIImage = {
+        return UIImage(CGImage: self.group.posterImage().takeUnretainedValue())!
+    }()
+    /// ALAssetsGroup subAssetsCount
+    lazy var assetsCount:NSInteger = {
+        return self.group.numberOfAssets()
+    }()
+
+    /// Init
+    init(group:ALAssetsGroup) {
+        super.init()
+        self.group = group
+    }
+}
+
 class MLPhotoPickerDAO: NSObject {
-    
     /// Signle AssetsLibrary Object.
+    class var sharedDAO:MLPhotoPickerDAO{
+        struct staic {
+            static var onceToken:dispatch_once_t = 0
+            static var instance:MLPhotoPickerDAO?
+        }
+        dispatch_once(&staic.onceToken, { () -> Void in
+            staic.instance = MLPhotoPickerDAO()
+        })
+        return staic.instance!
+    }
+    
     var sharedAssetsLibrary:ALAssetsLibrary{
         struct staic {
             static var onceToken:dispatch_once_t = 0
@@ -28,20 +61,17 @@ class MLPhotoPickerDAO: NSObject {
     
     :param: groups 数组
     */
-    func getAllAsstGroup(groupsCallBack :((groups:Array<ALAssetsGroup>) -> Void)){
+    func getAllAsstGroup(groupsCallBack :((groups:Array<MLPhotoGroup>) -> Void)){
         var groups:NSMutableArray = NSMutableArray()
         var resultBlock:ALAssetsLibraryGroupsEnumerationResultsBlock = { (group, stop:UnsafeMutablePointer<ObjCBool>) -> Void in
-            if group == nil {
-                groups.addObject(group)
+            if group != nil {
+                var gp = MLPhotoGroup(group: group)
+                groups.addObject(gp)
             }else{
-                var gps = NSArray(array: groups)
-                groupsCallBack(groups:gps as! Array<ALAssetsGroup>)
+                var tempGroups = NSArray(array: groups)
+                groupsCallBack(groups:tempGroups as! Array<MLPhotoGroup>)
             }
         }
-
         self.sharedAssetsLibrary.enumerateGroupsWithTypes(ALAssetsGroupAll, usingBlock:resultBlock, failureBlock: nil)
     }
-    
-    
-    
 }

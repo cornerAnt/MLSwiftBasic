@@ -17,20 +17,4 @@ class Demo2ViewController: MBBaseViewController {
         self.setNavBarViewBackgroundColor(UIColor.blueColor())
     }
     
-    override func titleImg() -> String {
-        return "makezl.jpeg"
-    }
-    
-    override func rightTitles() -> NSArray {
-        return ["M", "L"]
-    }
-    
-    override func titleClick() {
-        println("监听事件..")
-    }
-    
-    override func rightClickAtIndexBtn(button: UIButton) {
-        println("点击了btn")
-        println(button)
-    }
 }

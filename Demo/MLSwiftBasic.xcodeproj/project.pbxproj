@@ -36,6 +36,8 @@
 		487D67AC1B5BE240007871CF /* Demo6ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 487D67AB1B5BE240007871CF /* Demo6ViewController.swift */; };
 		48B730EA1B8F1F0200BB20D4 /* MLPhotoPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48B730E91B8F1F0200BB20D4 /* MLPhotoPickerViewController.swift */; };
 		48B730EC1B8F20F700BB20D4 /* MLPhotoPickerDAO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48B730EB1B8F20F700BB20D4 /* MLPhotoPickerDAO.swift */; };
+		48B730F21B902BC500BB20D4 /* MLPhotoGruopViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48B730F11B902BC500BB20D4 /* MLPhotoGruopViewController.swift */; };
+		48B730F51B90667800BB20D4 /* MLPhotoPickerGroupCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48B730F41B90667800BB20D4 /* MLPhotoPickerGroupCell.swift */; };
 		48EB19A61B4A6FA500F75A5F /* makezl.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 48EB19A51B4A6FA500F75A5F /* makezl.jpeg */; };
 		48EB19A81B4A75D600F75A5F /* Demo3ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48EB19A71B4A75D600F75A5F /* Demo3ViewController.swift */; };
 		48EB19AA1B4A7F0400F75A5F /* Demo4ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48EB19A91B4A7F0400F75A5F /* Demo4ViewController.swift */; };
@@ -85,6 +87,8 @@
 		487D67AB1B5BE240007871CF /* Demo6ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Demo6ViewController.swift; sourceTree = "<group>"; };
 		48B730E91B8F1F0200BB20D4 /* MLPhotoPickerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MLPhotoPickerViewController.swift; sourceTree = "<group>"; };
 		48B730EB1B8F20F700BB20D4 /* MLPhotoPickerDAO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MLPhotoPickerDAO.swift; sourceTree = "<group>"; };
+		48B730F11B902BC500BB20D4 /* MLPhotoGruopViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MLPhotoGruopViewController.swift; sourceTree = "<group>"; };
+		48B730F41B90667800BB20D4 /* MLPhotoPickerGroupCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MLPhotoPickerGroupCell.swift; sourceTree = "<group>"; };
 		48EB19A51B4A6FA500F75A5F /* makezl.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = makezl.jpeg; sourceTree = "<group>"; };
 		48EB19A71B4A75D600F75A5F /* Demo3ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Demo3ViewController.swift; sourceTree = "<group>"; };
 		48EB19A91B4A7F0400F75A5F /* Demo4ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Demo4ViewController.swift; sourceTree = "<group>"; };
@@ -267,6 +271,8 @@
 			children = (
 				48B730E91B8F1F0200BB20D4 /* MLPhotoPickerViewController.swift */,
 				48B730EB1B8F20F700BB20D4 /* MLPhotoPickerDAO.swift */,
+				48B730F11B902BC500BB20D4 /* MLPhotoGruopViewController.swift */,
+				48B730F41B90667800BB20D4 /* MLPhotoPickerGroupCell.swift */,
 			);
 			path = PhotoPicker;
 			sourceTree = "<group>";
@@ -377,6 +383,7 @@
 				4828C4D41B5E7E1500DA9F52 /* MB+UIColor.swift in Sources */,
 				4828C4D71B5E7E1500DA9F52 /* ZLSwiftConstDefine.swift in Sources */,
 				487D67A51B5BB46E007871CF /* Demo5ViewController.swift in Sources */,
+				48B730F21B902BC500BB20D4 /* MLPhotoGruopViewController.swift in Sources */,
 				484987671B4A665600051493 /* Demo2ViewController.swift in Sources */,
 				4828C4D81B5E7E1500DA9F52 /* ZLSwiftFootView.swift in Sources */,
 				4828C4D51B5E7E1500DA9F52 /* MB+UIImageView.swift in Sources */,
@@ -397,6 +404,7 @@
 				480FFE7C1B5E0CD70045556A /* Demo7ViewController.swift in Sources */,
 				48B730EA1B8F1F0200BB20D4 /* MLPhotoPickerViewController.swift in Sources */,
 				48143ECE1B67804A008DE6F3 /* MLProgressHUD.swift in Sources */,
+				48B730F51B90667800BB20D4 /* MLPhotoPickerGroupCell.swift in Sources */,
 				4828C4D91B5E7E1500DA9F52 /* ZLSwiftHeadView.swift in Sources */,
 				4828C4D21B5E7E1500DA9F52 /* MBNavigationBarView.swift in Sources */,
 			);

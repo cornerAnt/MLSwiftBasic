@@ -15,15 +15,23 @@ class Demo1ViewController: MBBaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
     }
     
-    override func titleStr() -> String {
-        return "Demo1"
+    override func titleImg() -> String {
+        return "makezl.jpeg"
     }
     
-    override func rightStr() -> String {
-        return "右边按钮"
+    override func rightTitles() -> NSArray {
+        return ["M", "L"]
+    }
+    
+    override func titleClick() {
+        println("监听事件..")
+    }
+    
+    override func rightClickAtIndexBtn(button: UIButton) {
+        println("点击了btn")
+        println(button)
     }
     
     override func rightItemWidth() -> CGFloat {

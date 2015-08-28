@@ -147,34 +147,29 @@ class MBNavigationBarView: UIView {
         }
     }
     
-    var titleButton:UIButton{
-        get{
-            var titleButton = UIButton.buttonWithType(.Custom) as! UIButton
-            titleButton.setTitleColor(NAV_TEXT_COLOR, forState: .Normal)
-            titleButton.frame = CGRectMake(NAV_ITEM_LEFT_W, NAV_BAR_Y, self.frame.size.width - NAV_ITEM_RIGHT_W - NAV_ITEM_LEFT_W, NAV_BAR_HEIGHT);
-            
-            if (self.rightTitles.count > 1){
-                titleButton.frame.size.width = self.frame.size.width - NAV_ITEM_RIGHT_W * CGFloat((2 + self.rightTitles.count))
-                titleButton.frame.origin.x = CGFloat(self.frame.size.width - titleButton.frame.size.width) * 0.5
-            }
-            
-            titleButton.titleLabel?.font = NAV_TITLE_FONT
-            self.addSubview(titleButton)
-            return titleButton
-        }
-    }
-    
-    var leftButton:UIButton{
-        get{
-            var leftButton = UIButton.buttonWithType(.Custom) as! UIButton
-            leftButton.setTitleColor(NAV_TEXT_COLOR, forState: .Normal)
-            leftButton.frame = CGRectMake(0, NAV_BAR_Y, NAV_ITEM_LEFT_W, NAV_BAR_HEIGHT);
-            leftButton.titleLabel?.font = NAV_ITEM_FONT
-            self.addSubview(leftButton)
-            return leftButton
+    lazy var titleButton:UIButton = {
+        var titleButton = UIButton.buttonWithType(.Custom) as! UIButton
+        titleButton.setTitleColor(NAV_TEXT_COLOR, forState: .Normal)
+        titleButton.frame = CGRectMake(NAV_ITEM_LEFT_W, NAV_BAR_Y, self.frame.size.width - NAV_ITEM_RIGHT_W - NAV_ITEM_LEFT_W, NAV_BAR_HEIGHT);
+        
+        if (self.rightTitles.count > 1){
+            titleButton.frame.size.width = self.frame.size.width - NAV_ITEM_RIGHT_W * CGFloat((2 + self.rightTitles.count))
+            titleButton.frame.origin.x = CGFloat(self.frame.size.width - titleButton.frame.size.width) * 0.5
         }
         
-    }
+        titleButton.titleLabel?.font = NAV_TITLE_FONT
+        self.addSubview(titleButton)
+        return titleButton
+    }()
+    
+    lazy var leftButton:UIButton = {
+        var leftButton = UIButton.buttonWithType(.Custom) as! UIButton
+        leftButton.setTitleColor(NAV_TEXT_COLOR, forState: .Normal)
+        leftButton.frame = CGRectMake(0, NAV_BAR_Y, NAV_ITEM_LEFT_W, NAV_BAR_HEIGHT);
+        leftButton.titleLabel?.font = NAV_ITEM_FONT
+        self.addSubview(leftButton)
+        return leftButton
+    }()
     
     lazy var rightButton:UIButton = {
         var rightButton = UIButton.buttonWithType(.Custom) as! UIButton

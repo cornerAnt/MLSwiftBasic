@@ -21,11 +21,11 @@ class ViewController: MBBaseViewController {
     var lists:NSArray {
         get {
             var example1:MBExample = MBExample()
-            example1.title = "Demo1 (自定义导航栏.标题.设置按钮宽度)"
+            example1.title = "Demo1 (导航栏.标题/图片.设置按钮宽度等)"
             example1.vc = Demo1ViewController()
             
             var example2:MBExample = MBExample()
-            example2.title = "Demo2 (设置image/menu)"
+            example2.title = "Demo2 (自定义AddressBook通讯录)"
             example2.vc = Demo2ViewController()
             
             var example3:MBExample = MBExample()

@@ -12,15 +12,27 @@ class MLPhotoPickerViewController: MBBaseViewController {
 
     var maxCount:NSInteger!;
     var assetGroupType:NSInteger!;
+    var pickerGroupVc:MLPhotoGruopViewController!
+    
+    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
+        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil) 
+        self.createNavigationController()
+    }
+
+    required init(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        
     }
     
-    override func titleStr() -> String {
-        return "选择相册"
+    func createNavigationController(){
+        pickerGroupVc = MLPhotoGruopViewController()
+        var navigationVc = MBNavigationViewController(rootViewController: pickerGroupVc)
+        navigationVc.view.frame = self.view.frame
+        self.addChildViewController(navigationVc)
+        self.view.addSubview(navigationVc.view)
     }
     
     func showPickerVc(vc:UIViewController){

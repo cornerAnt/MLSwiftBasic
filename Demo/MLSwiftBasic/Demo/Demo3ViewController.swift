@@ -25,6 +25,10 @@ class Demo3ViewController: MBBaseViewController {
         return 85
     }
     
+    override func titleClick() {
+        println("---")
+    }
+    
     override func rightClick() {
         var pickerVc = MLPhotoPickerViewController()
         pickerVc.showPickerVc(self)
