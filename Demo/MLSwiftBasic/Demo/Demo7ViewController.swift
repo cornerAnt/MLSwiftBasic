@@ -29,7 +29,7 @@ class Demo7ViewController: MBBaseViewController,UITableViewDataSource,UITableVie
         self.view.insertSubview(tableView, atIndex: 0)
         
         // 上拉动画
-        tableView.headerViewRefreshAnimationStatus(.headerViewRefreshArrowAnimation, images: [])
+       tableView.headerViewRefreshAnimationStatus(.headerViewRefreshArrowAnimation, images: [])
         
         // 上啦加载更多
         tableView.toLoadMoreAction({ () -> () in

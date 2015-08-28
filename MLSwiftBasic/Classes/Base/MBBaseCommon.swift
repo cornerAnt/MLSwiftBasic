@@ -28,7 +28,7 @@ let NAV_TITLE_FONT:UIFont = UIFont.systemFontOfSize(18)
 // 字体的颜色
 let NAV_TEXT_COLOR:UIColor = UIColor.whiteColor()
 // 导航栏的颜色
-let NAV_BG_COLOR = UIColor(rgba: "ff9814")
+let NAV_BG_COLOR = UIColor(rgba: "0c8eee")
 // 顶部的Y
 let TOP_Y:CGFloat = (CGFloat((UIDevice.currentDevice().systemVersion as NSString).floatValue) >= 7.0) ? 64.0 : 44.0
 // Margin

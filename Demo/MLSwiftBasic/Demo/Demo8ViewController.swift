@@ -28,28 +28,7 @@ class Demo8ViewController: MBBaseViewController,UITableViewDataSource,UITableVie
         tableView.delegate = self
         self.view.insertSubview(tableView, atIndex: 0)
         
-        // 上啦加载更多
-        tableView.toLoadMoreAction({ () -> () in
-            println("toLoadMoreAction success")
-            if (self.listsCount < 100){
-                self.listsCount += 20
-                tableView.reloadData()
-                tableView.doneRefresh()
-            }else{
-                tableView.endLoadMoreData()
-            }
-        })
         
-        // 及时上拉刷新
-        tableView.nowRefresh({ () -> Void in
-            dispatch_after(dispatch_time(
-                DISPATCH_TIME_NOW,
-                Int64(2.0 * Double(NSEC_PER_SEC))
-                ), dispatch_get_main_queue(), { () -> Void in
-                    // 结束动画
-                    tableView.doneRefresh()
-            })
-        })
         
         // 自定义动画，需要传个数组
         var animationImages = [UIImage]()
@@ -78,6 +57,31 @@ class Demo8ViewController: MBBaseViewController,UITableViewDataSource,UITableVie
             }
         }
         tableView.headerViewRefreshAnimationStatus(.headerViewRefreshLoadingAnimation, images: loadAnimationImages)
+        
+        // 上啦加载更多
+        tableView.toLoadMoreAction({ () -> () in
+            println("toLoadMoreAction success")
+            if (self.listsCount < 100){
+                self.listsCount += 20
+                tableView.reloadData()
+                tableView.doneRefresh()
+            }else{
+                tableView.endLoadMoreData()
+            }
+        })
+        
+        // 及时上拉刷新
+        tableView.nowRefresh({ () -> Void in
+            println(" --- ")
+            dispatch_after(dispatch_time(
+                DISPATCH_TIME_NOW,
+                Int64(2.0 * Double(NSEC_PER_SEC))
+                ), dispatch_get_main_queue(), { () -> Void in
+                    // 结束动画
+                    tableView.doneRefresh()
+            })
+        })
+        
         tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: "cell")
     }
     

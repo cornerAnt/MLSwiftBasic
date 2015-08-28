@@ -10,22 +10,55 @@
 
 import UIKit
 
-
+class MBExample: NSObject {
+    var title:String!
+    var vc:UIViewController?
+}
 
 class ViewController: MBBaseViewController {
-
+    
     /// example list
-    lazy var lists:NSArray = {
-        return ["Demo1_自定义导航栏(标题、右边按钮宽度)",
-                "Demo2_自定义导航栏(多个Item/Item事件)",
-                "Demo3_提示HUD",
-                "Demo4_渐变导航栏效果",
-                "Demo5_视觉动画",
-                "Demo6_下拉刷新/上拉更多1(娃娃脸)",
-                "Demo7_下拉刷新/上拉更多2(箭头动画)",
-                "Demo8_下拉刷新/上拉更多3(自定义动画)"
-               ]
-    }()
+    var lists:NSArray {
+        get {
+            var example1:MBExample = MBExample()
+            example1.title = "Demo1 (自定义导航栏.标题.设置按钮宽度)"
+            example1.vc = Demo1ViewController()
+            
+            var example2:MBExample = MBExample()
+            example2.title = "Demo2 (设置image/menu)"
+            example2.vc = Demo2ViewController()
+            
+            var example3:MBExample = MBExample()
+            example3.title = "Demo3 (相册多选)"
+            example3.vc = Demo3ViewController()
+            
+            var example4:MBExample = MBExample()
+            example4.title = "Demo4 (导航视觉效果1)"
+            example4.vc = Demo4ViewController()
+            
+            var example5:MBExample = MBExample()
+            example5.title = "Demo5 (导航视觉效果2)"
+            example5.vc = Demo5ViewController()
+            
+            var example6:MBExample = MBExample()
+            example6.title = "Demo6 (下拉刷新/加载更多 效果1)"
+            example6.vc = Demo6ViewController()
+            
+            var example7:MBExample = MBExample()
+            example7.title = "Demo7 (下拉刷新/加载更多 效果2)"
+            example7.vc = Demo7ViewController()
+            
+            var example8:MBExample = MBExample()
+            example8.title = "Demo8 (下拉刷新/加载更多 自定义动画)"
+            example8.vc = Demo8ViewController()
+            
+            return [example1,example2,example3,example4,example5,example6,example7,example8]
+        }
+        
+        set{
+            
+        }
+    };
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -73,29 +106,15 @@ class ViewController: MBBaseViewController {
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let identifier = "cell"
+        var example:MBExample = self.lists[indexPath.row] as! MBExample
         var cell:UITableViewCell = tableView.dequeueReusableCellWithIdentifier(identifier, forIndexPath: indexPath) as! UITableViewCell
-        cell.textLabel?.text = self.lists[indexPath.row] as? String
+        cell.textLabel?.text = example.title
         return cell
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        if indexPath.row == 0 {
-            self.navigationController?.pushViewController(Demo1ViewController(), animated: true)
-        }else if indexPath.row == 1 {
-            self.navigationController?.pushViewController(Demo2ViewController(), animated: true)
-        }else if indexPath.row == 2 {
-            self.navigationController?.pushViewController(Demo3ViewController(), animated: true)
-        }else if indexPath.row == 3 {
-            self.navigationController?.pushViewController(Demo4ViewController(), animated: true)
-        }else if indexPath.row == 4 {
-            self.navigationController?.pushViewController(Demo5ViewController(), animated: true)
-        }else if indexPath.row == 5 {
-            self.navigationController?.pushViewController(Demo6ViewController(), animated: true)
-        }else if indexPath.row == 6 {
-            self.navigationController?.pushViewController(Demo7ViewController(), animated: true)
-        }else if indexPath.row == 7 {
-            self.navigationController?.pushViewController(Demo8ViewController(), animated: true)
-        }
+        var example:MBExample = self.lists[indexPath.row] as! MBExample
+        self.navigationController?.pushViewController(example.vc!, animated: true)
     }
 }
 

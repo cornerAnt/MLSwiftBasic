@@ -15,7 +15,7 @@ class Demo4ViewController: MBBaseVisualViewController,UITableViewDataSource,UITa
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.setNavBarViewBackgroundColor(UIColor(rgba: "0c8eee"))
+        self.setNavBarViewBackgroundColor(UIColor(rgba: "ff9814"))
         // 设置是否要渐变
         self.setNavBarGradient(true)
         self.setupTableView()

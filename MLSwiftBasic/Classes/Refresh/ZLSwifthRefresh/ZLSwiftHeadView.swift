@@ -25,7 +25,7 @@ public class ZLSwiftHeadView: UIView {
         willSet {
             if (newValue == true){
                 self.nowLoading = newValue
-                self.scrollView.contentOffset = CGPointMake(0, -ZLSwithRefreshHeadViewHeight)//UIEdgeInsetsMake(ZLSwithRefreshHeadViewHeight, 0, self.scrollView.contentInset.bottom, 0)
+                self.scrollView.contentOffset = CGPointMake(0, -ZLSwithRefreshHeadViewHeight)
             }
         }
     }
@@ -94,6 +94,10 @@ public class ZLSwiftHeadView: UIView {
     }
 
     func startAnimation(){
+        if (self.activityView?.isAnimating() == true){
+            return;
+        }
+        
         if (!self.customAnimation){
             if (self.animationStatus != .headerViewRefreshArrowAnimation){
                 var results:[AnyObject] = []
@@ -103,12 +107,14 @@ public class ZLSwiftHeadView: UIView {
                         results.append(image)
                     }
                 }
+                self.activityView?.alpha = 0.0
                 self.headImageView.animationImages = results as [AnyObject]?
                 self.headImageView.animationDuration = 0.6
             }else{
+                self.activityView?.alpha = 1.0
                 self.headImageView.hidden = true
-                self.activityView?.startAnimating()
             }
+            self.activityView?.startAnimating()
         }else{
             var duration:Double = Double(self.pullImages.count) * 0.1
             self.headImageView.animationDuration = duration
@@ -128,16 +134,20 @@ public class ZLSwiftHeadView: UIView {
             if (abs(self.scrollView.contentOffset.y) >= self.getNavigationHeight() + ZLSwithRefreshHeadViewHeight){
                 self.scrollView.contentInset = UIEdgeInsetsMake(self.getNavigationHeight(), 0, self.scrollView.contentInset.bottom, 0)
             }else{
-                self.scrollView.contentInset = UIEdgeInsetsMake(self.getNavigationHeight() + self.scrollView.contentOffset.y, 0, self.scrollView.contentInset.bottom, 0)
+                if (self.getNavigationHeight() < self.scrollView.contentOffset.y){
+                    self.scrollView.contentInset = UIEdgeInsetsMake(self.getNavigationHeight() + self.scrollView.contentOffset.y, 0, self.scrollView.contentInset.bottom, 0)
+                }else{
+                    self.scrollView.contentInset = UIEdgeInsetsMake(self.getNavigationHeight(), 0, self.scrollView.contentInset.bottom, 0)    
+                }
             }
         })
         
         if (self.animationStatus == .headerViewRefreshArrowAnimation){
-            self.activityView?.stopAnimating()
             self.headImageView.hidden = false
-        }else{
-            self.headImageView.stopAnimating()
         }
+        self.headImageView.stopAnimating()
+        self.activityView?.alpha = 1.0
+        self.activityView?.stopAnimating()
     }
     
     public override func layoutSubviews() {
@@ -165,6 +175,10 @@ public class ZLSwiftHeadView: UIView {
     //MARK: KVO methods
     public override func observeValueForKeyPath(keyPath: String, ofObject object: AnyObject, change: [NSObject : AnyObject], context: UnsafeMutablePointer<()>) {
         
+        if (self.activityView!.isAnimating()){
+            return;
+        }
+        
         if (self.action == nil) {
             return;
         }
@@ -188,7 +202,7 @@ public class ZLSwiftHeadView: UIView {
             // 上拉刷新
             self.headLabel.text = ZLSwithRefreshRecoderText
             if scrollView.dragging == false && self.headImageView.isAnimating() == false{
-                if refreshTempAction != nil {
+                if (refreshTempAction != nil && (self.activityView!.isAnimating() == false)){
                     refreshStatus = .Refresh
                     self.startAnimation()
                     UIView.animateWithDuration(0.25, animations: { () -> Void in

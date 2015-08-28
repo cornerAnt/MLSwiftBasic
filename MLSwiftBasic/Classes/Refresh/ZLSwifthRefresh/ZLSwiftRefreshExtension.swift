@@ -84,8 +84,8 @@ extension UIScrollView: UIScrollViewDelegate {
             self.headerRefreshView?.action = action
         }
         
-        self.headerRefreshView?.nowLoading = true
         self.headerRefreshView?.nowAction = action
+        self.headerRefreshView?.nowLoading = true
     }
 
     func headerViewRefreshAnimationStatus(status:HeaderViewRefreshAnimationStatus, images:[UIImage]){
