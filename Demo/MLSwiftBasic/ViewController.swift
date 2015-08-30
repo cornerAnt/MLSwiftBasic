@@ -25,7 +25,7 @@ class ViewController: MBBaseViewController {
             example1.vc = Demo1ViewController()
             
             var example2:MBExample = MBExample()
-            example2.title = "Demo2 (自定义AddressBook通讯录)"
+            example2.title = "Demo2 (图片浏览器待完成)"
             example2.vc = Demo2ViewController()
             
             var example3:MBExample = MBExample()

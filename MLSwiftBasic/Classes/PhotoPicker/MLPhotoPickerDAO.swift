@@ -9,6 +9,8 @@
 import UIKit
 import AssetsLibrary
 
+let MLPhotoPickerBundleName = "MLPhotoPicker.bundle"
+
 class MLPhotoGroup: NSObject {
     /// ALAssetsGroup
     var group:ALAssetsGroup!
@@ -61,7 +63,7 @@ class MLPhotoPickerDAO: NSObject {
     
     :param: groups 数组
     */
-    func getAllAsstGroup(groupsCallBack :((groups:Array<MLPhotoGroup>) -> Void)){
+    func getAllGroups(groupsCallBack :((groups:Array<MLPhotoGroup>) -> Void)){
         var groups:NSMutableArray = NSMutableArray()
         var resultBlock:ALAssetsLibraryGroupsEnumerationResultsBlock = { (group, stop:UnsafeMutablePointer<ObjCBool>) -> Void in
             if group != nil {
@@ -73,5 +75,41 @@ class MLPhotoPickerDAO: NSObject {
             }
         }
         self.sharedAssetsLibrary.enumerateGroupsWithTypes(ALAssetsGroupAll, usingBlock:resultBlock, failureBlock: nil)
+    }
+    
+    /**
+    获取所有的Group模型
+    
+    :param: groups 数组
+    */
+    func getAllAssetsWithGroup(group:MLPhotoGroup, assetsCallBack :((assets:Array<MLPhotoAssets>) -> Void)){
+        var assets:NSMutableArray = NSMutableArray()
+        var resultBlock:ALAssetsGroupEnumerationResultsBlock = { (asset, index, stop:UnsafeMutablePointer<ObjCBool>) -> Void in
+            if (asset != nil) {
+                var photoAssets:MLPhotoAssets = MLPhotoAssets(asset: asset)
+                assets.addObject(photoAssets)
+            }else{
+                var tempAssets = NSArray(array: assets)
+                assetsCallBack(assets: tempAssets as! Array<MLPhotoAssets>);
+            }
+        }
+        group.group.enumerateAssetsUsingBlock(resultBlock)
+    }
+}
+
+
+class MLPhotoAssets: NSObject{
+    var asset:ALAsset!
+    lazy var thumbImage:UIImage? = {
+        if self.asset != nil {
+            return UIImage(CGImage: self.asset!.thumbnail().takeUnretainedValue())!
+        }else{
+            return nil
+        }
+    }()
+    /// Init
+    init(asset:ALAsset?) {
+        super.init()
+        self.asset = asset
     }
 }

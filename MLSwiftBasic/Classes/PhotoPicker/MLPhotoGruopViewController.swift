@@ -17,14 +17,54 @@ class MLPhotoGruopViewController: MBBaseViewController,UITableViewDataSource,UIT
     /// DAO
     var groups:Array<MLPhotoGroup>!
     
+    /// MLPhotoPickerViewController to content Code condition value.
+    var maxCount:NSInteger!
+    var status:PhotoViewShowStatus!
+    var selectPickers:Array<MLPhotoAssets>!
+    var topShowPhotoPicker:Bool!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         var tableView = self.setupTableView()
-        MLPhotoPickerDAO.sharedDAO.getAllAsstGroup({ (groups) -> Void in
+        MLPhotoPickerDAO.sharedDAO.getAllGroups({ (groups) -> Void in
             self.groups = groups
+            if ((self.status) != nil) {
+                self.jumpToStatusVc()
+            }
             tableView.reloadData()
         })
+    }
+    
+    func jumpToStatusVc(){
+        // 如果是相册
+        var gp:MLPhotoGroup?
+        for group in self.groups {
+            if ((self.status == PhotoViewShowStatus.PhotoViewShowStatusCameraRoll || self.status == PhotoViewShowStatus.PhotoViewShowStatusVideo) && (group.groupName == "Camera Roll" || group.groupName == "相机胶卷")) {
+                gp = group
+                break
+            }else if (self.status == PhotoViewShowStatus.PhotoViewShowStatusSavePhotos && (group.groupName == "Saved Photos" || group.groupName == "保存相册")){
+                gp = group
+                break
+            }else if (self.status == PhotoViewShowStatus.PhotoViewShowStatusPhotoStream &&  (group.groupName == "Stream" || group.groupName == "我的照片流")){
+                gp = group
+                break
+            }
+        }
+        
+        if (gp == nil) {
+            return
+        }
+        
+        var assetsVc = MLPhotoAssetsViewController()
+        if var selectPickers = self.selectPickers {
+            assetsVc.selectPickerAssets = selectPickers
+        }
+        assetsVc.group = gp
+        assetsVc.topShowPhotoPicker = self.topShowPhotoPicker
+        assetsVc.groupVc = self
+        assetsVc.maxCount = self.maxCount
+        self.navigationController?.pushViewController(assetsVc, animated: false)
     }
     
     override func titleStr() -> String {
@@ -64,6 +104,18 @@ class MLPhotoGruopViewController: MBBaseViewController,UITableViewDataSource,UIT
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        // Jump AssetsVc
+        var assetsVc = MLPhotoAssetsViewController()
+        if var selectPickers = self.selectPickers {
+            assetsVc.selectPickerAssets = selectPickers
+        }
+        assetsVc.topShowPhotoPicker = self.topShowPhotoPicker
+        assetsVc.groupVc = self
+        assetsVc.maxCount = self.maxCount
+        assetsVc.group = self.groups[indexPath.row]
+        
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
+        self.navigationController?.pushViewController(assetsVc, animated: true)
+        
     }
 }

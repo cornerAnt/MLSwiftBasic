@@ -8,11 +8,53 @@
 
 import UIKit
 
-class MLPhotoPickerViewController: MBBaseViewController {
+let MLPhotoTakeDone = "MLPhotoTakeDone"
 
-    var maxCount:NSInteger!;
-    var assetGroupType:NSInteger!;
-    var pickerGroupVc:MLPhotoGruopViewController!
+// 状态组
+enum PhotoViewShowStatus:Int {
+    case PhotoViewShowStatusGroup       = 0 // default groups .
+    case PhotoViewShowStatusCameraRoll  = 1
+    case PhotoViewShowStatusSavePhotos  = 2
+    case PhotoViewShowStatusPhotoStream = 3
+    case PhotoViewShowStatusVideo       = 4
+}
+
+protocol MLPhotoPickerViewControllerDelegate: NSObjectProtocol{
+    func photoPickerViewControllerDoneAssets(assets:Array<MLPhotoAssets>)
+}
+
+class MLPhotoPickerViewController: MBBaseViewController {
+    
+    private var pickerGroupVc:MLPhotoGruopViewController!
+    
+    /// Select Photo maxCount , default is 9
+    var maxCount:NSInteger!{
+        willSet{
+            pickerGroupVc.maxCount = newValue
+        }
+    }
+    
+    var status:PhotoViewShowStatus!{
+        willSet{
+            pickerGroupVc.status = newValue
+        }
+    }
+    
+    var selectPickers:Array<MLPhotoAssets>!{
+        willSet{
+            pickerGroupVc.selectPickers = newValue
+        }
+    }
+    
+    var topShowPhotoPicker:Bool!{
+        willSet{
+            pickerGroupVc.topShowPhotoPicker = newValue
+        }
+    }
+    
+    // callback
+    var delegate:MLPhotoPickerViewControllerDelegate?
+    var callBackBlock: ((assets:Array<MLPhotoAssets>) -> Void)!
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil) 
@@ -25,6 +67,11 @@ class MLPhotoPickerViewController: MBBaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.addNotification()
+    }
+    
+    deinit{
+        NSNotificationCenter.defaultCenter().removeObserver(self)
     }
     
     func createNavigationController(){
@@ -40,5 +87,24 @@ class MLPhotoPickerViewController: MBBaseViewController {
             vc.presentViewController(self, animated: true, completion: nil)
         }
     }
-
+    
+    func addNotification(){
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), { () -> Void in
+            NSNotificationCenter.defaultCenter().addObserver(self, selector: "done:", name: MLPhotoTakeDone, object: nil)
+        })
+    }
+    
+    func done(noti:NSNotification){
+        dispatch_async(dispatch_get_main_queue(), { () -> Void in
+            var userInfo:NSDictionary = noti.userInfo as! NSDictionary
+            var assets = userInfo["selectAssets"] as! Array<MLPhotoAssets>
+            
+            if (self.delegate?.respondsToSelector("photoPickerViewControllerDoneAssets:") != nil) {
+                self.delegate?.photoPickerViewControllerDoneAssets(assets)
+            }else if(self.callBackBlock != nil){
+                self.callBackBlock(assets:assets)
+            }
+            self.dismissViewControllerAnimated(true, completion: nil)
+        })
+    }
 }

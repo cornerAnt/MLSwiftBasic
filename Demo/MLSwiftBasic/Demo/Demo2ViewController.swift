@@ -17,4 +17,7 @@ class Demo2ViewController: MBBaseViewController {
         self.setNavBarViewBackgroundColor(UIColor.blueColor())
     }
     
+    override func titleStr() -> String {
+        return "(图片浏览器待完成)"
+    }
 }

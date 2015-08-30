@@ -32,8 +32,13 @@
 		484987451B4A5A1300051493 /* MLSwiftBasicTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 484987441B4A5A1300051493 /* MLSwiftBasicTests.swift */; };
 		484987631B4A5F4500051493 /* Demo1ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 484987621B4A5F4500051493 /* Demo1ViewController.swift */; };
 		484987671B4A665600051493 /* Demo2ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 484987661B4A665600051493 /* Demo2ViewController.swift */; };
+		486CC1471B91B92800798F68 /* MLPhotoCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 486CC1461B91B92800798F68 /* MLPhotoCollectionView.swift */; };
+		486CC1491B91BC8B00798F68 /* MLPhotoPicker.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 486CC1481B91BC8B00798F68 /* MLPhotoPicker.bundle */; };
+		486DA3021B906BC000DD2DC1 /* MLPhotoAssetsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 486DA3011B906BC000DD2DC1 /* MLPhotoAssetsViewController.swift */; };
+		486DA3041B906E8300DD2DC1 /* MLPhotoAssetsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 486DA3031B906E8300DD2DC1 /* MLPhotoAssetsCell.swift */; };
 		487D67A51B5BB46E007871CF /* Demo5ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 487D67A41B5BB46E007871CF /* Demo5ViewController.swift */; };
 		487D67AC1B5BE240007871CF /* Demo6ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 487D67AB1B5BE240007871CF /* Demo6ViewController.swift */; };
+		488E37071B930687003C37D1 /* MLPhotoAssetsFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 488E37061B930687003C37D1 /* MLPhotoAssetsFooterView.swift */; };
 		48B730EA1B8F1F0200BB20D4 /* MLPhotoPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48B730E91B8F1F0200BB20D4 /* MLPhotoPickerViewController.swift */; };
 		48B730EC1B8F20F700BB20D4 /* MLPhotoPickerDAO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48B730EB1B8F20F700BB20D4 /* MLPhotoPickerDAO.swift */; };
 		48B730F21B902BC500BB20D4 /* MLPhotoGruopViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48B730F11B902BC500BB20D4 /* MLPhotoGruopViewController.swift */; };
@@ -68,7 +73,7 @@
 		4828C4CB1B5E7E1500DA9F52 /* ZLSwiftRefreshExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZLSwiftRefreshExtension.swift; sourceTree = "<group>"; };
 		4828C4CD1B5E7E1500DA9F52 /* MBBaseVisualHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MBBaseVisualHeaderView.swift; sourceTree = "<group>"; };
 		4828C4CE1B5E7E1500DA9F52 /* MBBaseVisualViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MBBaseVisualViewController.swift; sourceTree = "<group>"; };
-		4828C4CF1B5E7E1500DA9F52 /* ZLSwiftRefresh.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = ZLSwiftRefresh.bundle; sourceTree = "<group>"; };
+		4828C4CF1B5E7E1500DA9F52 /* ZLSwiftRefresh.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = ZLSwiftRefresh.bundle; path = ../../ZLSwiftRefresh.bundle; sourceTree = "<group>"; };
 		4828C4E01B5E821B00DA9F52 /* MBBaseCommon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MBBaseCommon.swift; sourceTree = "<group>"; };
 		4828C5131B60D01B00DA9F52 /* Demo8ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Demo8ViewController.swift; sourceTree = "<group>"; };
 		484987291B4A5A1200051493 /* MLSwiftBasic.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MLSwiftBasic.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -83,8 +88,13 @@
 		484987441B4A5A1300051493 /* MLSwiftBasicTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MLSwiftBasicTests.swift; sourceTree = "<group>"; };
 		484987621B4A5F4500051493 /* Demo1ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Demo1ViewController.swift; sourceTree = "<group>"; };
 		484987661B4A665600051493 /* Demo2ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Demo2ViewController.swift; sourceTree = "<group>"; };
+		486CC1461B91B92800798F68 /* MLPhotoCollectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MLPhotoCollectionView.swift; sourceTree = "<group>"; };
+		486CC1481B91BC8B00798F68 /* MLPhotoPicker.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = MLPhotoPicker.bundle; sourceTree = "<group>"; };
+		486DA3011B906BC000DD2DC1 /* MLPhotoAssetsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MLPhotoAssetsViewController.swift; sourceTree = "<group>"; };
+		486DA3031B906E8300DD2DC1 /* MLPhotoAssetsCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MLPhotoAssetsCell.swift; sourceTree = "<group>"; };
 		487D67A41B5BB46E007871CF /* Demo5ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Demo5ViewController.swift; sourceTree = "<group>"; };
 		487D67AB1B5BE240007871CF /* Demo6ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Demo6ViewController.swift; sourceTree = "<group>"; };
+		488E37061B930687003C37D1 /* MLPhotoAssetsFooterView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MLPhotoAssetsFooterView.swift; sourceTree = "<group>"; };
 		48B730E91B8F1F0200BB20D4 /* MLPhotoPickerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MLPhotoPickerViewController.swift; sourceTree = "<group>"; };
 		48B730EB1B8F20F700BB20D4 /* MLPhotoPickerDAO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MLPhotoPickerDAO.swift; sourceTree = "<group>"; };
 		48B730F11B902BC500BB20D4 /* MLPhotoGruopViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MLPhotoGruopViewController.swift; sourceTree = "<group>"; };
@@ -124,7 +134,6 @@
 			isa = PBXGroup;
 			children = (
 				4828C4BC1B5E7E1500DA9F52 /* Classes */,
-				4828C4CF1B5E7E1500DA9F52 /* ZLSwiftRefresh.bundle */,
 			);
 			name = MLSwiftBasic;
 			path = ../../MLSwiftBasic;
@@ -167,6 +176,7 @@
 		4828C4C61B5E7E1500DA9F52 /* Refresh */ = {
 			isa = PBXGroup;
 			children = (
+				4828C4CF1B5E7E1500DA9F52 /* ZLSwiftRefresh.bundle */,
 				4828C4C71B5E7E1500DA9F52 /* ZLSwifthRefresh */,
 			);
 			path = Refresh;
@@ -269,10 +279,15 @@
 		48B730E81B8F1EC700BB20D4 /* PhotoPicker */ = {
 			isa = PBXGroup;
 			children = (
+				486CC1481B91BC8B00798F68 /* MLPhotoPicker.bundle */,
 				48B730E91B8F1F0200BB20D4 /* MLPhotoPickerViewController.swift */,
 				48B730EB1B8F20F700BB20D4 /* MLPhotoPickerDAO.swift */,
 				48B730F11B902BC500BB20D4 /* MLPhotoGruopViewController.swift */,
 				48B730F41B90667800BB20D4 /* MLPhotoPickerGroupCell.swift */,
+				486DA3011B906BC000DD2DC1 /* MLPhotoAssetsViewController.swift */,
+				486DA3031B906E8300DD2DC1 /* MLPhotoAssetsCell.swift */,
+				486CC1461B91B92800798F68 /* MLPhotoCollectionView.swift */,
+				488E37061B930687003C37D1 /* MLPhotoAssetsFooterView.swift */,
 			);
 			path = PhotoPicker;
 			sourceTree = "<group>";
@@ -358,6 +373,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				484987341B4A5A1200051493 /* Main.storyboard in Resources */,
+				486CC1491B91BC8B00798F68 /* MLPhotoPicker.bundle in Resources */,
 				484987391B4A5A1200051493 /* LaunchScreen.xib in Resources */,
 				484987361B4A5A1200051493 /* Images.xcassets in Resources */,
 				48EB19A61B4A6FA500F75A5F /* makezl.jpeg in Resources */,
@@ -379,6 +395,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				486DA3021B906BC000DD2DC1 /* MLPhotoAssetsViewController.swift in Sources */,
 				4828C4DC1B5E7E1500DA9F52 /* MBBaseVisualViewController.swift in Sources */,
 				4828C4D41B5E7E1500DA9F52 /* MB+UIColor.swift in Sources */,
 				4828C4D71B5E7E1500DA9F52 /* ZLSwiftConstDefine.swift in Sources */,
@@ -386,6 +403,7 @@
 				48B730F21B902BC500BB20D4 /* MLPhotoGruopViewController.swift in Sources */,
 				484987671B4A665600051493 /* Demo2ViewController.swift in Sources */,
 				4828C4D81B5E7E1500DA9F52 /* ZLSwiftFootView.swift in Sources */,
+				486DA3041B906E8300DD2DC1 /* MLPhotoAssetsCell.swift in Sources */,
 				4828C4D51B5E7E1500DA9F52 /* MB+UIImageView.swift in Sources */,
 				484987311B4A5A1200051493 /* ViewController.swift in Sources */,
 				4849872F1B4A5A1200051493 /* AppDelegate.swift in Sources */,
@@ -401,8 +419,10 @@
 				484987631B4A5F4500051493 /* Demo1ViewController.swift in Sources */,
 				487D67AC1B5BE240007871CF /* Demo6ViewController.swift in Sources */,
 				4828C4D61B5E7E1500DA9F52 /* MBIBDesignableExtension.swift in Sources */,
+				488E37071B930687003C37D1 /* MLPhotoAssetsFooterView.swift in Sources */,
 				480FFE7C1B5E0CD70045556A /* Demo7ViewController.swift in Sources */,
 				48B730EA1B8F1F0200BB20D4 /* MLPhotoPickerViewController.swift in Sources */,
+				486CC1471B91B92800798F68 /* MLPhotoCollectionView.swift in Sources */,
 				48143ECE1B67804A008DE6F3 /* MLProgressHUD.swift in Sources */,
 				48B730F51B90667800BB20D4 /* MLPhotoPickerGroupCell.swift in Sources */,
 				4828C4D91B5E7E1500DA9F52 /* ZLSwiftHeadView.swift in Sources */,

@@ -64,8 +64,14 @@ class MBBaseViewController: UIViewController,MBNavigationBarViewDelegate {
         return self.view.viewWithTag(10000001) as! MBNavigationBarView
     }()
     
-    func titleStr() -> String {
-        return "";
+    func setTitleStr(title:String!){
+        if var str:String = title{
+            self.navBar.title = str
+        }
+    }
+    
+    func titleStr() -> String{
+        return ""
     }
     
     func leftStr() -> String {
