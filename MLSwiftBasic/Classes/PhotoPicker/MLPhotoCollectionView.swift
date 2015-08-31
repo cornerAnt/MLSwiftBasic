@@ -21,43 +21,56 @@ class MLPhotoCollectionView: UICollectionView,UICollectionViewDataSource,UIColle
     var cellOrderStatus:MLPhotoCollectionCellShowOrderStatus?
     var topShowPhotoPicker:Bool!
     
-    var selectAssets:NSMutableArray!
     var selectsIndexPath:NSMutableArray!
     var isRecoderSelectPicker:Bool!
     var lastDataArray:NSMutableArray!
     var maxCount:NSInteger!
     var firstLoadding:Bool?
+    var selectAssets:NSMutableArray!
     
     private var footerView:MLPhotoAssetsFooterView?
     
     var dataArray:NSArray!{
         willSet{
             // 需要记录选中的值的数据
-            if self.isRecoderSelectPicker == true {
+            if self.isRecoderSelectPicker == true && newValue != nil{
                 var assets = NSMutableArray()
                 for selectAsset in self.selectAssets{
-                    for dataAsset in self.dataArray{
+                    for dataAsset in newValue{
                         var realAsset:MLPhotoAssets = dataAsset as! MLPhotoAssets
                         var selectRealAsset:MLPhotoAssets = selectAsset as! MLPhotoAssets
-                        if  selectRealAsset.asset.defaultRepresentation().url().isEqual(realAsset.asset.defaultRepresentation().url()) == true{
-                            assets.addObject(realAsset)
-                            break;
+                        
+                        if realAsset.asset != nil && selectRealAsset.asset != nil {
+                            if  selectRealAsset.asset.defaultRepresentation().url().isEqual(realAsset.asset.defaultRepresentation().url()) == true{
+                                assets.addObject(realAsset)
+                                break;
+                            }
                         }
                     }
                 }
                 selectAssets = NSMutableArray(array: assets)
             }
             self.reloadData()
+            dispatch_after(dispatch_time(
+                DISPATCH_TIME_NOW,
+                Int64(0.01 * Double(NSEC_PER_SEC))
+                ), dispatch_get_main_queue(), { () -> Void in
+                    // 结束动画
+                    self.reloadData()
+            })
         }
     }
     
     override init(frame: CGRect, collectionViewLayout layout: UICollectionViewLayout) {
         super.init(frame: frame, collectionViewLayout: layout)
         
+        if self.selectAssets == nil {
+            self.selectAssets = NSMutableArray()
+        }
+        
         // register footerView
         self.cellOrderStatus = .MLPhotoCollectionCellShowOrderStatusDesc
         self.firstLoadding = false
-        self.selectAssets = NSMutableArray()
         self.isRecoderSelectPicker = false
         self.selectsIndexPath = NSMutableArray()
         
@@ -85,29 +98,20 @@ class MLPhotoCollectionView: UICollectionView,UICollectionViewDataSource,UIColle
         let identifier = "MLPhotoAssetsCell"
         var cell:MLPhotoAssetsCell = collectionView.dequeueReusableCellWithReuseIdentifier(identifier, forIndexPath: indexPath) as! MLPhotoAssetsCell
         
-        if(indexPath.item == 0 && self.topShowPhotoPicker == true){
-            var imageView = cell.contentView.subviews.last as? UIImageView
-            // 判断真实类型
-            if (imageView != nil){
-                imageView!.removeFromSuperview()
-            }
-            imageView = UIImageView(frame: cell.bounds)
-            imageView!.contentMode = .ScaleAspectFit;
-            imageView!.clipsToBounds = true;
-            imageView!.tag = indexPath.item;
-            cell.contentView.addSubview(imageView!)
-
+        
+        var cellImgView:MLPhotoPickerCellImageView? = cell.thumbImageView
+        
+        if(indexPath.item == 0 && self.topShowPhotoPicker != nil
+             && self.topShowPhotoPicker == true){
+            cellImgView!.contentMode = .ScaleAspectFit;
+            cellImgView!.clipsToBounds = true;
+            cellImgView!.tag = indexPath.item;
+            cellImgView!.isMaskSelected = false
             if var image = UIImage(named: MLPhotoPickerBundleName.stringByAppendingPathComponent("camera")){
-                imageView!.image = image
+                cellImgView!.image = image
             }
-            
         }else{
-            var cellImgView:MLPhotoPickerCellImageView?
-            if (cell.contentView.subviews.last?.isKindOfClass(MLPhotoPickerCellImageView.self) != nil) {
-                cellImgView = cell.contentView.subviews.last as? MLPhotoPickerCellImageView
-            }else{
-                cellImgView = MLPhotoPickerCellImageView(frame: cell.bounds)
-            }
+            
             // 需要记录选中的值的数据
             if (self.isRecoderSelectPicker == true) {
                 for asset in self.selectAssets {
@@ -119,17 +123,20 @@ class MLPhotoCollectionView: UICollectionView,UICollectionViewDataSource,UIColle
                 }
             }
             
-            cellImgView!.isMaskSelected = self.selectsIndexPath.containsObject(NSNumber(integer: indexPath.row))
+            if (selectsIndexPath.containsObject(NSNumber(integer: indexPath.row))){
+                println(indexPath.row)
+            }
+            cellImgView!.isMaskSelected = selectsIndexPath.containsObject(NSNumber(integer: indexPath.row))
+            cell.assets = self.dataArray[indexPath.row] as? MLPhotoAssets
         }
         
-        cell.assets = self.dataArray[indexPath.row] as? MLPhotoAssets
         return cell
     }
     
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
         var cell:MLPhotoAssetsCell = collectionView.cellForItemAtIndexPath(indexPath) as! MLPhotoAssetsCell
         
-        if (self.topShowPhotoPicker == true && indexPath.item == 0) {
+        if (self.topShowPhotoPicker != nil && self.topShowPhotoPicker == true && indexPath.item == 0) {
             if (self.mlDelegate!.respondsToSelector("photoCollectionViewDidCameraSelectCollectionView:")) {
                 self.mlDelegate!.photoCollectionViewDidCameraSelectCollectionView!(self)
             }

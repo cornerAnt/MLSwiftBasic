@@ -31,25 +31,25 @@ class MLPhotoAssetsViewController: MBBaseViewController,MLPhotoCollectionViewDel
     var selectPickers:Array<MLPhotoAssets>!
     var topShowPhotoPicker:Bool!{
         willSet{
-            if (newValue == true) {
+            if (newValue == true && self.collectionView.dataArray != nil) {
                 var reSortArray = NSMutableArray()
                 if self.collectionView.dataArray != nil {
-                    for obj in self.collectionView.dataArray.reverseObjectEnumerator() {
+                    for obj in self.collectionView.dataArray!.reverseObjectEnumerator() {
                         reSortArray.addObject(obj)
                     }
                 }
                 var mlAsset = MLPhotoAssets(asset: nil)
                 reSortArray.insertObject(mlAsset, atIndex: 0)
                 
-                self.collectionView.cellOrderStatus = .MLPhotoCollectionCellShowOrderStatusAsc;
-                self.collectionView.topShowPhotoPicker = newValue;
-                self.collectionView.dataArray = reSortArray;
+                self.collectionView.cellOrderStatus = .MLPhotoCollectionCellShowOrderStatusAsc
+                self.collectionView.topShowPhotoPicker = newValue
+                self.collectionView.dataArray = reSortArray
                 self.collectionView.reloadData()
             }
         }
     }
     
-    var groupVc:MLPhotoGruopViewController?    
+    weak var groupVc:MLPhotoGruopViewController?
     var group:MLPhotoGroup!{
         willSet {
             // 请求Assets
@@ -66,9 +66,9 @@ class MLPhotoAssetsViewController: MBBaseViewController,MLPhotoCollectionViewDel
                     var mlAsset = MLPhotoAssets(asset: nil)
                     reSortArray.insertObject(mlAsset, atIndex: 0)
                     
-                    self.collectionView.cellOrderStatus = .MLPhotoCollectionCellShowOrderStatusAsc;
-                    self.collectionView.topShowPhotoPicker = self.topShowPhotoPicker;
-                    self.collectionView.dataArray = reSortArray;
+                    self.collectionView.cellOrderStatus = .MLPhotoCollectionCellShowOrderStatusAsc
+                    self.collectionView.topShowPhotoPicker = self.topShowPhotoPicker
+                    self.collectionView.dataArray = reSortArray
                 }else{
                     self.collectionView.dataArray = assets
                 }
@@ -97,6 +97,7 @@ class MLPhotoAssetsViewController: MBBaseViewController,MLPhotoCollectionViewDel
             
             self.collectionView.lastDataArray = nil
             self.collectionView.selectAssets = self.selectAssets
+            self.collectionView.isRecoderSelectPicker = true
             
             var count = self.selectAssets.count
             self.maskView.hidden = !(count > 0)
@@ -203,7 +204,9 @@ class MLPhotoAssetsViewController: MBBaseViewController,MLPhotoCollectionViewDel
     }
     
     func done(){
-        
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), { () -> Void in
+            NSNotificationCenter.defaultCenter().postNotificationName(MLPhotoTakeDone, object: self, userInfo: ["selectAssets":self.selectAssets])
+        })
         self.dismissViewControllerAnimated(true, completion: nil)
     }
     
@@ -217,7 +220,7 @@ class MLPhotoAssetsViewController: MBBaseViewController,MLPhotoCollectionViewDel
         // animation
         self.startAnimation()
 
-        if self.selectPickerAssets != nil && self.selectPickerAssets.count == 0 {
+        if self.selectPickerAssets != nil && self.selectPickerAssets!.count == 0 {
             self.selectAssets = collectionView.selectAssets
         }else if deleteAssets == nil {
             self.selectAssets.addObject(collectionView.selectAssets.lastObject!)
@@ -256,9 +259,12 @@ class MLPhotoAssetsViewController: MBBaseViewController,MLPhotoCollectionViewDel
         self.maskView.layer.addAnimation(scaleAnimation, forKey: "transform.rotate")
     }
     
-    deinit{
+    override func viewWillDisappear(animated: Bool) {
+        super.viewWillDisappear(animated)
+        
         // 赋值给上一个控制器
         self.groupVc?.topShowPhotoPicker = self.topShowPhotoPicker
-        self.groupVc?.selectPickers = Array(arrayLiteral: self.selectAssets) as! Array<MLPhotoAssets>;
+        var selectAssets = NSArray(array: self.selectAssets) as! Array<MLPhotoAssets>
+        self.groupVc?.selectPickers = selectAssets
     }
 }

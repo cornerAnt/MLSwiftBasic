@@ -20,7 +20,11 @@ class MLPhotoGruopViewController: MBBaseViewController,UITableViewDataSource,UIT
     /// MLPhotoPickerViewController to content Code condition value.
     var maxCount:NSInteger!
     var status:PhotoViewShowStatus!
-    var selectPickers:Array<MLPhotoAssets>!
+    var selectPickers:Array<MLPhotoAssets>!{
+        willSet{
+            
+        }
+    }
     var topShowPhotoPicker:Bool!
     
     override func viewDidLoad() {
@@ -106,12 +110,17 @@ class MLPhotoGruopViewController: MBBaseViewController,UITableViewDataSource,UIT
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         // Jump AssetsVc
         var assetsVc = MLPhotoAssetsViewController()
+        
         if var selectPickers = self.selectPickers {
             assetsVc.selectPickerAssets = selectPickers
         }
-        assetsVc.topShowPhotoPicker = self.topShowPhotoPicker
+        if self.topShowPhotoPicker != nil{
+            assetsVc.topShowPhotoPicker = self.topShowPhotoPicker
+        }
         assetsVc.groupVc = self
-        assetsVc.maxCount = self.maxCount
+        if self.maxCount != nil{
+            assetsVc.maxCount = self.maxCount
+        }
         assetsVc.group = self.groups[indexPath.row]
         
         tableView.deselectRowAtIndexPath(indexPath, animated: true)

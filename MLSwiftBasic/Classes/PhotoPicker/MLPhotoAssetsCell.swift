@@ -49,17 +49,19 @@ class MLPhotoPickerCellImageView: UIImageView {
         willSet{
             self.maskImageView.hidden = !newValue
             
-            self.maskImageView.layer.removeAllAnimations()
-            var scaleAnimation = CAKeyframeAnimation(keyPath: "transform.scale")
-            scaleAnimation.duration = 0.25
-            scaleAnimation.autoreverses = true
-            scaleAnimation.values = [
-                NSNumber(float: 1.0),
-                NSNumber(float: 1.2),
-                NSNumber(float: 1.0)
-            ]
-            scaleAnimation.fillMode = kCAFillModeForwards
-            self.maskImageView.layer.addAnimation(scaleAnimation, forKey: "transform.rotate")
+            if newValue == true {
+                self.maskImageView.layer.removeAllAnimations()
+                var scaleAnimation = CAKeyframeAnimation(keyPath: "transform.scale")
+                scaleAnimation.duration = 0.25
+                scaleAnimation.autoreverses = true
+                scaleAnimation.values = [
+                    NSNumber(float: 1.0),
+                    NSNumber(float: 1.2),
+                    NSNumber(float: 1.0)
+                ]
+                scaleAnimation.fillMode = kCAFillModeForwards
+                self.maskImageView.layer.addAnimation(scaleAnimation, forKey: "transform.rotate")
+            }
             
         }
     }

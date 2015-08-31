@@ -20,4 +20,5 @@ class Demo2ViewController: MBBaseViewController {
     override func titleStr() -> String {
         return "(图片浏览器待完成)"
     }
+    
 }

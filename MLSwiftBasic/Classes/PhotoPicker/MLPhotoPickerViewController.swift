@@ -25,7 +25,9 @@ protocol MLPhotoPickerViewControllerDelegate: NSObjectProtocol{
 
 class MLPhotoPickerViewController: MBBaseViewController {
     
-    private var pickerGroupVc:MLPhotoGruopViewController!
+    private lazy var pickerGroupVc:MLPhotoGruopViewController! = {
+        return MLPhotoGruopViewController()
+    }()
     
     /// Select Photo maxCount , default is 9
     var maxCount:NSInteger!{
@@ -40,9 +42,11 @@ class MLPhotoPickerViewController: MBBaseViewController {
         }
     }
     
-    var selectPickers:Array<MLPhotoAssets>!{
+    var selectPickers:Array<MLPhotoAssets>?{
         willSet{
-            pickerGroupVc.selectPickers = newValue
+            if newValue != nil {
+                pickerGroupVc.selectPickers = newValue
+            }
         }
     }
     
@@ -65,17 +69,27 @@ class MLPhotoPickerViewController: MBBaseViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
+    override func rightStr() -> String {
+        return "取消"
+    }
+    
+    override func rightClick() {
+        self.dismissViewControllerAnimated(true, completion: nil)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.addNotification()
     }
     
-    deinit{
+    override func viewWillDisappear(animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        self.removeFromParentViewController()
         NSNotificationCenter.defaultCenter().removeObserver(self)
     }
     
     func createNavigationController(){
-        pickerGroupVc = MLPhotoGruopViewController()
         var navigationVc = MBNavigationViewController(rootViewController: pickerGroupVc)
         navigationVc.view.frame = self.view.frame
         self.addChildViewController(navigationVc)
