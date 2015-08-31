@@ -15,28 +15,31 @@ let GroupCellMargin   :CGFloat = 5
 class MLPhotoGruopViewController: MBBaseViewController,UITableViewDataSource,UITableViewDelegate{
     
     /// DAO
-    var groups:Array<MLPhotoGroup>!
+    var groups:Array<MLPhotoGroup>!{
+        willSet{
+            if (newValue == nil) {
+                return
+            }
+            self.groups = newValue
+            if ((self.status) != nil) {
+                self.jumpToStatusVc()
+            }
+        }
+    }
     
     /// MLPhotoPickerViewController to content Code condition value.
     var maxCount:NSInteger!
     var status:PhotoViewShowStatus!
-    var selectPickers:Array<MLPhotoAssets>!{
-        willSet{
-            
-        }
-    }
+    var selectPickers:Array<MLPhotoAssets>!
     var topShowPhotoPicker:Bool!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        var tableView = self.setupTableView()
-        MLPhotoPickerDAO.sharedDAO.getAllGroups({ (groups) -> Void in
-            self.groups = groups
-            if ((self.status) != nil) {
-                self.jumpToStatusVc()
-            }
-            tableView.reloadData()
+        weak var tableView = self.setupTableView()
+        MLPhotoPickerDAO().getAllGroups({ [weak self](groups) -> Void in
+            self!.groups = groups
+            tableView!.reloadData()
         })
     }
     

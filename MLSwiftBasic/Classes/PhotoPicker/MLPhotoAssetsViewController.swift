@@ -38,7 +38,8 @@ class MLPhotoAssetsViewController: MBBaseViewController,MLPhotoCollectionViewDel
                         reSortArray.addObject(obj)
                     }
                 }
-                var mlAsset = MLPhotoAssets(asset: nil)
+                var mlAsset = MLPhotoAssets()
+                mlAsset.asset = nil
                 reSortArray.insertObject(mlAsset, atIndex: 0)
                 
                 self.collectionView.cellOrderStatus = .MLPhotoCollectionCellShowOrderStatusAsc
@@ -49,13 +50,16 @@ class MLPhotoAssetsViewController: MBBaseViewController,MLPhotoCollectionViewDel
         }
     }
     
-    weak var groupVc:MLPhotoGruopViewController?
+    var groupVc:MLPhotoGruopViewController?
     var group:MLPhotoGroup!{
         willSet {
+            if (newValue == nil) {
+                return
+            }
             // 请求Assets
             self.setTitleStr(newValue.groupName)
-            MLPhotoPickerDAO.sharedDAO.getAllAssetsWithGroup(newValue, assetsCallBack: { (assets) -> Void in
-                if self.topShowPhotoPicker != nil && self.topShowPhotoPicker == true {
+            MLPhotoPickerDAO().getAllAssetsWithGroup(newValue, assetsCallBack: { [weak self](assets) -> Void in
+                if self?.topShowPhotoPicker != nil && self?.topShowPhotoPicker == true {
                     var reversObjects = NSMutableArray(array: assets)
                     var reSortArray:NSMutableArray = NSMutableArray()
                     if  reversObjects.count > 0 {
@@ -63,16 +67,17 @@ class MLPhotoAssetsViewController: MBBaseViewController,MLPhotoCollectionViewDel
                             reSortArray.addObject(obj)
                         }
                     }
-                    var mlAsset = MLPhotoAssets(asset: nil)
+                    var mlAsset = MLPhotoAssets()
+                    mlAsset.asset = nil
                     reSortArray.insertObject(mlAsset, atIndex: 0)
                     
-                    self.collectionView.cellOrderStatus = .MLPhotoCollectionCellShowOrderStatusAsc
-                    self.collectionView.topShowPhotoPicker = self.topShowPhotoPicker
-                    self.collectionView.dataArray = reSortArray
+                    self?.collectionView.cellOrderStatus = .MLPhotoCollectionCellShowOrderStatusAsc
+                    self?.collectionView.topShowPhotoPicker = self?.topShowPhotoPicker
+                    self?.collectionView.dataArray = reSortArray
                 }else{
-                    self.collectionView.dataArray = assets
+                    self?.collectionView.dataArray = assets
                 }
-                self.collectionView.reloadData()
+                self?.collectionView.reloadData()
             })
         }
     }
@@ -80,6 +85,9 @@ class MLPhotoAssetsViewController: MBBaseViewController,MLPhotoCollectionViewDel
     var assets:NSMutableArray!
     var selectPickerAssets:Array<MLPhotoAssets>!{
         willSet{
+            if newValue == nil {
+                return
+            }
             var set = NSSet(array: newValue!)
             self.selectPickerAssets = set.allObjects as! Array<MLPhotoAssets>
             
@@ -90,14 +98,14 @@ class MLPhotoAssetsViewController: MBBaseViewController,MLPhotoCollectionViewDel
             }
             
             for asset in newValue {
-                if asset.isKindOfClass(MLPhotoAssets.self) {
+                if asset.isKindOfClass(MLPhotoAssets.self) || assets.isKindOfClass(UIImage.self) {
                     self.selectAssets.addObject(asset)
                 }
             }
             
             self.collectionView.lastDataArray = nil
-            self.collectionView.selectAssets = self.selectAssets
             self.collectionView.isRecoderSelectPicker = true
+            self.collectionView.selectAssets = self.selectAssets
             
             var count = self.selectAssets.count
             self.maskView.hidden = !(count > 0)
@@ -220,14 +228,42 @@ class MLPhotoAssetsViewController: MBBaseViewController,MLPhotoCollectionViewDel
         // animation
         self.startAnimation()
 
-        if self.selectPickerAssets != nil && self.selectPickerAssets!.count == 0 {
+        if self.selectPickerAssets != nil && self.selectPickerAssets.count == 0{
             self.selectAssets = collectionView.selectAssets
         }else if deleteAssets == nil {
             self.selectAssets.addObject(collectionView.selectAssets.lastObject!)
         }
         
+        
+        if (deleteAssets != nil && self.selectPickerAssets != nil && self.selectPickerAssets.count > 0) {
+            var selectAssetsCurrentPage = -1;
+            for (var i = 0; i < self.selectAssets.count; i++) {
+                var photoAsset:MLPhotoAssets = self.selectAssets[i] as! MLPhotoAssets
+                if (photoAsset.isKindOfClass(UIImage.self)) {
+                    continue;
+                }
+                
+                if deleteAssets!.asset.defaultRepresentation().url().isEqual(photoAsset.asset.defaultRepresentation().url()) == true{
+                    selectAssetsCurrentPage = i
+                    break
+                }
+            }
+            
+            if (
+                (self.selectAssets.count > selectAssetsCurrentPage)
+                    &&
+                    (selectAssetsCurrentPage >= 0)
+                ){
+                    if (deleteAssets != nil){
+                        self.selectAssets.removeObjectAtIndex(selectAssetsCurrentPage)
+                    }
+                    
+                    self.collectionView.selectsIndexPath.removeObject(NSNumber(integer: selectAssetsCurrentPage))
+            }
+        }
+        
         var count = 0;
-        if (collectionView.selectAssets.count < self.selectAssets.count) {
+        if (collectionView.selectAssets.count > self.selectAssets.count) {
             count = collectionView.selectAssets.count;
         }else{
             count = self.selectAssets.count;
@@ -264,7 +300,19 @@ class MLPhotoAssetsViewController: MBBaseViewController,MLPhotoCollectionViewDel
         
         // 赋值给上一个控制器
         self.groupVc?.topShowPhotoPicker = self.topShowPhotoPicker
-        var selectAssets = NSArray(array: self.selectAssets) as! Array<MLPhotoAssets>
-        self.groupVc?.selectPickers = selectAssets
+        if var selectAssets = NSArray(array: self.selectAssets) as? Array<MLPhotoAssets> {
+            self.groupVc?.selectPickers = selectAssets
+        }
+        
+//        // Clear
+//        if (self.collectionView.dataArray != nil){
+//            self.collectionView.dataArray = nil
+//        }
+//        self.selectPickerAssets = nil
+//        self.assets = nil
+//        self.collectionView.removeFromSuperview()
+//        self.view.removeFromSuperview()
+//        self.removeFromParentViewController()
+        
     }
 }

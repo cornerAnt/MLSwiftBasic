@@ -32,6 +32,7 @@
 		484987451B4A5A1300051493 /* MLSwiftBasicTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 484987441B4A5A1300051493 /* MLSwiftBasicTests.swift */; };
 		484987631B4A5F4500051493 /* Demo1ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 484987621B4A5F4500051493 /* Demo1ViewController.swift */; };
 		484987671B4A665600051493 /* Demo2ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 484987661B4A665600051493 /* Demo2ViewController.swift */; };
+		484E246F1B93F918007C0FCB /* MLPhotoPickerBrowserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 484E246E1B93F918007C0FCB /* MLPhotoPickerBrowserViewController.swift */; };
 		486CC1471B91B92800798F68 /* MLPhotoCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 486CC1461B91B92800798F68 /* MLPhotoCollectionView.swift */; };
 		486CC1491B91BC8B00798F68 /* MLPhotoPicker.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 486CC1481B91BC8B00798F68 /* MLPhotoPicker.bundle */; };
 		486DA3021B906BC000DD2DC1 /* MLPhotoAssetsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 486DA3011B906BC000DD2DC1 /* MLPhotoAssetsViewController.swift */; };
@@ -88,6 +89,7 @@
 		484987441B4A5A1300051493 /* MLSwiftBasicTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MLSwiftBasicTests.swift; sourceTree = "<group>"; };
 		484987621B4A5F4500051493 /* Demo1ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Demo1ViewController.swift; sourceTree = "<group>"; };
 		484987661B4A665600051493 /* Demo2ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Demo2ViewController.swift; sourceTree = "<group>"; };
+		484E246E1B93F918007C0FCB /* MLPhotoPickerBrowserViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MLPhotoPickerBrowserViewController.swift; sourceTree = "<group>"; };
 		486CC1461B91B92800798F68 /* MLPhotoCollectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MLPhotoCollectionView.swift; sourceTree = "<group>"; };
 		486CC1481B91BC8B00798F68 /* MLPhotoPicker.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = MLPhotoPicker.bundle; sourceTree = "<group>"; };
 		486DA3011B906BC000DD2DC1 /* MLPhotoAssetsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MLPhotoAssetsViewController.swift; sourceTree = "<group>"; };
@@ -288,6 +290,7 @@
 				486DA3031B906E8300DD2DC1 /* MLPhotoAssetsCell.swift */,
 				486CC1461B91B92800798F68 /* MLPhotoCollectionView.swift */,
 				488E37061B930687003C37D1 /* MLPhotoAssetsFooterView.swift */,
+				484E246E1B93F918007C0FCB /* MLPhotoPickerBrowserViewController.swift */,
 			);
 			path = PhotoPicker;
 			sourceTree = "<group>";
@@ -395,6 +398,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				484E246F1B93F918007C0FCB /* MLPhotoPickerBrowserViewController.swift in Sources */,
 				486DA3021B906BC000DD2DC1 /* MLPhotoAssetsViewController.swift in Sources */,
 				4828C4DC1B5E7E1500DA9F52 /* MBBaseVisualViewController.swift in Sources */,
 				4828C4D41B5E7E1500DA9F52 /* MB+UIColor.swift in Sources */,

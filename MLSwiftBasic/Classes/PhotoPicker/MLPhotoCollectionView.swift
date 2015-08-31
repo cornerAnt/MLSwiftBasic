@@ -16,14 +16,16 @@ enum MLPhotoCollectionCellShowOrderStatus:Int {
 
 class MLPhotoCollectionView: UICollectionView,UICollectionViewDataSource,UICollectionViewDelegate {
     
-    var mlDelegate:MLPhotoCollectionViewDelegate?
+    weak var mlDelegate:MLPhotoCollectionViewDelegate?
     
     var cellOrderStatus:MLPhotoCollectionCellShowOrderStatus?
     var topShowPhotoPicker:Bool!
     
     var selectsIndexPath:NSMutableArray!
     var isRecoderSelectPicker:Bool!
-    var lastDataArray:NSMutableArray!
+    lazy var lastDataArray:NSMutableArray! = {
+        return NSMutableArray()
+    }()
     var maxCount:NSInteger!
     var firstLoadding:Bool?
     var selectAssets:NSMutableArray!
@@ -32,6 +34,9 @@ class MLPhotoCollectionView: UICollectionView,UICollectionViewDataSource,UIColle
     
     var dataArray:NSArray!{
         willSet{
+            if (newValue == nil){
+                return ;
+            }
             // 需要记录选中的值的数据
             if self.isRecoderSelectPicker == true && newValue != nil{
                 var assets = NSMutableArray()
@@ -98,7 +103,6 @@ class MLPhotoCollectionView: UICollectionView,UICollectionViewDataSource,UIColle
         let identifier = "MLPhotoAssetsCell"
         var cell:MLPhotoAssetsCell = collectionView.dequeueReusableCellWithReuseIdentifier(identifier, forIndexPath: indexPath) as! MLPhotoAssetsCell
         
-        
         var cellImgView:MLPhotoPickerCellImageView? = cell.thumbImageView
         
         if(indexPath.item == 0 && self.topShowPhotoPicker != nil
@@ -111,7 +115,6 @@ class MLPhotoCollectionView: UICollectionView,UICollectionViewDataSource,UIColle
                 cellImgView!.image = image
             }
         }else{
-            
             // 需要记录选中的值的数据
             if (self.isRecoderSelectPicker == true) {
                 for asset in self.selectAssets {
@@ -143,10 +146,6 @@ class MLPhotoCollectionView: UICollectionView,UICollectionViewDataSource,UIColle
             return ;
         }
         
-        if (self.lastDataArray == nil) {
-            self.lastDataArray = NSMutableArray()
-        }
-        
         var cellImgView:MLPhotoPickerCellImageView = (cell.contentView.subviews.last as? MLPhotoPickerCellImageView)!
         
         var asset = self.dataArray[indexPath.row] as? MLPhotoAssets;
@@ -157,8 +156,9 @@ class MLPhotoCollectionView: UICollectionView,UICollectionViewDataSource,UIColle
             self.lastDataArray.removeObject(asset!)
         }else{
             // 判断图片数超过最大数或者小于0
-            var maxCount = (self.maxCount == nil || self.maxCount < 1) ? KMLPhotoShowMaxCount :  self.maxCount
-            if (self.selectAssets.count >= maxCount) {
+            var maxCount = (self.maxCount == nil || self.maxCount < 0) ? KMLPhotoShowMaxCount :  self.maxCount
+            var currentCount = self.selectAssets.count
+            if (currentCount >= maxCount) {
                 var format = "最多只能选择\(maxCount)张图片"
                 if (maxCount == 0) {
                     format = "您已经选满了图片呦."
@@ -196,9 +196,8 @@ class MLPhotoCollectionView: UICollectionView,UICollectionViewDataSource,UIColle
             
         }
         return reusableView!;
-        
     }
-    
+
     override func layoutSubviews() {
         super.layoutSubviews()
         

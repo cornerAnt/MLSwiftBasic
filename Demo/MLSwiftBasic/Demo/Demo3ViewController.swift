@@ -75,7 +75,8 @@ class Demo3ViewController: MBBaseViewController,UITableViewDataSource,UITableVie
         pickerVc.delegate = self
         // 限制选择图片的个数,不传是默认是9
         pickerVc.maxCount = 5
-        pickerVc.showPickerVc(self)
+        self.navigationController?.presentViewController(pickerVc, animated: true, completion: nil)
+//        pickerVc.showPickerVc(self)
     }
     
     // MARK:: <MLPhotoPickerViewControllerDelegate>

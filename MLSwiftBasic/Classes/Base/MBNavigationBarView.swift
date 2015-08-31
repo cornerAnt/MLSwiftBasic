@@ -17,7 +17,7 @@ protocol MBNavigationBarViewDelegate:NSObjectProtocol{
 class MBNavigationBarView: UIView {
     var titleImage,leftImage,rightImage:String!
     var rightTitleBtns:NSMutableArray = NSMutableArray()
-    var delegate:MBNavigationBarViewDelegate!
+    weak var delegate:MBNavigationBarViewDelegate!
     var rightItemWidth:CGFloat{
         set{
             if (self.rightTitleBtns.count > 0 || self.rightImgs.count > 0) {

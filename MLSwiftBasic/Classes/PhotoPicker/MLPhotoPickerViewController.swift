@@ -25,9 +25,7 @@ protocol MLPhotoPickerViewControllerDelegate: NSObjectProtocol{
 
 class MLPhotoPickerViewController: MBBaseViewController {
     
-    private lazy var pickerGroupVc:MLPhotoGruopViewController! = {
-        return MLPhotoGruopViewController()
-    }()
+    var pickerGroupVc:MLPhotoGruopViewController!
     
     /// Select Photo maxCount , default is 9
     var maxCount:NSInteger!{
@@ -57,7 +55,7 @@ class MLPhotoPickerViewController: MBBaseViewController {
     }
     
     // callback
-    var delegate:MLPhotoPickerViewControllerDelegate?
+    weak var delegate:MLPhotoPickerViewControllerDelegate?
     var callBackBlock: ((assets:Array<MLPhotoAssets>) -> Void)!
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
@@ -90,6 +88,7 @@ class MLPhotoPickerViewController: MBBaseViewController {
     }
     
     func createNavigationController(){
+        pickerGroupVc = MLPhotoGruopViewController()
         var navigationVc = MBNavigationViewController(rootViewController: pickerGroupVc)
         navigationVc.view.frame = self.view.frame
         self.addChildViewController(navigationVc)
@@ -97,8 +96,9 @@ class MLPhotoPickerViewController: MBBaseViewController {
     }
     
     func showPickerVc(vc:UIViewController){
-        if vc.isKindOfClass(UIViewController.self){
-            vc.presentViewController(self, animated: true, completion: nil)
+        weak var viewController = vc
+        if viewController!.isKindOfClass(UIViewController.self){
+            viewController!.presentViewController(self, animated: true, completion: nil)
         }
     }
     
