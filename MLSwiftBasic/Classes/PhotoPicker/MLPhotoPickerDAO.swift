@@ -107,4 +107,12 @@ class MLPhotoAssets: NSObject{
             return nil
         }
     }()
+    
+    lazy var originalImage:UIImage? = {
+        if self.asset != nil {
+            return UIImage(CGImage: self.asset.defaultRepresentation().fullScreenImage().takeUnretainedValue())
+        }else{
+            return nil
+        }
+    }()
 }

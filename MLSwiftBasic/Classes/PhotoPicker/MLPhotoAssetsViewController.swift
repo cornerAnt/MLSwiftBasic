@@ -208,7 +208,13 @@ class MLPhotoAssetsViewController: MBBaseViewController,MLPhotoCollectionViewDel
     }
     
     func preview(){
-        
+        var browserVc:MLPhotoPickerBrowserViewController = MLPhotoPickerBrowserViewController()
+        browserVc.isEditing = true
+
+        var realAssets = NSMutableArray(array: self.selectAssets)
+        var tempAssets = NSArray(array: realAssets)
+        browserVc.photos = tempAssets as! Array<MLPhotoAssets>
+        self.navigationController?.pushViewController(browserVc, animated: true)
     }
     
     func done(){
@@ -242,7 +248,7 @@ class MLPhotoAssetsViewController: MBBaseViewController,MLPhotoCollectionViewDel
                 if (photoAsset.isKindOfClass(UIImage.self)) {
                     continue;
                 }
-                
+
                 if deleteAssets!.asset.defaultRepresentation().url().isEqual(photoAsset.asset.defaultRepresentation().url()) == true{
                     selectAssetsCurrentPage = i
                     break
@@ -262,11 +268,11 @@ class MLPhotoAssetsViewController: MBBaseViewController,MLPhotoCollectionViewDel
             }
         }
         
-        var count = 0;
+        var count = 0
         if (collectionView.selectAssets.count > self.selectAssets.count) {
-            count = collectionView.selectAssets.count;
+            count = collectionView.selectAssets.count
         }else{
-            count = self.selectAssets.count;
+            count = self.selectAssets.count
         }
         
         self.maskView.hidden = !(count > 0)

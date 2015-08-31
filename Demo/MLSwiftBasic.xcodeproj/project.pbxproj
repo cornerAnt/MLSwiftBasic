@@ -24,6 +24,7 @@
 		4828C4DD1B5E7E1500DA9F52 /* ZLSwiftRefresh.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 4828C4CF1B5E7E1500DA9F52 /* ZLSwiftRefresh.bundle */; };
 		4828C4E11B5E821B00DA9F52 /* MBBaseCommon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4828C4E01B5E821B00DA9F52 /* MBBaseCommon.swift */; };
 		4828C5141B60D01B00DA9F52 /* Demo8ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4828C5131B60D01B00DA9F52 /* Demo8ViewController.swift */; };
+		4837F3621B94620600B3FA41 /* MLPhotoPickerBrowserScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4837F3611B94620600B3FA41 /* MLPhotoPickerBrowserScrollView.swift */; };
 		4849872F1B4A5A1200051493 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4849872E1B4A5A1200051493 /* AppDelegate.swift */; };
 		484987311B4A5A1200051493 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 484987301B4A5A1200051493 /* ViewController.swift */; };
 		484987341B4A5A1200051493 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 484987321B4A5A1200051493 /* Main.storyboard */; };
@@ -77,6 +78,7 @@
 		4828C4CF1B5E7E1500DA9F52 /* ZLSwiftRefresh.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = ZLSwiftRefresh.bundle; path = ../../ZLSwiftRefresh.bundle; sourceTree = "<group>"; };
 		4828C4E01B5E821B00DA9F52 /* MBBaseCommon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MBBaseCommon.swift; sourceTree = "<group>"; };
 		4828C5131B60D01B00DA9F52 /* Demo8ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Demo8ViewController.swift; sourceTree = "<group>"; };
+		4837F3611B94620600B3FA41 /* MLPhotoPickerBrowserScrollView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MLPhotoPickerBrowserScrollView.swift; sourceTree = "<group>"; };
 		484987291B4A5A1200051493 /* MLSwiftBasic.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MLSwiftBasic.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4849872D1B4A5A1200051493 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4849872E1B4A5A1200051493 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -291,6 +293,7 @@
 				486CC1461B91B92800798F68 /* MLPhotoCollectionView.swift */,
 				488E37061B930687003C37D1 /* MLPhotoAssetsFooterView.swift */,
 				484E246E1B93F918007C0FCB /* MLPhotoPickerBrowserViewController.swift */,
+				4837F3611B94620600B3FA41 /* MLPhotoPickerBrowserScrollView.swift */,
 			);
 			path = PhotoPicker;
 			sourceTree = "<group>";
@@ -398,6 +401,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4837F3621B94620600B3FA41 /* MLPhotoPickerBrowserScrollView.swift in Sources */,
 				484E246F1B93F918007C0FCB /* MLPhotoPickerBrowserViewController.swift in Sources */,
 				486DA3021B906BC000DD2DC1 /* MLPhotoAssetsViewController.swift in Sources */,
 				4828C4DC1B5E7E1500DA9F52 /* MBBaseVisualViewController.swift in Sources */,
