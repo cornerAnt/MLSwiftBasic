@@ -2,11 +2,17 @@
 集合`自定义导航栏`、`下拉刷新/上拉加载更多`、`视觉效果`、`好用分类`等等一系列，却耦合性很低的Swift库!
 
 ### Demo or Gif
+##### New Gif
+![image](https://github.com/MakeZL/MLSwiftBasic/blob/master/ScreenShots/Demo4.gif)
+
 ![image](https://github.com/MakeZL/MLSwiftBasic/blob/master/ScreenShots/Demo1.gif)
 ![image](https://github.com/MakeZL/MLSwiftBasic/blob/master/ScreenShots/Demo2.gif)
 ![image](https://github.com/MakeZL/MLSwiftBasic/blob/master/ScreenShots/Demo3.gif)
 
 ### 新特性
+
+`图片多选`
+
 `下拉刷新\上拉加载更多`
 
 `懒人Swift基本框架，正提供各种简单，方便的接口 `
@@ -23,21 +29,21 @@
 
 `5> 下拉刷新\上拉加载更多(支持自定义动画/自带箭头动画/娃娃脸动画)`
 
+`6> 相册多选图片(支持记录选择图片、置顶类似微博、预览选择等等)` 
+
 准备迭代：
 
 6> 提示框HUD
 
 7> iOS7的手势
 
-8> 相册多选
+8> 图片浏览器
 
-9> 图片浏览器
+9> 字典转模型
 
-10> 字典转模型
+10> CoreText解析HTML库
 
-11> CoreText解析HTML库
-
-12> 联系通讯录
+11> 联系通讯录
 
 
 # Installation
