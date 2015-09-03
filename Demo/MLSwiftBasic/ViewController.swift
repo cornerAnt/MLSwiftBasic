@@ -71,7 +71,7 @@ class ViewController: MBBaseViewController,UITableViewDataSource,UITableViewDele
         // create Group
         var group3 = MBExampleGroup()
         group3.groupName = "下拉刷新"
-        group3.examples = [groupItem20,groupItem21]
+        group3.examples = [groupItem30,groupItem31,groupItem32]
         
         return [
             group0,group1,group2,group3
