@@ -14,7 +14,6 @@ class Demo1ViewController: MBBaseViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
     }
     
     override func titleImg() -> String {
@@ -22,7 +21,7 @@ class Demo1ViewController: MBBaseViewController {
     }
     
     override func rightTitles() -> NSArray {
-        return ["M", "L"]
+        return ["Make", "ZL"]
     }
     
     override func titleClick() {
@@ -35,7 +34,8 @@ class Demo1ViewController: MBBaseViewController {
     }
     
     override func rightItemWidth() -> CGFloat {
-        return 100
+        // Default return 45
+        return 70
     }
     
 }

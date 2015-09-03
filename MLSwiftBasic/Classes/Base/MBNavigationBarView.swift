@@ -18,12 +18,10 @@ class MBNavigationBarView: UIView {
     var titleImage,leftImage,rightImage:String!
     var rightTitleBtns:NSMutableArray = NSMutableArray()
     weak var delegate:MBNavigationBarViewDelegate!
-    var rightItemWidth:CGFloat{
-        set{
-            if (self.rightTitleBtns.count > 0 || self.rightImgs.count > 0) {
-                
-                var count = self.rightTitleBtns.count ?? self.rightImgs.count
-                
+    var rightItemWidth:CGFloat!{
+        willSet{
+            var count = self.rightTitleBtns.count ?? self.rightImgs.count
+            if count > 0 {
                 for (var i = 0; i < count; i++){
                     if var button = self.rightTitleBtns[i] as? UIButton ?? self.rightImgs[i] as? UIButton {
                         button.frame.size.width = newValue
@@ -31,27 +29,16 @@ class MBNavigationBarView: UIView {
                         button.frame = CGRectMake(x, NAV_BAR_Y, newValue, NAV_BAR_HEIGHT) ;
                     }
                 }
+                self.titleButton.frame.size.width = self.frame.size.width - NAV_ITEM_LEFT_W - newValue * CGFloat(count)
             }else {
+                self.titleButton.frame.size.width = self.frame.size.width - NAV_ITEM_LEFT_W - newValue
                 self.rightButton.frame.size.width = newValue
                 self.rightButton.frame.origin.x = self.frame.size.width - newValue
             }
         }
-    
-        get{
-            return self.rightItemWidth
-        }
     }
     
-    var leftItemWidth:CGFloat {
-        set{
-            
-        }
-        
-        get{
-            return self.leftItemWidth
-        }
-    }
-    
+    var leftItemWidth:CGFloat!
     var title:String{
         set {
             self.titleButton.setTitle(newValue, forState: .Normal)
@@ -99,7 +86,11 @@ class MBNavigationBarView: UIView {
             }
             
             if (newValue.count > 1){
-                self.titleButton.frame.size.width = self.frame.size.width - NAV_ITEM_RIGHT_W * CGFloat((2 + newValue.count))
+                if self.rightItemWidth > 0 {
+                    self.titleButton.frame.size.width = self.frame.size.width - self.rightItemWidth * CGFloat((newValue.count)) - NAV_ITEM_LEFT_W
+                }else{
+                    self.titleButton.frame.size.width = self.frame.size.width - NAV_ITEM_RIGHT_W * CGFloat((newValue.count)) - NAV_ITEM_LEFT_W
+                }
             }
         }
         
@@ -124,7 +115,11 @@ class MBNavigationBarView: UIView {
             }
             
             if (newValue.count > 1){
-                self.titleButton.frame.size.width = self.frame.size.width - NAV_ITEM_RIGHT_W * CGFloat((2 + newValue.count))
+                if self.rightItemWidth > 0 {
+                    self.titleButton.frame.size.width = self.frame.size.width - self.rightItemWidth * CGFloat((newValue.count)) - NAV_ITEM_LEFT_W
+                }else{
+                    self.titleButton.frame.size.width = self.frame.size.width - NAV_ITEM_RIGHT_W * CGFloat((newValue.count)) - NAV_ITEM_LEFT_W
+                }
             }
         }
         

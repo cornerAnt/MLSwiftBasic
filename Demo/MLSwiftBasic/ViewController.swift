@@ -24,7 +24,6 @@ class ViewController: MBBaseViewController,UITableViewDataSource,UITableViewDele
     
     /// example list
     lazy var lists:Array<MBExampleGroup> = {
-        
         // Group1 : <Navigation 导航栏>
         var groupItem00:MBExample = MBExample()
         groupItem00.title = "Demo1 (导航栏.标题/图片.设置按钮宽度等)"
@@ -118,6 +117,7 @@ class ViewController: MBBaseViewController,UITableViewDataSource,UITableViewDele
         println("你点击了标题")
     }
     
+    // MARK: <UITableViewDataSource>
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return self.lists.count
     }
@@ -138,6 +138,7 @@ class ViewController: MBBaseViewController,UITableViewDataSource,UITableViewDele
         return cell
     }
     
+    // MARK: <UITableViewDelegate>
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         var group:MBExampleGroup = self.lists[indexPath.section]
         var example:MBExample = group.examples![indexPath.row]

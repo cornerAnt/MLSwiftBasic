@@ -239,7 +239,7 @@ class MLPhotoPickerBrowserViewController: MBBaseViewController,UICollectionViewD
             self.collectionView.contentOffset = CGPointMake(self.collectionView.contentOffset.x, self.collectionView.contentOffset.y);
         }
         self.currentPage = currentPage;
-        self.setPageLabelPage(currentPage+1)
+        self.setPageLabelPage(currentPage)
     }
     
     func deleteAsset(){
