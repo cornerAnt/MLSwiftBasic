@@ -20,6 +20,9 @@ class MLPhotoAssetsViewController: MBBaseViewController,MLPhotoCollectionViewDel
     /// MLPhotoPickerViewController to content Code condition value.
     var maxCount:NSInteger!{
         willSet{
+            if (newValue == nil){
+                return
+            }
             if (self.selectAssets.count == newValue){
                 self.collectionView.maxCount = 0
             }else{
@@ -31,6 +34,9 @@ class MLPhotoAssetsViewController: MBBaseViewController,MLPhotoCollectionViewDel
     var selectPickers:Array<MLPhotoAssets>!
     var topShowPhotoPicker:Bool!{
         willSet{
+            if (newValue == nil){
+                return 
+            }
             if (newValue == true && self.collectionView.dataArray != nil) {
                 var reSortArray = Array<MLPhotoAssets>()
                 var mlAsset = MLPhotoAssets()

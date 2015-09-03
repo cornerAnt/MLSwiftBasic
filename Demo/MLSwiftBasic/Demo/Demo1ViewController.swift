@@ -21,9 +21,9 @@ class Demo1ViewController: MBBaseViewController {
         return "makezl.jpeg"
     }
     
-//    override func rightTitles() -> NSArray {
-//        return ["M", "L"]
-//    }
+    override func rightTitles() -> NSArray {
+        return ["M", "L"]
+    }
     
     override func titleClick() {
         println("监听事件..")

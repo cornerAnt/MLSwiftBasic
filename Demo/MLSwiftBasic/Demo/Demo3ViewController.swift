@@ -85,6 +85,6 @@ class Demo3ViewController: MBBaseViewController,UITableViewDataSource,UITableVie
     }
     
     override func titleStr() -> String {
-        return "图片选择--未完成/更新中"
+        return "图片多选2-复杂"
     }
 }

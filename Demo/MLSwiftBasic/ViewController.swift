@@ -10,55 +10,73 @@
 
 import UIKit
 
+class MBExampleGroup: NSObject {
+    var groupName:String?
+    var examples:Array<MBExample>?
+}
+
 class MBExample: NSObject {
     var title:String!
     var vc:UIViewController?
 }
 
-class ViewController: MBBaseViewController {
+class ViewController: MBBaseViewController,UITableViewDataSource,UITableViewDelegate {
     
     /// example list
-    var lists:Array<MBExample> {
-        get {
-            var example1:MBExample = MBExample()
-            example1.title = "Demo1 (导航栏.标题/图片.设置按钮宽度等)"
-            example1.vc = Demo1ViewController()
-            
-            var example2:MBExample = MBExample()
-            example2.title = "Demo2 (图片浏览器待完成)"
-            example2.vc = Demo2ViewController()
-            
-            var example3:MBExample = MBExample()
-            example3.title = "Demo3 (相册多选)"
-            example3.vc = Demo3ViewController()
-            
-            var example4:MBExample = MBExample()
-            example4.title = "Demo4 (导航视觉效果1)"
-            example4.vc = Demo4ViewController()
-            
-            var example5:MBExample = MBExample()
-            example5.title = "Demo5 (导航视觉效果2)"
-            example5.vc = Demo5ViewController()
-            
-            var example6:MBExample = MBExample()
-            example6.title = "Demo6 (下拉刷新/加载更多 效果1)"
-            example6.vc = Demo6ViewController()
-            
-            var example7:MBExample = MBExample()
-            example7.title = "Demo7 (下拉刷新/加载更多 效果2)"
-            example7.vc = Demo7ViewController()
-            
-            var example8:MBExample = MBExample()
-            example8.title = "Demo8 (下拉刷新/加载更多 自定义动画)"
-            example8.vc = Demo8ViewController()
-            
-            return [example1,example2,example3,example4,example5,example6,example7,example8]
-        }
+    lazy var lists:Array<MBExampleGroup> = {
         
-        set{
-            
-        }
-    };
+        // Group1 : <Navigation 导航栏>
+        var groupItem00:MBExample = MBExample()
+        groupItem00.title = "Demo1 (导航栏.标题/图片.设置按钮宽度等)"
+        groupItem00.vc = Demo1ViewController()
+        // create Group
+        var group0 = MBExampleGroup()
+        group0.groupName = "导航栏"
+        group0.examples = [groupItem00]
+        
+        // Group2 : <Photo Picker 相册多选>
+        var groupItem10:MBExample = MBExample()
+        groupItem10.title = "Demo2 (相册多选1/简单效果)"
+        groupItem10.vc = Demo2ViewController()
+        var groupItem11:MBExample = MBExample()
+        groupItem11.title = "Demo3 (相册多选2/复杂效果)"
+        groupItem11.vc = Demo3ViewController()
+        // create Group
+        var group1 = MBExampleGroup()
+        group1.groupName = "相册多选"
+        group1.examples = [groupItem10,groupItem11]
+        
+        // Group3 : <Visual 导航栏>
+        var groupItem20:MBExample = MBExample()
+        groupItem20.title = "Demo4 (导航视觉效果1)"
+        groupItem20.vc = Demo4ViewController()
+        var groupItem21:MBExample = MBExample()
+        groupItem21.title = "Demo5 (导航视觉效果2)"
+        groupItem21.vc = Demo5ViewController()
+        // create Group
+        var group2 = MBExampleGroup()
+        group2.groupName = "导航视觉效果"
+        group2.examples = [groupItem20,groupItem21]
+        
+        // Group4 : <Refresh 下拉刷新>
+        var groupItem30:MBExample = MBExample()
+        groupItem30.title = "Demo6 (下拉刷新/加载更多 效果1)"
+        groupItem30.vc = Demo6ViewController()
+        var groupItem31:MBExample = MBExample()
+        groupItem31.title = "Demo7 (下拉刷新/加载更多 效果2)"
+        groupItem31.vc = Demo7ViewController()
+        var groupItem32:MBExample = MBExample()
+        groupItem32.title = "Demo8 (下拉刷新/加载更多 自定义动画)"
+        groupItem32.vc = Demo8ViewController()
+        // create Group
+        var group3 = MBExampleGroup()
+        group3.groupName = "下拉刷新"
+        group3.examples = [groupItem20,groupItem21]
+        
+        return [
+            group0,group1,group2,group3
+        ]
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -100,21 +118,35 @@ class ViewController: MBBaseViewController {
         println("你点击了标题")
     }
     
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return self.lists.count
+    }
+    
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        var group:MBExampleGroup = self.lists[section]
+        return group.examples!.count
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let identifier = "cell"
-        var example:MBExample = self.lists[indexPath.row]
+        
+        var group:MBExampleGroup = self.lists[indexPath.section]
+        var example:MBExample = group.examples![indexPath.row]
+        
         var cell:UITableViewCell = tableView.dequeueReusableCellWithIdentifier(identifier, forIndexPath: indexPath) as! UITableViewCell
         cell.textLabel?.text = example.title
         return cell
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        var example:MBExample = self.lists[indexPath.row]
+        var group:MBExampleGroup = self.lists[indexPath.section]
+        var example:MBExample = group.examples![indexPath.row]
         self.navigationController?.pushViewController(example.vc!, animated: true)
+    }
+    
+    func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        var group:MBExampleGroup = self.lists[section]
+        return group.groupName
     }
 }
 
