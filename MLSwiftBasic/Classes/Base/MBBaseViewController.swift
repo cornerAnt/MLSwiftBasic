@@ -41,7 +41,7 @@ class MBBaseViewController: UIViewController,MBNavigationBarViewDelegate {
             if (self.rightImgs().count > 0) {
                 navBar.rightImgs = self.rightImgs()
             }
-            
+
             self.view.insertSubview(navBar, atIndex: 0)
             if self.leftImg().isEmpty == false {
                 navBar.leftImage = self.leftImg()

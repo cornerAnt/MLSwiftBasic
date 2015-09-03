@@ -32,7 +32,7 @@ class Demo3ViewController: MBBaseViewController,UITableViewDataSource,UITableVie
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.assets.count
     }
-    
+
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let identifier = "cell"
         var cell:UITableViewCell = tableView.dequeueReusableCellWithIdentifier(identifier, forIndexPath: indexPath) as! UITableViewCell
@@ -75,8 +75,7 @@ class Demo3ViewController: MBBaseViewController,UITableViewDataSource,UITableVie
         pickerVc.delegate = self
         // 限制选择图片的个数,不传是默认是9
         pickerVc.maxCount = 5
-        self.navigationController?.presentViewController(pickerVc, animated: true, completion: nil)
-//        pickerVc.showPickerVc(self)
+        pickerVc.showPickerVc(self)
     }
     
     // MARK:: <MLPhotoPickerViewControllerDelegate>

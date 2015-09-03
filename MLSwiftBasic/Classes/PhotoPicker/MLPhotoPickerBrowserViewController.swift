@@ -8,32 +8,45 @@
 
 import UIKit
 
-let MLPhotoPickerBrowserCellPadding:CGFloat = 20
+let MLPhotoPickerBrowserCellPadding:CGFloat = 10
 let MLPhotoPickerBrowserCellIdentifier = "MLPhotoPickerCellIdentifier"
 
-class MLPhotoPickerBrowserViewController: UIViewController,UICollectionViewDataSource,UICollectionViewDelegate,MLPhotoPickerBrowserScrollViewDelegate {
+class MLPhotoPickerBrowserViewController: MBBaseViewController,UICollectionViewDataSource,UICollectionViewDelegate,MLPhotoPickerBrowserScrollViewDelegate {
 
-    var doneAssets:Array<MLPhotoAssets>!
+    var doneAssets:NSMutableArray!
     var photos:Array<MLPhotoAssets>!{
         willSet{
-            self.doneAssets = newValue
+            self.setBarButtonItemState(newValue.count > 0)
+            self.doneAssets = NSMutableArray(array: newValue)
             self.reloadData()
         }
     }
-    
+    lazy var deleteAssets:NSMutableDictionary? = {
+        return NSMutableDictionary()
+    }()
     var isShowShowSheet:Bool?
     var sheet:UIActionSheet?
-    var isEditing:Bool!
-    var currentPage:Int?
+    var isEditing:Bool!{
+        willSet{
+            self.deleleBtn.hidden = !newValue
+        }
+    }
+    var currentPage:Int?{
+        willSet{
+            self.setPageLabelPage(newValue!)
+        }
+    }
     
+    var toolBar:UIToolbar!
     /// lazy
     lazy var collectionView:UICollectionView = {
         var flowLayout = UICollectionViewFlowLayout()
-        flowLayout.minimumInteritemSpacing = MLPhotoPickerBrowserCellPadding
-        flowLayout.itemSize = self.view.frame.size
+        flowLayout.minimumInteritemSpacing = 0
+        flowLayout.minimumLineSpacing = MLPhotoPickerBrowserCellPadding
+        flowLayout.itemSize = CGSizeMake(self.view.frame.width, self.view.frame.height - TOP_Y)
         flowLayout.scrollDirection = .Horizontal
         
-        var collectionView:UICollectionView = UICollectionView(frame: CGRectMake(0, 0, self.view.frame.width + MLPhotoPickerBrowserCellPadding, self.view.frame.height), collectionViewLayout: flowLayout)
+        var collectionView:UICollectionView = UICollectionView(frame: CGRectMake(0, TOP_Y, self.view.frame.width + MLPhotoPickerBrowserCellPadding, self.view.frame.height - TOP_Y), collectionViewLayout: flowLayout)
         collectionView.backgroundColor = UIColor.blackColor()
         collectionView.dataSource = self
         collectionView.delegate = self
@@ -51,7 +64,7 @@ class MLPhotoPickerBrowserViewController: UIViewController,UICollectionViewDataS
         return collectionView
     }()
     
-    lazy var maskView:UIView = {
+    lazy var maskView:UILabel = {
         var maskView = UILabel(frame: CGRectMake(-5, -5, 20, 20))
         maskView.textColor = UIColor.whiteColor()
         maskView.textAlignment = .Center
@@ -75,11 +88,25 @@ class MLPhotoPickerBrowserViewController: UIViewController,UICollectionViewDataS
         return doneBtn
     }()
     
-    var toolBar:UIToolbar!
+    lazy var deleleBtn:UIButton = {
+        var deleleBtn = UIButton()
+        deleleBtn.hidden = true
+        deleleBtn.layer.cornerRadius = 15
+        deleleBtn.frame = CGRectMake(self.view.frame.width - 50, 25, 30, 30)
+        deleleBtn.titleLabel!.font = UIFont.systemFontOfSize(15)
+        if var image = UIImage(named: MLPhotoPickerBundleName.stringByAppendingPathComponent("AssetsPickerChecked")){
+            deleleBtn.setImage(image, forState: .Normal)
+        }
+        deleleBtn.addTarget(self, action: "deleteAsset", forControlEvents: .TouchUpInside)
+        self.view.addSubview(deleleBtn)
+        self.deleleBtn = deleleBtn;
+        return deleleBtn
+    }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.view.backgroundColor = UIColor.blackColor()
     }
     
     func setupToolBar(){
@@ -114,10 +141,10 @@ class MLPhotoPickerBrowserViewController: UIViewController,UICollectionViewDataS
                 cell.contentView.subviews.last?.removeFromSuperview()
             }
             
-            var scrollBoxView = UIView(frame: UIScreen.mainScreen().bounds)
+            var scrollBoxView = UIView(frame: CGRectMake(0, 0, self.view.frame.width, self.view.frame.height - TOP_Y))
             cell.contentView.addSubview(scrollBoxView)
             
-            var scrollView = MLPhotoPickerBrowserScrollView(frame: UIScreen.mainScreen().bounds)
+            var scrollView = MLPhotoPickerBrowserScrollView(frame: CGRectMake(0, 0, self.view.frame.width, self.view.frame.height - TOP_Y))
             if (self.sheet != nil || self.isShowShowSheet == true) {
                 scrollView.sheet = self.sheet;
             }
@@ -133,7 +160,8 @@ class MLPhotoPickerBrowserViewController: UIViewController,UICollectionViewDataS
     }
     
     func pickerPhotoScrollViewDidSingleClick() {
-        self.navigationController!.navigationBar.hidden = !self.navigationController!.navigationBar.hidden
+        self.navBar.hidden = !self.navBar.hidden
+        self.deleleBtn.hidden = !self.deleleBtn.hidden
         if (self.isEditing == true) {
             self.toolBar.hidden = !self.toolBar.hidden;
         }
@@ -143,9 +171,11 @@ class MLPhotoPickerBrowserViewController: UIViewController,UICollectionViewDataS
         if (state == true){
             doneBtn.setTitleColor(UIColor.blackColor(), forState: .Normal)
             doneBtn.userInteractionEnabled = true
+            maskView.hidden = false
         }else{
             doneBtn.setTitleColor(UIColor.grayColor(), forState: .Normal)
             doneBtn.userInteractionEnabled = false
+            maskView.hidden = true
         }
     }
     
@@ -187,6 +217,15 @@ class MLPhotoPickerBrowserViewController: UIViewController,UICollectionViewDataS
             tempF.origin.x = -MLPhotoPickerBrowserCellPadding;
         }
         self.collectionView.frame = tempF;
+        
+        if(self.deleteAssets?.allValues.count == 0 || self.deleteAssets?.valueForKeyPath("\(currentPage)") == nil){
+            if var image = UIImage(named: MLPhotoPickerBundleName.stringByAppendingPathComponent("AssetsPickerChecked")){
+                self.deleleBtn.setImage(image, forState: .Normal)
+            }
+        }else{
+            self.deleleBtn.setImage(nil, forState: .Normal)
+            self.deleleBtn.backgroundColor = UIColor.grayColor()
+        }
     }
     
     func scrollViewDidEndDecelerating(scrollView: UIScrollView) {
@@ -197,6 +236,34 @@ class MLPhotoPickerBrowserViewController: UIViewController,UICollectionViewDataS
             self.collectionView.contentOffset = CGPointMake(self.collectionView.contentOffset.x, self.collectionView.contentOffset.y);
         }
         self.currentPage = currentPage;
-//        [self setPageLabelPage:currentPage];
+        self.setPageLabelPage(currentPage+1)
+    }
+    
+    func deleteAsset(){
+        var currentPage = "\(self.currentPage)"
+        if self.deleteAssets?.valueForKeyPath(currentPage) == nil {
+            self.deleteAssets?.setObject(NSNumber(bool: true), forKey: currentPage)
+            self.deleleBtn.setImage(nil, forState: .Normal)
+            self.deleleBtn.backgroundColor = UIColor.grayColor()
+            if self.doneAssets.containsObject(self.photos[self.currentPage!]) == true {
+                self.doneAssets.removeObject(self.photos[self.currentPage!])
+            }
+        }else{
+            if self.doneAssets.containsObject(self.photos[self.currentPage!]) == false {
+                self.doneAssets.addObject(self.photos[self.currentPage!])
+            }
+            self.deleteAssets?.removeObjectForKey(currentPage)
+            if var image = UIImage(named: MLPhotoPickerBundleName.stringByAppendingPathComponent("AssetsPickerChecked")){
+                self.deleleBtn.setImage(image, forState: .Normal)
+            }
+        }
+        
+        self.maskView.text = "\(self.doneAssets.count)"
+    }
+    
+    func setPageLabelPage(currentPage:Int){
+        if self.photos != nil{
+            self.setTitleStr("\(currentPage)/\(self.photos.count)")
+        }
     }
 }

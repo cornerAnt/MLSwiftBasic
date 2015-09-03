@@ -21,39 +21,44 @@ class MLPhotoCollectionView: UICollectionView,UICollectionViewDataSource,UIColle
     var cellOrderStatus:MLPhotoCollectionCellShowOrderStatus?
     var topShowPhotoPicker:Bool!
     
-    var selectsIndexPath:NSMutableArray!
     var isRecoderSelectPicker:Bool!
-    lazy var lastDataArray:NSMutableArray! = {
-        return NSMutableArray()
-    }()
     var maxCount:NSInteger!
     var firstLoadding:Bool?
-    var selectAssets:NSMutableArray!
+    
+    lazy var selectsIndexPath:Array<NSNumber>! = {
+        return Array<NSNumber>()
+    }()
+    lazy var lastDataArray:Array<MLPhotoAssets>! = {
+        return Array<MLPhotoAssets>()
+    }()
+    lazy var selectAssets:Array<MLPhotoAssets>! = {
+        return Array<MLPhotoAssets>()
+    }()
     
     private var footerView:MLPhotoAssetsFooterView?
     
-    var dataArray:NSArray!{
+    var dataArray:Array<MLPhotoAssets>!{
         willSet{
             if (newValue == nil){
                 return ;
             }
             // 需要记录选中的值的数据
             if self.isRecoderSelectPicker == true && newValue != nil{
-                var assets = NSMutableArray()
+                var assets = Array<MLPhotoAssets>()
                 for selectAsset in self.selectAssets{
                     for dataAsset in newValue{
-                        var realAsset:MLPhotoAssets = dataAsset as! MLPhotoAssets
-                        var selectRealAsset:MLPhotoAssets = selectAsset as! MLPhotoAssets
+                        var realAsset:MLPhotoAssets = dataAsset
+                        var selectRealAsset:MLPhotoAssets = selectAsset
                         
                         if realAsset.asset != nil && selectRealAsset.asset != nil {
                             if  selectRealAsset.asset.defaultRepresentation().url().isEqual(realAsset.asset.defaultRepresentation().url()) == true{
-                                assets.addObject(realAsset)
+                                assets.append(realAsset)
                                 break;
                             }
                         }
                     }
                 }
-                selectAssets = NSMutableArray(array: assets)
+                selectAssets = assets
             }
             self.reloadData()
             dispatch_after(dispatch_time(
@@ -69,15 +74,10 @@ class MLPhotoCollectionView: UICollectionView,UICollectionViewDataSource,UIColle
     override init(frame: CGRect, collectionViewLayout layout: UICollectionViewLayout) {
         super.init(frame: frame, collectionViewLayout: layout)
         
-        if self.selectAssets == nil {
-            self.selectAssets = NSMutableArray()
-        }
-        
         // register footerView
         self.cellOrderStatus = .MLPhotoCollectionCellShowOrderStatusDesc
         self.firstLoadding = false
         self.isRecoderSelectPicker = false
-        self.selectsIndexPath = NSMutableArray()
         
         self.registerClass(MLPhotoAssetsCell.self, forCellWithReuseIdentifier: "MLPhotoAssetsCell")
         self.backgroundColor = UIColor.clearColor()
@@ -118,10 +118,10 @@ class MLPhotoCollectionView: UICollectionView,UICollectionViewDataSource,UIColle
             // 需要记录选中的值的数据
             if (self.isRecoderSelectPicker == true) {
                 for asset in self.selectAssets {
-                    var dataAsset:MLPhotoAssets = self.dataArray[indexPath.item] as! MLPhotoAssets
-                    var selectRealAsset = asset as! MLPhotoAssets
+                    var dataAsset:MLPhotoAssets = self.dataArray[indexPath.item] as MLPhotoAssets
+                    var selectRealAsset = asset
                     if selectRealAsset.asset.defaultRepresentation().url().isEqual(dataAsset.asset.defaultRepresentation().url()) {
-                        selectsIndexPath.addObject(NSNumber(integer: indexPath.row))
+                        selectsIndexPath.append(NSNumber(integer: indexPath.row))
                     }
                 }
             }
@@ -130,7 +130,7 @@ class MLPhotoCollectionView: UICollectionView,UICollectionViewDataSource,UIColle
                 println(indexPath.row)
             }
             cellImgView!.isMaskSelected = selectsIndexPath.containsObject(NSNumber(integer: indexPath.row))
-            cell.assets = self.dataArray[indexPath.row] as? MLPhotoAssets
+            cell.assets = self.dataArray[indexPath.row]
         }
         
         return cell
@@ -148,12 +148,15 @@ class MLPhotoCollectionView: UICollectionView,UICollectionViewDataSource,UIColle
         
         var cellImgView:MLPhotoPickerCellImageView = (cell.contentView.subviews.last as? MLPhotoPickerCellImageView)!
         
-        var asset = self.dataArray[indexPath.row] as? MLPhotoAssets;
+        var asset = self.dataArray[indexPath.row]
         // 如果没有就添加到数组里面，存在就移除
         if (cellImgView.isMaskSelected == true) {
+            
+            var row = NSNumber(integer: indexPath.row)
+            
             self.selectsIndexPath.removeObject(NSNumber(integer: indexPath.row))
-            self.selectAssets.removeObject(asset!)
-            self.lastDataArray.removeObject(asset!)
+            self.selectAssets.removeObject(asset)
+            self.lastDataArray.removeObject(asset)
         }else{
             // 判断图片数超过最大数或者小于0
             var maxCount = (self.maxCount == nil || self.maxCount < 0) ? KMLPhotoShowMaxCount :  self.maxCount
@@ -163,20 +166,22 @@ class MLPhotoCollectionView: UICollectionView,UICollectionViewDataSource,UIColle
                 if (maxCount == 0) {
                     format = "您已经选满了图片呦."
                 }
-                UIAlertView(title: "提醒", message: format, delegate: self, cancelButtonTitle: "好的").show()
+                var alertView = UIAlertView(title: "提醒", message: format, delegate: self, cancelButtonTitle: "好的")
+                alertView.show()
+                
                 return
             }
             
-            self.selectsIndexPath.addObject(NSNumber(integer: indexPath.row))
-            self.selectAssets.addObject(asset!)
-            self.lastDataArray.addObject(asset!)
+            self.selectsIndexPath.append(NSNumber(integer: indexPath.row))
+            self.selectAssets.append(asset)
+            self.lastDataArray.append(asset)
         }
         
         var photoCollectionView = collectionView as? MLPhotoCollectionView
         if (self.mlDelegate?.respondsToSelector("photoCollectionViewDidSelectedCollectionView:") != nil) {
             if cellImgView.isMaskSelected == true{
                 // Delete
-                self.mlDelegate?.photoCollectionViewDidSelectedCollectionView!(photoCollectionView!, deleteAssets: asset!)
+                self.mlDelegate?.photoCollectionViewDidSelectedCollectionView!(photoCollectionView!, deleteAssets: asset)
             }else{
                 // Add
                 self.mlDelegate?.photoCollectionViewDidSelectedCollectionView!(photoCollectionView!, deleteAssets: nil)

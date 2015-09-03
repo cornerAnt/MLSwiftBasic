@@ -32,15 +32,16 @@ class MLPhotoAssetsViewController: MBBaseViewController,MLPhotoCollectionViewDel
     var topShowPhotoPicker:Bool!{
         willSet{
             if (newValue == true && self.collectionView.dataArray != nil) {
-                var reSortArray = NSMutableArray()
-                if self.collectionView.dataArray != nil {
-                    for obj in self.collectionView.dataArray!.reverseObjectEnumerator() {
-                        reSortArray.addObject(obj)
-                    }
-                }
+                var reSortArray = Array<MLPhotoAssets>()
                 var mlAsset = MLPhotoAssets()
                 mlAsset.asset = nil
-                reSortArray.insertObject(mlAsset, atIndex: 0)
+                reSortArray.append(mlAsset)
+                
+                if self.collectionView.dataArray != nil {
+                    for obj in self.collectionView.dataArray {
+                        reSortArray.append(obj)
+                    }
+                }
                 
                 self.collectionView.cellOrderStatus = .MLPhotoCollectionCellShowOrderStatusAsc
                 self.collectionView.topShowPhotoPicker = newValue
@@ -50,7 +51,7 @@ class MLPhotoAssetsViewController: MBBaseViewController,MLPhotoCollectionViewDel
         }
     }
     
-    var groupVc:MLPhotoGruopViewController?
+    weak var groupVc:MLPhotoGruopViewController?
     var group:MLPhotoGroup!{
         willSet {
             if (newValue == nil) {
@@ -60,16 +61,16 @@ class MLPhotoAssetsViewController: MBBaseViewController,MLPhotoCollectionViewDel
             self.setTitleStr(newValue.groupName)
             MLPhotoPickerDAO().getAllAssetsWithGroup(newValue, assetsCallBack: { [weak self](assets) -> Void in
                 if self?.topShowPhotoPicker != nil && self?.topShowPhotoPicker == true {
-                    var reversObjects = NSMutableArray(array: assets)
-                    var reSortArray:NSMutableArray = NSMutableArray()
+                    var reversObjects:Array = assets
+                    var reSortArray:Array = Array<MLPhotoAssets>()
                     if  reversObjects.count > 0 {
-                        for obj in reversObjects.reverseObjectEnumerator() {
-                            reSortArray.addObject(obj)
+                        for obj in reversObjects {
+                            reSortArray.append(obj)
                         }
                     }
                     var mlAsset = MLPhotoAssets()
                     mlAsset.asset = nil
-                    reSortArray.insertObject(mlAsset, atIndex: 0)
+                    reSortArray.insert(mlAsset, atIndex: 0)
                     
                     self?.collectionView.cellOrderStatus = .MLPhotoCollectionCellShowOrderStatusAsc
                     self?.collectionView.topShowPhotoPicker = self?.topShowPhotoPicker
@@ -82,7 +83,9 @@ class MLPhotoAssetsViewController: MBBaseViewController,MLPhotoCollectionViewDel
         }
     }
     
-    var assets:NSMutableArray!
+    lazy var assets:Array<MLPhotoAssets>! = {
+        return Array<MLPhotoAssets>()
+    }()
     var selectPickerAssets:Array<MLPhotoAssets>!{
         willSet{
             if newValue == nil {
@@ -92,14 +95,16 @@ class MLPhotoAssetsViewController: MBBaseViewController,MLPhotoCollectionViewDel
             self.selectPickerAssets = set.allObjects as! Array<MLPhotoAssets>
             
             if self.assets == nil {
-                self.assets = NSMutableArray(array: selectPickerAssets)
+                self.assets = selectPickerAssets
             }else{
-                self.assets.addObjectsFromArray(newValue)
+                for asset in newValue! {
+                    self.assets.append(asset)
+                }
             }
             
             for asset in newValue {
-                if asset.isKindOfClass(MLPhotoAssets.self) || assets.isKindOfClass(UIImage.self) {
-                    self.selectAssets.addObject(asset)
+                if asset.isKindOfClass(MLPhotoAssets.self) || asset.isKindOfClass(UIImage.self) {
+                    self.selectAssets.append(asset)
                 }
             }
             
@@ -171,8 +176,8 @@ class MLPhotoAssetsViewController: MBBaseViewController,MLPhotoCollectionViewDel
         return doneBtn
     }()
     
-    lazy var selectAssets:NSMutableArray = {
-        return NSMutableArray()
+    lazy var selectAssets:Array<MLPhotoAssets>! = {
+        return Array<MLPhotoAssets>()
     }()
     
     func setBarButtonItemState(state:Bool){
@@ -210,10 +215,10 @@ class MLPhotoAssetsViewController: MBBaseViewController,MLPhotoCollectionViewDel
     func preview(){
         var browserVc:MLPhotoPickerBrowserViewController = MLPhotoPickerBrowserViewController()
         browserVc.isEditing = true
-
         var realAssets = NSMutableArray(array: self.selectAssets)
         var tempAssets = NSArray(array: realAssets)
         browserVc.photos = tempAssets as! Array<MLPhotoAssets>
+        browserVc.currentPage = 1
         self.navigationController?.pushViewController(browserVc, animated: true)
     }
     
@@ -237,14 +242,14 @@ class MLPhotoAssetsViewController: MBBaseViewController,MLPhotoCollectionViewDel
         if self.selectPickerAssets != nil && self.selectPickerAssets.count == 0{
             self.selectAssets = collectionView.selectAssets
         }else if deleteAssets == nil {
-            self.selectAssets.addObject(collectionView.selectAssets.lastObject!)
+            self.selectAssets.append(collectionView.selectAssets.last!)
         }
         
         
         if (deleteAssets != nil && self.selectPickerAssets != nil && self.selectPickerAssets.count > 0) {
             var selectAssetsCurrentPage = -1;
             for (var i = 0; i < self.selectAssets.count; i++) {
-                var photoAsset:MLPhotoAssets = self.selectAssets[i] as! MLPhotoAssets
+                var photoAsset:MLPhotoAssets = self.selectAssets[i]
                 if (photoAsset.isKindOfClass(UIImage.self)) {
                     continue;
                 }
@@ -261,7 +266,7 @@ class MLPhotoAssetsViewController: MBBaseViewController,MLPhotoCollectionViewDel
                     (selectAssetsCurrentPage >= 0)
                 ){
                     if (deleteAssets != nil){
-                        self.selectAssets.removeObjectAtIndex(selectAssetsCurrentPage)
+                        self.selectAssets.removeAtIndex(selectAssetsCurrentPage)
                     }
                     
                     self.collectionView.selectsIndexPath.removeObject(NSNumber(integer: selectAssetsCurrentPage))
@@ -306,9 +311,12 @@ class MLPhotoAssetsViewController: MBBaseViewController,MLPhotoCollectionViewDel
         
         // 赋值给上一个控制器
         self.groupVc?.topShowPhotoPicker = self.topShowPhotoPicker
-        if var selectAssets = NSArray(array: self.selectAssets) as? Array<MLPhotoAssets> {
+        if let selectAssets = NSArray(array: self.selectAssets) as? Array<MLPhotoAssets> {
             self.groupVc?.selectPickers = selectAssets
         }
+//        let assets = Array(array: self.selectAssets)
+//        self.groupVc?.selectPickers = self.selectAssets as? Array<MLPhotoAssets>
+//        self.groupVc?.selectPickers = self.selectAssets as? Array<MLPhotoAssets>
         
 //        // Clear
 //        if (self.collectionView.dataArray != nil){

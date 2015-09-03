@@ -59,17 +59,14 @@ class MLPhotoPickerDAO: NSObject {
     :param: groups 数组
     */
     func getAllGroups(groupsCallBack :((groups:Array<MLPhotoGroup>) -> Void)){
-        var groups:NSMutableArray = NSMutableArray()
+        var groups:Array = Array<MLPhotoGroup>()
         var resultBlock:ALAssetsLibraryGroupsEnumerationResultsBlock = { (group, stop:UnsafeMutablePointer<ObjCBool>) -> Void in
             if group != nil {
                 var gp = MLPhotoGroup()
                 gp.group = group
-                groups.addObject(gp)
+                groups.append(gp)
             }else{
-                var gps = NSMutableArray(array: groups)
-                groups.removeAllObjects()
-                var tempGroups = NSArray(array: gps)
-                groupsCallBack(groups:tempGroups as! Array<MLPhotoGroup>)
+                groupsCallBack(groups:groups)
             }
         }
         MLPhotoPickerDAO.sharedAssetsLibrary.enumerateGroupsWithTypes(ALAssetsGroupAll, usingBlock:resultBlock, failureBlock: nil)
@@ -81,17 +78,14 @@ class MLPhotoPickerDAO: NSObject {
     :param: groups 数组
     */
     func getAllAssetsWithGroup(group:MLPhotoGroup, assetsCallBack :((assets:Array<MLPhotoAssets>) -> Void)){
-        var assets:NSMutableArray = NSMutableArray()
+        var assets:Array = Array<MLPhotoAssets>()
         var resultBlock:ALAssetsGroupEnumerationResultsBlock = { (asset, index, stop:UnsafeMutablePointer<ObjCBool>) -> Void in
             if (asset != nil) {
                 var photoAssets = MLPhotoAssets()
                 photoAssets.asset = asset
-                assets.addObject(photoAssets)
+                assets.append(photoAssets)
             }else{
-                var realAssets = NSMutableArray(array: assets)
-                assets.removeAllObjects()
-                var tempAssets = NSArray(array: realAssets)
-                assetsCallBack(assets: tempAssets as! Array<MLPhotoAssets>)
+                assetsCallBack(assets: assets)
             }
         }
         group.group?.enumerateAssetsUsingBlock(resultBlock)
@@ -102,7 +96,9 @@ class MLPhotoAssets: NSObject{
     var asset:ALAsset!
     lazy var thumbImage:UIImage? = {
         if self.asset != nil {
-            return UIImage(CGImage: self.asset!.thumbnail().takeUnretainedValue())!
+            var imgRef = self.asset!.thumbnail().takeUnretainedValue()
+            let img = UIImage(CGImage: imgRef)
+            return img!
         }else{
             return nil
         }

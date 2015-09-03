@@ -56,7 +56,7 @@ class MLPhotoPickerBrowserScrollView: UIScrollView,MLPhotoPickerBrowserPhotoView
         self.addSubview(photoImageView!)
         
         // Setup
-        self.backgroundColor = UIColor.blackColor()
+        self.backgroundColor = UIColor.redColor()
         self.delegate = self
         self.showsHorizontalScrollIndicator = false
         self.showsVerticalScrollIndicator = false
@@ -80,7 +80,7 @@ class MLPhotoPickerBrowserScrollView: UIScrollView,MLPhotoPickerBrowserPhotoView
             photoImageView?.hidden = false
             // Set ImageView Frame
             // Sizes
-            var boundsSize = UIScreen.mainScreen().bounds.size
+            var boundsSize = self.bounds.size
             var imageSize = photoImageView!.image!.size
             
             var xScale = boundsSize.width / imageSize.width;    // the scale needed to perfectly fit the image width-wise
@@ -240,7 +240,7 @@ class MLPhotoPickerBrowserScrollView: UIScrollView,MLPhotoPickerBrowserPhotoView
     func photoPickerBrowserPhotoImageViewDoubleTapDetected(touch: UITouch) {
         self.handleDoubleTap(touch.locationInView(touch.view))
     }
-    
+
     func photoPickerBrowserPhotoViewSingleTapDetected(touch: UITouch) {
         self.disMissTap(nil)
     }
@@ -291,13 +291,13 @@ class MLPhotoPickerBrowserPhotoView: UIView {
     }
     
     func handleDoubleTap(touch:UITouch){
-        if self.delegate?.respondsToSelector("photoPickerBrowserPhotoViewDoubleTapDetected:") == false {
+        if self.delegate?.respondsToSelector("photoPickerBrowserPhotoViewDoubleTapDetected") == false {
             self.delegate?.photoPickerBrowserPhotoViewDoubleTapDetected(touch)
         }
     }
     
     func handleSingleTap(touch:UITouch){
-        if self.delegate?.respondsToSelector("photoPickerBrowserPhotoViewSingleTapDetected:") == false {
+        if self.delegate?.respondsToSelector("photoPickerBrowserPhotoViewSingleTapDetected") == false {
             self.delegate?.photoPickerBrowserPhotoViewSingleTapDetected(touch)
         }
     }
@@ -339,13 +339,13 @@ class MLPhotoPickerBrowserPhotoImageView: UIImageView {
     }
     
     func handleDoubleTap(touch:UITouch){
-        if self.delegate?.respondsToSelector("photoPickerBrowserPhotoImageViewDoubleTapDetected:") == false {
+        if self.delegate?.respondsToSelector("photoPickerBrowserPhotoImageViewDoubleTapDetected") == false {
             self.delegate?.photoPickerBrowserPhotoImageViewDoubleTapDetected(touch)
         }
     }
     
     func handleSingleTap(touch:UITouch){
-        if self.delegate?.respondsToSelector("photoPickerBrowserPhotoImageViewSingleTapDetected:") == false {
+        if self.delegate?.respondsToSelector("photoPickerBrowserPhotoImageViewSingleTapDetected") == false {
             self.delegate?.photoPickerBrowserPhotoImageViewSingleTapDetected(touch)
         }
     }

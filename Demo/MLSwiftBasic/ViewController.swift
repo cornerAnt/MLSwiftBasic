@@ -18,7 +18,7 @@ class MBExample: NSObject {
 class ViewController: MBBaseViewController {
     
     /// example list
-    var lists:NSArray {
+    var lists:Array<MBExample> {
         get {
             var example1:MBExample = MBExample()
             example1.title = "Demo1 (导航栏.标题/图片.设置按钮宽度等)"
@@ -106,14 +106,14 @@ class ViewController: MBBaseViewController {
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let identifier = "cell"
-        var example:MBExample = self.lists[indexPath.row] as! MBExample
+        var example:MBExample = self.lists[indexPath.row]
         var cell:UITableViewCell = tableView.dequeueReusableCellWithIdentifier(identifier, forIndexPath: indexPath) as! UITableViewCell
         cell.textLabel?.text = example.title
         return cell
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        var example:MBExample = self.lists[indexPath.row] as! MBExample
+        var example:MBExample = self.lists[indexPath.row]
         self.navigationController?.pushViewController(example.vc!, animated: true)
     }
 }

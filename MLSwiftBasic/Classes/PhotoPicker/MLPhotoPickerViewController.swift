@@ -110,13 +110,12 @@ class MLPhotoPickerViewController: MBBaseViewController {
     
     func done(noti:NSNotification){
         dispatch_async(dispatch_get_main_queue(), { () -> Void in
-            var userInfo:NSDictionary = noti.userInfo as! NSDictionary
-            var assets = userInfo["selectAssets"] as! Array<MLPhotoAssets>
-            
+            var userInfo = noti.userInfo as! [NSObject: Array<MLPhotoAssets>]
+            var assets = userInfo["selectAssets"]
             if (self.delegate?.respondsToSelector("photoPickerViewControllerDoneAssets:") != nil) {
-                self.delegate?.photoPickerViewControllerDoneAssets(assets)
+                self.delegate?.photoPickerViewControllerDoneAssets(assets!)
             }else if(self.callBackBlock != nil){
-                self.callBackBlock(assets:assets)
+                self.callBackBlock(assets:assets!)
             }
             self.dismissViewControllerAnimated(true, completion: nil)
         })

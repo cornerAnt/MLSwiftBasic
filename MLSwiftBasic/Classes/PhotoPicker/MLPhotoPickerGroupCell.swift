@@ -15,7 +15,11 @@ class MLPhotoPickerGroupCell: UITableViewCell {
     var countLabel:UILabel!
     var lineView:UIView!
     
-    override func willMoveToWindow(newWindow: UIWindow?) {
+    var currentGroup:MLPhotoGroup!
+    
+    override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
+        
         // UI
         imgView = UIImageView(frame: CGRectMake(GroupCellMargin, GroupCellMargin, GroupCellRowHeight - GroupCellMargin, GroupCellRowHeight - GroupCellMargin * 2))
         self.contentView.addSubview(imgView)
@@ -32,8 +36,11 @@ class MLPhotoPickerGroupCell: UITableViewCell {
         lineView.backgroundColor = UIColor(rgba: "e1e1e1")
         self.contentView.addSubview(lineView)
     }
+
+    required init(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
-    var currentGroup:MLPhotoGroup!
     var group:MLPhotoGroup {
         set{
             imgView.image = newValue.thumbImage
