@@ -9,6 +9,7 @@
 import UIKit
 
 let MLPhotoTakeDone = "MLPhotoTakeDone"
+let MLPhotoTakeRefersh = "MLPhotoTakeRefersh"
 
 // 状态组
 enum PhotoViewShowStatus:Int {

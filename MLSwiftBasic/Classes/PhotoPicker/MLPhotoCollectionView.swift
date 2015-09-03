@@ -110,26 +110,25 @@ class MLPhotoCollectionView: UICollectionView,UICollectionViewDataSource,UIColle
             cellImgView!.contentMode = .ScaleAspectFit;
             cellImgView!.clipsToBounds = true;
             cellImgView!.tag = indexPath.item;
-            cellImgView!.isMaskSelected = false
+            cellImgView?.maskImageView.hidden = true
             if var image = UIImage(named: MLPhotoPickerBundleName.stringByAppendingPathComponent("camera")){
                 cellImgView!.image = image
             }
         }else{
+            cellImgView?.maskImageView.hidden = false
             // 需要记录选中的值的数据
+            var number = NSNumber(integer: indexPath.row)
             if (self.isRecoderSelectPicker == true) {
                 for asset in self.selectAssets {
                     var dataAsset:MLPhotoAssets = self.dataArray[indexPath.item] as MLPhotoAssets
                     var selectRealAsset = asset
                     if selectRealAsset.asset.defaultRepresentation().url().isEqual(dataAsset.asset.defaultRepresentation().url()) {
-                        selectsIndexPath.append(NSNumber(integer: indexPath.row))
+                        selectsIndexPath.append(number)
                     }
                 }
             }
             
-            if (selectsIndexPath.containsObject(NSNumber(integer: indexPath.row))){
-                println(indexPath.row)
-            }
-            cellImgView!.isMaskSelected = selectsIndexPath.containsObject(NSNumber(integer: indexPath.row))
+            cellImgView!.isMaskSelected = selectsIndexPath.containsObject(number)
             cell.assets = self.dataArray[indexPath.row]
         }
         
@@ -149,12 +148,10 @@ class MLPhotoCollectionView: UICollectionView,UICollectionViewDataSource,UIColle
         var cellImgView:MLPhotoPickerCellImageView = (cell.contentView.subviews.last as? MLPhotoPickerCellImageView)!
         
         var asset = self.dataArray[indexPath.row]
+        var row = NSNumber(integer: indexPath.row)
         // 如果没有就添加到数组里面，存在就移除
         if (cellImgView.isMaskSelected == true) {
-            
-            var row = NSNumber(integer: indexPath.row)
-            
-            self.selectsIndexPath.removeObject(NSNumber(integer: indexPath.row))
+            self.selectsIndexPath.removeObject(row)
             self.selectAssets.removeObject(asset)
             self.lastDataArray.removeObject(asset)
         }else{
@@ -172,7 +169,7 @@ class MLPhotoCollectionView: UICollectionView,UICollectionViewDataSource,UIColle
                 return
             }
             
-            self.selectsIndexPath.append(NSNumber(integer: indexPath.row))
+            self.selectsIndexPath.append(row)
             self.selectAssets.append(asset)
             self.lastDataArray.append(asset)
         }

@@ -37,8 +37,8 @@ class MLPhotoPickerCellImageView: UIImageView {
     }
     
     lazy var maskImageView:UIImageView = {
-        var maskImageView = UIImageView(frame: CGRectMake(self.frame.width - 30, 0, 30, 30))
-        if var image = UIImage(named: MLPhotoPickerBundleName.stringByAppendingPathComponent("AssetsPickerChecked")){
+        var maskImageView = UIImageView(frame: CGRectMake(self.frame.width - 26, 5, 21, 21))
+        if var image = UIImage(named: MLPhotoPickerBundleName.stringByAppendingPathComponent("icon_image_no")){
             maskImageView.image = image
         }
         self.addSubview(maskImageView)
@@ -47,9 +47,11 @@ class MLPhotoPickerCellImageView: UIImageView {
     
     var isMaskSelected:Bool!{
         willSet{
-            self.maskImageView.hidden = !newValue
-            
+//            self.maskImageView.hidden = !newValue
             if newValue == true {
+                if var image = UIImage(named: MLPhotoPickerBundleName.stringByAppendingPathComponent("icon_image_yes")){
+                    self.maskImageView.image = image
+                }
                 self.maskImageView.layer.removeAllAnimations()
                 var scaleAnimation = CAKeyframeAnimation(keyPath: "transform.scale")
                 scaleAnimation.duration = 0.25
@@ -61,6 +63,10 @@ class MLPhotoPickerCellImageView: UIImageView {
                 ]
                 scaleAnimation.fillMode = kCAFillModeForwards
                 self.maskImageView.layer.addAnimation(scaleAnimation, forKey: "transform.rotate")
+            }else{
+                if var image = UIImage(named: MLPhotoPickerBundleName.stringByAppendingPathComponent("icon_image_no")){
+                    self.maskImageView.image = image
+                }
             }
             
         }

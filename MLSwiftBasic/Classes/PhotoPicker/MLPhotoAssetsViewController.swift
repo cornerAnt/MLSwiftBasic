@@ -198,6 +198,32 @@ class MLPhotoAssetsViewController: MBBaseViewController,MLPhotoCollectionViewDel
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "refresh:", name: MLPhotoTakeRefersh, object: nil)
+    }
+    
+    func refresh(noti:NSNotification){
+        
+        var userInfo = noti.userInfo as! [NSObject: Array<MLPhotoAssets>]
+        var assets = userInfo["selectAssets"]
+        
+        self.selectAssets = assets
+        self.collectionView.isRecoderSelectPicker = true
+        self.collectionView.selectsIndexPath.removeAll(keepCapacity: true)
+        self.collectionView.selectAssets = assets
+        self.collectionView.reloadData()
+        
+        var count = 0
+        if (self.collectionView.selectAssets.count < self.selectAssets.count) {
+            count = self.collectionView.selectAssets.count;
+        }else{
+            count = self.selectAssets.count;
+        }
+        
+        self.maskView.hidden = !(count > 0);
+        self.maskView.text = "\(count)"
+        self.doneBtn.enabled = (count > 0);
+        self.previewBtn.enabled = (count > 0);
     }
     
     func setupToolbar(){
@@ -218,7 +244,7 @@ class MLPhotoAssetsViewController: MBBaseViewController,MLPhotoCollectionViewDel
         var realAssets = NSMutableArray(array: self.selectAssets)
         var tempAssets = NSArray(array: realAssets)
         browserVc.photos = tempAssets as! Array<MLPhotoAssets>
-        browserVc.currentPage = 1
+        browserVc.currentPage = 0
         self.navigationController?.pushViewController(browserVc, animated: true)
     }
     
@@ -245,8 +271,7 @@ class MLPhotoAssetsViewController: MBBaseViewController,MLPhotoCollectionViewDel
             self.selectAssets.append(collectionView.selectAssets.last!)
         }
         
-        
-        if (deleteAssets != nil && self.selectPickerAssets != nil && self.selectPickerAssets.count > 0) {
+        if (deleteAssets != nil && self.selectAssets != nil && self.selectAssets.count > 0) {
             var selectAssetsCurrentPage = -1;
             for (var i = 0; i < self.selectAssets.count; i++) {
                 var photoAsset:MLPhotoAssets = self.selectAssets[i]
@@ -304,6 +329,10 @@ class MLPhotoAssetsViewController: MBBaseViewController,MLPhotoCollectionViewDel
         ]
         scaleAnimation.fillMode = kCAFillModeForwards
         self.maskView.layer.addAnimation(scaleAnimation, forKey: "transform.rotate")
+    }
+    
+    deinit{
+        NSNotificationCenter.defaultCenter().removeObserver(self)
     }
     
     override func viewWillDisappear(animated: Bool) {

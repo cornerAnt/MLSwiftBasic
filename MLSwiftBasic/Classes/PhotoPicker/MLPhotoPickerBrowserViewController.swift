@@ -13,11 +13,13 @@ let MLPhotoPickerBrowserCellIdentifier = "MLPhotoPickerCellIdentifier"
 
 class MLPhotoPickerBrowserViewController: MBBaseViewController,UICollectionViewDataSource,UICollectionViewDelegate,MLPhotoPickerBrowserScrollViewDelegate {
 
-    var doneAssets:NSMutableArray!
+    var doneAssets:Array<MLPhotoAssets>!
     var photos:Array<MLPhotoAssets>!{
         willSet{
             self.setBarButtonItemState(newValue.count > 0)
-            self.doneAssets = NSMutableArray(array: newValue)
+            self.maskView.hidden = !(newValue.count > 0)
+            self.maskView.text = "\(newValue.count)"
+            self.doneAssets = newValue
             self.reloadData()
         }
     }
@@ -57,7 +59,6 @@ class MLPhotoPickerBrowserViewController: MBBaseViewController,UICollectionViewD
         self.view.addSubview(collectionView)
 
         if self.isEditing == true {
-            self.maskView.hidden = !(self.photos != nil && self.photos.count > 0)
             // 初始化底部ToolBar
             self.setupToolBar()
         }
@@ -94,7 +95,7 @@ class MLPhotoPickerBrowserViewController: MBBaseViewController,UICollectionViewD
         deleleBtn.layer.cornerRadius = 15
         deleleBtn.frame = CGRectMake(self.view.frame.width - 50, 25, 30, 30)
         deleleBtn.titleLabel!.font = UIFont.systemFontOfSize(15)
-        if var image = UIImage(named: MLPhotoPickerBundleName.stringByAppendingPathComponent("AssetsPickerChecked")){
+        if var image = UIImage(named: MLPhotoPickerBundleName.stringByAppendingPathComponent("icon_image_yes")){
             deleleBtn.setImage(image, forState: .Normal)
         }
         deleleBtn.addTarget(self, action: "deleteAsset", forControlEvents: .TouchUpInside)
@@ -115,7 +116,6 @@ class MLPhotoPickerBrowserViewController: MBBaseViewController,UICollectionViewD
         // 中间距 右视图
         var fiexItem:UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: .FlexibleSpace, target: nil, action: nil)
         var rightItem:UIBarButtonItem = UIBarButtonItem(customView: self.doneBtn)
-        self.setBarButtonItemState(false)
         
         toolBar.setItems([fiexItem,rightItem], animated: false)
         self.view.addSubview(toolBar)
@@ -171,11 +171,9 @@ class MLPhotoPickerBrowserViewController: MBBaseViewController,UICollectionViewD
         if (state == true){
             doneBtn.setTitleColor(UIColor.blackColor(), forState: .Normal)
             doneBtn.userInteractionEnabled = true
-            maskView.hidden = false
         }else{
             doneBtn.setTitleColor(UIColor.grayColor(), forState: .Normal)
             doneBtn.userInteractionEnabled = false
-            maskView.hidden = true
         }
     }
     
@@ -218,13 +216,18 @@ class MLPhotoPickerBrowserViewController: MBBaseViewController,UICollectionViewD
         }
         self.collectionView.frame = tempF;
         
-        if(self.deleteAssets?.allValues.count == 0 || self.deleteAssets?.valueForKeyPath("\(currentPage)") == nil){
-            if var image = UIImage(named: MLPhotoPickerBundleName.stringByAppendingPathComponent("AssetsPickerChecked")){
+        
+        let pageInt:Int = currentPage
+        var currentPageStr:String = String(pageInt)
+        
+        if(self.deleteAssets?.allValues.count == 0 || self.deleteAssets?.valueForKeyPath(currentPageStr) == nil){
+            if var image = UIImage(named: MLPhotoPickerBundleName.stringByAppendingPathComponent("icon_image_yes")){
                 self.deleleBtn.setImage(image, forState: .Normal)
             }
         }else{
-            self.deleleBtn.setImage(nil, forState: .Normal)
-            self.deleleBtn.backgroundColor = UIColor.grayColor()
+            if var image = UIImage(named: MLPhotoPickerBundleName.stringByAppendingPathComponent("icon_image_no")){
+                self.deleleBtn.setImage(image, forState: .Normal)
+            }
         }
     }
     
@@ -240,30 +243,47 @@ class MLPhotoPickerBrowserViewController: MBBaseViewController,UICollectionViewD
     }
     
     func deleteAsset(){
-        var currentPage = "\(self.currentPage)"
+        let pageInt:Int = self.currentPage!
+        var currentPage:String = String(pageInt)
+
         if self.deleteAssets?.valueForKeyPath(currentPage) == nil {
             self.deleteAssets?.setObject(NSNumber(bool: true), forKey: currentPage)
-            self.deleleBtn.setImage(nil, forState: .Normal)
-            self.deleleBtn.backgroundColor = UIColor.grayColor()
+            if var image = UIImage(named: MLPhotoPickerBundleName.stringByAppendingPathComponent("icon_image_no")){
+                self.deleleBtn.setImage(image, forState: .Normal)
+            }
             if self.doneAssets.containsObject(self.photos[self.currentPage!]) == true {
                 self.doneAssets.removeObject(self.photos[self.currentPage!])
             }
         }else{
             if self.doneAssets.containsObject(self.photos[self.currentPage!]) == false {
-                self.doneAssets.addObject(self.photos[self.currentPage!])
+                self.doneAssets.append(self.photos[self.currentPage!])
             }
             self.deleteAssets?.removeObjectForKey(currentPage)
-            if var image = UIImage(named: MLPhotoPickerBundleName.stringByAppendingPathComponent("AssetsPickerChecked")){
+            if var image = UIImage(named: MLPhotoPickerBundleName.stringByAppendingPathComponent("icon_image_yes")){
                 self.deleleBtn.setImage(image, forState: .Normal)
             }
         }
         
+        self.setBarButtonItemState(self.doneAssets.count > 0)
+        self.maskView.hidden = !(self.doneAssets.count > 0)
         self.maskView.text = "\(self.doneAssets.count)"
     }
     
+    override func viewWillDisappear(animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        NSNotificationCenter.defaultCenter().postNotificationName(MLPhotoTakeRefersh, object: nil, userInfo: ["selectAssets":self.doneAssets])
+    }
     func setPageLabelPage(currentPage:Int){
         if self.photos != nil{
-            self.setTitleStr("\(currentPage)/\(self.photos.count)")
+            self.setTitleStr("\(currentPage + 1)/\(self.photos.count)")
         }
+    }
+    
+    func done(){
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), { () -> Void in
+            NSNotificationCenter.defaultCenter().postNotificationName(MLPhotoTakeDone, object: self, userInfo: ["selectAssets":self.doneAssets])
+        })
+        self.dismissViewControllerAnimated(true, completion: nil)
     }
 }
