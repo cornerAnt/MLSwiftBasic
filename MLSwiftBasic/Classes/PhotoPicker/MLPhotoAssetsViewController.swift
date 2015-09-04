@@ -39,9 +39,12 @@ class MLPhotoAssetsViewController: MBBaseViewController,MLPhotoCollectionViewDel
             }
             if (newValue == true && self.collectionView.dataArray != nil) {
                 var reSortArray = Array<MLPhotoAssets>()
-                var mlAsset = MLPhotoAssets()
-                mlAsset.asset = nil
-                reSortArray.append(mlAsset)
+
+                if (self.status != nil && self.status != PhotoViewShowStatus.PhotoViewShowStatusVideo){
+                    var mlAsset = MLPhotoAssets()
+                    mlAsset.asset = nil
+                    reSortArray.append(mlAsset)
+                }
                 
                 if self.collectionView.dataArray != nil {
                     for obj in self.collectionView.dataArray.reverse() {
@@ -74,9 +77,12 @@ class MLPhotoAssetsViewController: MBBaseViewController,MLPhotoCollectionViewDel
                             reSortArray.append(obj)
                         }
                     }
-                    var mlAsset = MLPhotoAssets()
-                    mlAsset.asset = nil
-                    reSortArray.insert(mlAsset, atIndex: 0)
+                    
+                    if (self!.status != nil && self!.status != PhotoViewShowStatus.PhotoViewShowStatusVideo){
+                        var mlAsset = MLPhotoAssets()
+                        mlAsset.asset = nil
+                        reSortArray.insert(mlAsset, atIndex: 0)
+                    }
                     
                     self?.collectionView.cellOrderStatus = .MLPhotoCollectionCellShowOrderStatusAsc
                     self?.collectionView.topShowPhotoPicker = self?.topShowPhotoPicker
@@ -138,6 +144,7 @@ class MLPhotoAssetsViewController: MBBaseViewController,MLPhotoCollectionViewDel
         flowLayout.footerReferenceSize = CGSizeMake(self.view.frame.size.width, CGFloat(KMLPhotoAssetsToolBarHeight) * 2.0);
         
         var collectionView:MLPhotoCollectionView = MLPhotoCollectionView(frame: CGRectMake(0, TOP_Y + MARGIN_8, self.view.frame.width, self.view.frame.height - TOP_Y - MARGIN_8 - CGFloat(KMLPhotoAssetsToolBarHeight)), collectionViewLayout: flowLayout)
+        collectionView.status = self.status
         collectionView.mlDelegate = self
         collectionView.registerClass(MLPhotoAssetsFooterView.self, forSupplementaryViewOfKind: UICollectionElementKindSectionFooter,withReuseIdentifier: "FooterView")
         

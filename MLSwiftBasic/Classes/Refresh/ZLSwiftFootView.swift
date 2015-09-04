@@ -42,7 +42,6 @@ public class ZLSwiftFootView: UIView {
         super.init(frame: frame)
         self.backgroundColor = UIColor(red: 222.0/255.0, green: 222.0/255.0, blue: 222.0/255.0, alpha: 1.0)
         self.setupUI()
-        
     }
     
     public required init(coder aDecoder: NSCoder) {

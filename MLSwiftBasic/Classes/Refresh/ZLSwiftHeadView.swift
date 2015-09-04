@@ -25,16 +25,16 @@ public class ZLSwiftHeadView: UIView {
         willSet {
             if (newValue == true){
                 self.nowLoading = newValue
-                self.scrollView.contentOffset = CGPointMake(0, -ZLSwithRefreshHeadViewHeight)
+                self.scrollView.contentOffset = CGPointMake(0, -ZLSwithRefreshHeadViewHeight)//UIEdgeInsetsMake(ZLSwithRefreshHeadViewHeight, 0, self.scrollView.contentInset.bottom, 0)
             }
         }
     }
     
     var action: (() -> ()) = {}
-    var nowAction: (() -> ()) = {}    
+    var nowAction: (() -> ()) = {}
     private var refreshTempAction:(() -> Void) = {}
     
-
+    
     convenience init(action :(() -> ()), frame: CGRect) {
         self.init(frame: frame)
         self.action = action
@@ -61,10 +61,8 @@ public class ZLSwiftHeadView: UIView {
                     self.headImageView.image = self.imageBundleWithNamed(named: "arrow")
                 }
             }else{
-                if (self.pullImages.count > newValue.toInt()){
-                    var image = self.pullImages[newValue.toInt()!]
-                    self.headImageView.image = image
-                }
+                var image = self.pullImages[newValue.toInt()!]
+                self.headImageView.image = image
             }
         }
         
@@ -74,7 +72,6 @@ public class ZLSwiftHeadView: UIView {
     }
     
     func setupUI(){
-        
         var headImageView:UIImageView = UIImageView(frame: CGRectZero)
         headImageView.contentMode = .Center
         headImageView.clipsToBounds = true;
@@ -92,10 +89,11 @@ public class ZLSwiftHeadView: UIView {
         self.addSubview(activityView)
         self.activityView = activityView
     }
-
+    
     func startAnimation(){
+        
         if (self.activityView?.isAnimating() == true){
-            return;
+            return ;
         }
         
         if (!self.customAnimation){
@@ -107,9 +105,9 @@ public class ZLSwiftHeadView: UIView {
                         results.append(image)
                     }
                 }
-                self.activityView?.alpha = 0.0
                 self.headImageView.animationImages = results as [AnyObject]?
                 self.headImageView.animationDuration = 0.6
+                self.activityView?.alpha = 0.0
             }else{
                 self.activityView?.alpha = 1.0
                 self.headImageView.hidden = true
@@ -134,19 +132,17 @@ public class ZLSwiftHeadView: UIView {
             if (abs(self.scrollView.contentOffset.y) >= self.getNavigationHeight() + ZLSwithRefreshHeadViewHeight){
                 self.scrollView.contentInset = UIEdgeInsetsMake(self.getNavigationHeight(), 0, self.scrollView.contentInset.bottom, 0)
             }else{
-                if (self.getNavigationHeight() < self.scrollView.contentOffset.y){
-                    self.scrollView.contentInset = UIEdgeInsetsMake(self.getNavigationHeight() + self.scrollView.contentOffset.y, 0, self.scrollView.contentInset.bottom, 0)
-                }else{
-                    self.scrollView.contentInset = UIEdgeInsetsMake(self.getNavigationHeight(), 0, self.scrollView.contentInset.bottom, 0)    
-                }
+                self.scrollView.contentInset = UIEdgeInsetsMake(self.getNavigationHeight(), 0, self.scrollView.contentInset.bottom, 0)
             }
         })
         
         if (self.animationStatus == .headerViewRefreshArrowAnimation){
             self.headImageView.hidden = false
+            self.activityView?.alpha = 0.0
+        }else{
+            self.activityView?.alpha = 1.0
+            self.headImageView.stopAnimating()
         }
-        self.headImageView.stopAnimating()
-        self.activityView?.alpha = 1.0
         self.activityView?.stopAnimating()
     }
     
@@ -168,19 +164,15 @@ public class ZLSwiftHeadView: UIView {
         }
     }
     
-    func imageBundleWithNamed(#named: String!) -> UIImage{
-        return UIImage(named: ZLSwiftRefreshBundleName.stringByAppendingPathComponent(named))!
-    }
-    
     //MARK: KVO methods
     public override func observeValueForKeyPath(keyPath: String, ofObject object: AnyObject, change: [NSObject : AnyObject], context: UnsafeMutablePointer<()>) {
         
-        if (self.activityView!.isAnimating()){
+        if (self.action == nil) {
             return;
         }
         
-        if (self.action == nil) {
-            return;
+        if (self.activityView?.isAnimating() == true){
+            return ;
         }
         
         var scrollView:UIScrollView = self.scrollView
@@ -202,7 +194,7 @@ public class ZLSwiftHeadView: UIView {
             // 上拉刷新
             self.headLabel.text = ZLSwithRefreshRecoderText
             if scrollView.dragging == false && self.headImageView.isAnimating() == false{
-                if (refreshTempAction != nil && (self.activityView!.isAnimating() == false)){
+                if refreshTempAction != nil {
                     refreshStatus = .Refresh
                     self.startAnimation()
                     UIView.animateWithDuration(0.25, animations: { () -> Void in
@@ -296,7 +288,10 @@ public class ZLSwiftHeadView: UIView {
         }
         return self.getViewControllerWithView(vcView.superview!)
     }
-
+    
+    func imageBundleWithNamed(#named: String!) -> UIImage{
+        return UIImage(named: ZLSwiftRefreshBundleName.stringByAppendingPathComponent(named))!
+    }
     
     deinit{
         var scrollView = superview as? UIScrollView

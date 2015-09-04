@@ -32,28 +32,28 @@ class Demo7ViewController: MBBaseViewController,UITableViewDataSource,UITableVie
        tableView.headerViewRefreshAnimationStatus(.headerViewRefreshArrowAnimation, images: [])
         
         // 上啦加载更多
-        tableView.toLoadMoreAction({ () -> () in
+        tableView.toLoadMoreAction({[weak tableView] () -> () in
             println("toLoadMoreAction success")
             if self.listsCount == 100{
                 // 表示数据加载完毕
-                tableView.endLoadMoreData()
+                tableView!.endLoadMoreData()
             }else{
                 self.listsCount += 20
             }
             
             // 结束动画
-            tableView.doneRefresh()
-            tableView.reloadData()
+            tableView!.doneRefresh()
+            tableView!.reloadData()
         })
         
         // 及时上拉刷新
-        tableView.nowRefresh({ () -> Void in
+        tableView.nowRefresh({ [weak tableView]() -> Void in
             dispatch_after(dispatch_time(
                 DISPATCH_TIME_NOW,
                 Int64(2.0 * Double(NSEC_PER_SEC))
                 ), dispatch_get_main_queue(), { () -> Void in
                     // 结束动画
-                    tableView.doneRefresh()
+                    tableView!.doneRefresh()
             })
         })
         

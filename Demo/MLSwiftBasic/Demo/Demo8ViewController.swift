@@ -72,7 +72,6 @@ class Demo8ViewController: MBBaseViewController,UITableViewDataSource,UITableVie
         
         // 及时上拉刷新
         tableView.nowRefresh({ () -> Void in
-            println(" --- ")
             dispatch_after(dispatch_time(
                 DISPATCH_TIME_NOW,
                 Int64(2.0 * Double(NSEC_PER_SEC))
@@ -97,6 +96,6 @@ class Demo8ViewController: MBBaseViewController,UITableViewDataSource,UITableVie
     }
     
     override func titleStr() -> String {
-        return "下拉刷新/上拉加载更多 效果2"
+        return "下拉刷新/上拉加载更多 自定义动画"
     }
 }

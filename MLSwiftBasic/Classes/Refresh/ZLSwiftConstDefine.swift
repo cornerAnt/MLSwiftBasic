@@ -8,7 +8,6 @@
 
 import UIKit
 
-
 let ZLSwiftHeadViewTag = 101
 let ZLSwiftFootViewTag = 102
 

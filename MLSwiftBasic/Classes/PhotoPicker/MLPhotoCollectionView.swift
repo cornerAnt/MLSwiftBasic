@@ -20,7 +20,7 @@ class MLPhotoCollectionView: UICollectionView,UICollectionViewDataSource,UIColle
     
     var cellOrderStatus:MLPhotoCollectionCellShowOrderStatus?
     var topShowPhotoPicker:Bool!
-    
+    var status:PhotoViewShowStatus!
     var isRecoderSelectPicker:Bool!
     var maxCount:NSInteger!
     var firstLoadding:Bool?
@@ -106,7 +106,7 @@ class MLPhotoCollectionView: UICollectionView,UICollectionViewDataSource,UIColle
         var cellImgView:MLPhotoPickerCellImageView? = cell.thumbImageView
         
         if(indexPath.item == 0 && self.topShowPhotoPicker != nil
-             && self.topShowPhotoPicker == true){
+             && self.topShowPhotoPicker == true && self.status != PhotoViewShowStatus.PhotoViewShowStatusVideo){
             cellImgView!.contentMode = .ScaleAspectFit;
             cellImgView!.clipsToBounds = true;
             cellImgView!.tag = indexPath.item;
@@ -143,7 +143,7 @@ class MLPhotoCollectionView: UICollectionView,UICollectionViewDataSource,UIColle
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
         var cell:MLPhotoAssetsCell = collectionView.cellForItemAtIndexPath(indexPath) as! MLPhotoAssetsCell
         
-        if (self.topShowPhotoPicker != nil && self.topShowPhotoPicker == true && indexPath.item == 0) {
+        if (self.topShowPhotoPicker != nil && self.topShowPhotoPicker == true && indexPath.item == 0 && self.status != PhotoViewShowStatus.PhotoViewShowStatusVideo) {
             if (self.mlDelegate!.respondsToSelector("photoCollectionViewDidCameraSelectCollectionView:")) {
                 self.mlDelegate!.photoCollectionViewDidCameraSelectCollectionView!(self)
             }

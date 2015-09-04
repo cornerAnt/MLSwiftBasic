@@ -75,8 +75,33 @@ class ViewController: MBBaseViewController,UITableViewDataSource,UITableViewDele
         group3.groupName = "下拉刷新"
         group3.examples = [groupItem30,groupItem31,groupItem32]
         
+        // Group5 : <Browser 图片浏览器>
+        var group4 = MBExampleGroup()
+        group4.groupName = "《图片浏览器》"
+        group4.examples = []
+        
+        // Group6 : <HUD 提示器>
+        var group5 = MBExampleGroup()
+        group5.groupName = "《HUD》"
+        group5.examples = []
+        
+        // Group7 : <Address 通讯录>
+        var group6 = MBExampleGroup()
+        group6.groupName = "《自定义通讯录》"
+        group6.examples = []
+        
+        // Group8 : <Property 字典转模型>
+        var group7 = MBExampleGroup()
+        group7.groupName = "《字典转模型》"
+        group7.examples = []
+        
+        // Group9 : <Property 字典转模型>
+        var group8 = MBExampleGroup()
+        group8.groupName = "《某某某》项目实践"
+        group8.examples = []
+        
         return [
-            group0,group1,group2,group3
+            group0,group1,group2,group3,group4,group5,group6,group7,group8
         ]
     }()
     

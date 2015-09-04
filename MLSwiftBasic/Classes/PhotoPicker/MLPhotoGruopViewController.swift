@@ -80,6 +80,7 @@ class MLPhotoGruopViewController: MBBaseViewController,UITableViewDataSource,UIT
         if var selectPickers = self.selectPickers {
             assetsVc.selectPickerAssets = selectPickers
         }
+        assetsVc.status = self.status
         assetsVc.group = gp
         assetsVc.topShowPhotoPicker = self.topShowPhotoPicker
         assetsVc.groupVc = self
@@ -126,7 +127,7 @@ class MLPhotoGruopViewController: MBBaseViewController,UITableViewDataSource,UIT
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         // Jump AssetsVc
         var assetsVc = MLPhotoAssetsViewController()
-        
+        assetsVc.status = self.status
         if var selectPickers = self.selectPickers {
             assetsVc.selectPickerAssets = selectPickers
         }

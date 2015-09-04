@@ -36,12 +36,12 @@
 		487C43A41B97E43C001574F2 /* MBIBDesignableExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 487C43A01B97E43C001574F2 /* MBIBDesignableExtension.swift */; };
 		487D67A51B5BB46E007871CF /* Demo5ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 487D67A41B5BB46E007871CF /* Demo5ViewController.swift */; };
 		487D67AC1B5BE240007871CF /* Demo6ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 487D67AB1B5BE240007871CF /* Demo6ViewController.swift */; };
-		4880A3901B98B08B009D9644 /* ZLSwiftConstDefine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4880A38B1B98B08B009D9644 /* ZLSwiftConstDefine.swift */; };
-		4880A3911B98B08B009D9644 /* ZLSwiftFootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4880A38C1B98B08B009D9644 /* ZLSwiftFootView.swift */; };
-		4880A3921B98B08B009D9644 /* ZLSwiftHeadView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4880A38D1B98B08B009D9644 /* ZLSwiftHeadView.swift */; };
 		4880A3931B98B08B009D9644 /* ZLSwiftRefresh.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 4880A38E1B98B08B009D9644 /* ZLSwiftRefresh.bundle */; };
-		4880A3941B98B08B009D9644 /* ZLSwiftRefreshExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4880A38F1B98B08B009D9644 /* ZLSwiftRefreshExtension.swift */; };
 		4880A3961B992FEF009D9644 /* Demo9ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4880A3951B992FEF009D9644 /* Demo9ViewController.swift */; };
+		4880A39D1B994C07009D9644 /* ZLSwiftConstDefine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4880A3991B994C07009D9644 /* ZLSwiftConstDefine.swift */; };
+		4880A39E1B994C07009D9644 /* ZLSwiftFootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4880A39A1B994C07009D9644 /* ZLSwiftFootView.swift */; };
+		4880A39F1B994C07009D9644 /* ZLSwiftHeadView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4880A39B1B994C07009D9644 /* ZLSwiftHeadView.swift */; };
+		4880A3A01B994C07009D9644 /* ZLSwiftRefreshExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4880A39C1B994C07009D9644 /* ZLSwiftRefreshExtension.swift */; };
 		488E37071B930687003C37D1 /* MLPhotoAssetsFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 488E37061B930687003C37D1 /* MLPhotoAssetsFooterView.swift */; };
 		48B730EA1B8F1F0200BB20D4 /* MLPhotoPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48B730E91B8F1F0200BB20D4 /* MLPhotoPickerViewController.swift */; };
 		48B730EC1B8F20F700BB20D4 /* MLPhotoPickerDAO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48B730EB1B8F20F700BB20D4 /* MLPhotoPickerDAO.swift */; };
@@ -96,12 +96,12 @@
 		487C43A01B97E43C001574F2 /* MBIBDesignableExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MBIBDesignableExtension.swift; sourceTree = "<group>"; };
 		487D67A41B5BB46E007871CF /* Demo5ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Demo5ViewController.swift; sourceTree = "<group>"; };
 		487D67AB1B5BE240007871CF /* Demo6ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Demo6ViewController.swift; sourceTree = "<group>"; };
-		4880A38B1B98B08B009D9644 /* ZLSwiftConstDefine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZLSwiftConstDefine.swift; sourceTree = "<group>"; };
-		4880A38C1B98B08B009D9644 /* ZLSwiftFootView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZLSwiftFootView.swift; sourceTree = "<group>"; };
-		4880A38D1B98B08B009D9644 /* ZLSwiftHeadView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZLSwiftHeadView.swift; sourceTree = "<group>"; };
 		4880A38E1B98B08B009D9644 /* ZLSwiftRefresh.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = ZLSwiftRefresh.bundle; sourceTree = "<group>"; };
-		4880A38F1B98B08B009D9644 /* ZLSwiftRefreshExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZLSwiftRefreshExtension.swift; sourceTree = "<group>"; };
 		4880A3951B992FEF009D9644 /* Demo9ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Demo9ViewController.swift; sourceTree = "<group>"; };
+		4880A3991B994C07009D9644 /* ZLSwiftConstDefine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZLSwiftConstDefine.swift; sourceTree = "<group>"; };
+		4880A39A1B994C07009D9644 /* ZLSwiftFootView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZLSwiftFootView.swift; sourceTree = "<group>"; };
+		4880A39B1B994C07009D9644 /* ZLSwiftHeadView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZLSwiftHeadView.swift; sourceTree = "<group>"; };
+		4880A39C1B994C07009D9644 /* ZLSwiftRefreshExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZLSwiftRefreshExtension.swift; sourceTree = "<group>"; };
 		488E37061B930687003C37D1 /* MLPhotoAssetsFooterView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MLPhotoAssetsFooterView.swift; sourceTree = "<group>"; };
 		48B730E91B8F1F0200BB20D4 /* MLPhotoPickerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MLPhotoPickerViewController.swift; sourceTree = "<group>"; };
 		48B730EB1B8F20F700BB20D4 /* MLPhotoPickerDAO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MLPhotoPickerDAO.swift; sourceTree = "<group>"; };
@@ -269,11 +269,11 @@
 		4880A38A1B98B08B009D9644 /* Refresh */ = {
 			isa = PBXGroup;
 			children = (
-				4880A38B1B98B08B009D9644 /* ZLSwiftConstDefine.swift */,
-				4880A38C1B98B08B009D9644 /* ZLSwiftFootView.swift */,
-				4880A38D1B98B08B009D9644 /* ZLSwiftHeadView.swift */,
+				4880A3991B994C07009D9644 /* ZLSwiftConstDefine.swift */,
+				4880A39A1B994C07009D9644 /* ZLSwiftFootView.swift */,
+				4880A39B1B994C07009D9644 /* ZLSwiftHeadView.swift */,
+				4880A39C1B994C07009D9644 /* ZLSwiftRefreshExtension.swift */,
 				4880A38E1B98B08B009D9644 /* ZLSwiftRefresh.bundle */,
-				4880A38F1B98B08B009D9644 /* ZLSwiftRefreshExtension.swift */,
 			);
 			path = Refresh;
 			sourceTree = "<group>";
@@ -414,27 +414,27 @@
 				48EB19AA1B4A7F0400F75A5F /* Demo4ViewController.swift in Sources */,
 				4880A3961B992FEF009D9644 /* Demo9ViewController.swift in Sources */,
 				4828C4DB1B5E7E1500DA9F52 /* MBBaseVisualHeaderView.swift in Sources */,
+				4880A39D1B994C07009D9644 /* ZLSwiftConstDefine.swift in Sources */,
+				4880A39F1B994C07009D9644 /* ZLSwiftHeadView.swift in Sources */,
 				48EB19A81B4A75D600F75A5F /* Demo3ViewController.swift in Sources */,
 				487C43A31B97E43C001574F2 /* MB+UIImageView.swift in Sources */,
 				4828C4D31B5E7E1500DA9F52 /* MBNavigationViewController.swift in Sources */,
 				4828C4E11B5E821B00DA9F52 /* MBBaseCommon.swift in Sources */,
-				4880A3921B98B08B009D9644 /* ZLSwiftHeadView.swift in Sources */,
 				4828C4D11B5E7E1500DA9F52 /* MBBaseViewController.swift in Sources */,
 				48B730EC1B8F20F700BB20D4 /* MLPhotoPickerDAO.swift in Sources */,
 				4828C5141B60D01B00DA9F52 /* Demo8ViewController.swift in Sources */,
 				484987631B4A5F4500051493 /* Demo1ViewController.swift in Sources */,
-				4880A3911B98B08B009D9644 /* ZLSwiftFootView.swift in Sources */,
+				4880A39E1B994C07009D9644 /* ZLSwiftFootView.swift in Sources */,
 				487D67AC1B5BE240007871CF /* Demo6ViewController.swift in Sources */,
 				488E37071B930687003C37D1 /* MLPhotoAssetsFooterView.swift in Sources */,
-				4880A3901B98B08B009D9644 /* ZLSwiftConstDefine.swift in Sources */,
 				480FFE7C1B5E0CD70045556A /* Demo7ViewController.swift in Sources */,
 				48B730EA1B8F1F0200BB20D4 /* MLPhotoPickerViewController.swift in Sources */,
 				486CC1471B91B92800798F68 /* MLPhotoCollectionView.swift in Sources */,
 				48143ECE1B67804A008DE6F3 /* MLProgressHUD.swift in Sources */,
-				4880A3941B98B08B009D9644 /* ZLSwiftRefreshExtension.swift in Sources */,
 				48B730F51B90667800BB20D4 /* MLPhotoPickerGroupCell.swift in Sources */,
 				487C43A21B97E43C001574F2 /* MB+UIColor.swift in Sources */,
 				4828C4D21B5E7E1500DA9F52 /* MBNavigationBarView.swift in Sources */,
+				4880A3A01B994C07009D9644 /* ZLSwiftRefreshExtension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
