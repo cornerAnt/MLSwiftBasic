@@ -2,11 +2,10 @@
 集合`自定义导航栏`、`下拉刷新/上拉加载更多`、`视觉效果`、`好用分类`等等一系列，却耦合性很低的Swift库!
 
 ### Demo or Gif
-##### New Gif
-![image](https://github.com/MakeZL/MLSwiftBasic/blob/master/ScreenShots/Demo4.gif)
-
-![image](https://github.com/MakeZL/MLSwiftBasic/blob/master/ScreenShots/Demo1.gif)
-![image](https://github.com/MakeZL/MLSwiftBasic/blob/master/ScreenShots/Demo2.gif)
+![image](https://github.com/MakeZL/MLSwiftBasic/blob/master/ScreenShots/Demo_1.png)
+![image](https://github.com/MakeZL/MLSwiftBasic/blob/master/ScreenShots/Demo_2.gif)
+![image](https://github.com/MakeZL/MLSwiftBasic/blob/master/ScreenShots/Demo_3.gif)
+![image](https://github.com/MakeZL/MLSwiftBasic/blob/master/ScreenShots/Demo_4.gif)
 ![image](https://github.com/MakeZL/MLSwiftBasic/blob/master/ScreenShots/Demo3.gif)
 
 ### 新特性
@@ -21,7 +20,7 @@
 
 `1> 自定义导航栏、监听事件`
 
-`2> 滚动效果`
+`2> 视图滚动效果`
 
 `3> 正在筹备一些分类，期待您的PullRequest`
 
@@ -33,15 +32,13 @@
 
 准备迭代：
 
-6> 提示框HUD
+7> 提示框HUD
 
-7> iOS7的手势
+8> iOS7的手势
 
-8> 图片浏览器
+9> 图片浏览器
 
-9> 字典转模型
-
-10> CoreText解析HTML库
+10> 字典转模型
 
 11> 联系通讯录
 
