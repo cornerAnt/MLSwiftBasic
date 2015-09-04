@@ -70,7 +70,7 @@ class MLPhotoAssetsViewController: MBBaseViewController,MLPhotoCollectionViewDel
                     var reversObjects:Array = assets
                     var reSortArray:Array = Array<MLPhotoAssets>()
                     if  reversObjects.count > 0 {
-                        for obj in reversObjects {
+                        for obj in reversObjects.reverse() {
                             reSortArray.append(obj)
                         }
                     }

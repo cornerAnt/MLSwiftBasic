@@ -7,12 +7,14 @@
 //
 
 import UIKit
+import MediaPlayer
 
 let MLPhotoPickerBrowserCellPadding:CGFloat = 10
 let MLPhotoPickerBrowserCellIdentifier = "MLPhotoPickerCellIdentifier"
 
 class MLPhotoPickerBrowserViewController: MBBaseViewController,UICollectionViewDataSource,UICollectionViewDelegate,MLPhotoPickerBrowserScrollViewDelegate {
 
+    var moviePlayer:MPMoviePlayerController?
     var doneAssets:Array<MLPhotoAssets>!
     var photos:Array<MLPhotoAssets>!{
         willSet{
@@ -146,14 +148,27 @@ class MLPhotoPickerBrowserViewController: MBBaseViewController,UICollectionViewD
             
             var scrollView = MLPhotoPickerBrowserScrollView(frame: CGRectMake(0, 0, self.view.frame.width, self.view.frame.height - TOP_Y))
             if (self.sheet != nil || self.isShowShowSheet == true) {
-                scrollView.sheet = self.sheet;
+                scrollView.sheet = self.sheet
             }
             scrollView.backgroundColor = UIColor.clearColor()
             // 为了监听单击photoView事件
             scrollView.photoScrollViewDelegate = self
             scrollView.photo = photo
             scrollBoxView.addSubview(scrollView)
-            scrollView.autoresizingMask = .FlexibleHeight | .FlexibleWidth;
+            scrollView.autoresizingMask = .FlexibleHeight | .FlexibleWidth
+            
+            if photo.isVideo == true {
+                scrollView.scrollEnabled = false
+                var videoBtn = UIButton()
+                videoBtn.setImage(UIImage(named: MLPhotoPickerBundleName.stringByAppendingPathComponent("video-play")), forState: .Normal)
+                videoBtn.frame = scrollBoxView.bounds
+                videoBtn.tag = indexPath.row
+                videoBtn.imageView!.contentMode = .Center
+                videoBtn.addTarget(self, action: "playerVideo:", forControlEvents: .TouchUpInside)
+                scrollBoxView.addSubview(videoBtn)
+            }else{
+                scrollView.scrollEnabled = true
+            }
         }
         
         return cell
@@ -274,9 +289,39 @@ class MLPhotoPickerBrowserViewController: MBBaseViewController,UICollectionViewD
         
         NSNotificationCenter.defaultCenter().postNotificationName(MLPhotoTakeRefersh, object: nil, userInfo: ["selectAssets":self.doneAssets])
     }
+    
     func setPageLabelPage(currentPage:Int){
         if self.photos != nil{
             self.setTitleStr("\(currentPage + 1)/\(self.photos.count)")
+        }
+    }
+    
+    func playerVideo(button:UIButton){
+        var asset = self.photos[button.tag];
+        if (asset.isKindOfClass(MLPhotoAssets.self)){
+            // 设置视频播放器
+            self.moviePlayer = MPMoviePlayerController(contentURL: asset.asset.defaultRepresentation().url())
+            self.moviePlayer!.allowsAirPlay = true
+            self.moviePlayer?.scalingMode = .AspectFit
+            self.moviePlayer!.view.frame = self.view.frame
+            self.view.addSubview(self.moviePlayer!.view)
+            
+            NSNotificationCenter.defaultCenter().addObserver(self, selector: "playVideoFinished", name: MPMoviePlayerPlaybackDidFinishNotification, object: nil)
+            
+            NSNotificationCenter.defaultCenter().addObserver(self, selector: "playVideoFinished", name: MPMoviePlayerWillExitFullscreenNotification, object: nil)
+            self.moviePlayer?.play()
+        }
+    }
+    
+    func playVideoFinished(){
+        // 取消监听
+        NSNotificationCenter.defaultCenter().removeObserver(self, name: MPMoviePlayerPlaybackDidFinishNotification , object: nil)
+        NSNotificationCenter.defaultCenter().removeObserver(self, name: MPMoviePlayerWillExitFullscreenNotification , object: nil)
+     
+        UIView.animateWithDuration(0.25, animations: { () -> Void in
+            self.moviePlayer?.view.alpha = 0.0
+        }) { (flag) -> Void in
+            self.moviePlayer?.view.removeFromSuperview()
         }
     }
     

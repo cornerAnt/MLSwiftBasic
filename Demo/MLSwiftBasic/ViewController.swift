@@ -40,10 +40,13 @@ class ViewController: MBBaseViewController,UITableViewDataSource,UITableViewDele
         var groupItem11:MBExample = MBExample()
         groupItem11.title = "Demo3 (相册多选2/复杂效果)"
         groupItem11.vc = Demo3ViewController()
+        var groupItem12:MBExample = MBExample()
+        groupItem12.title = "Demo9 (相册多选3/选择视频)"
+        groupItem12.vc = Demo9ViewController()
         // create Group
         var group1 = MBExampleGroup()
         group1.groupName = "相册多选"
-        group1.examples = [groupItem10,groupItem11]
+        group1.examples = [groupItem10,groupItem11,groupItem12]
         
         // Group3 : <Visual 导航栏>
         var groupItem20:MBExample = MBExample()

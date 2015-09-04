@@ -36,11 +36,24 @@ class MLPhotoGruopViewController: MBBaseViewController,UITableViewDataSource,UIT
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.setupGroups()
+    }
+    
+    func setupGroups(){
         weak var tableView = self.setupTableView()
-        MLPhotoPickerDAO().getAllGroups({ [weak self](groups) -> Void in
-            self!.groups = groups
-            tableView!.reloadData()
-        })
+        // 获取视频
+        if self.status == PhotoViewShowStatus.PhotoViewShowStatusVideo{
+            MLPhotoPickerDAO().getAllVideoGroups({ [weak self](groups) -> Void in
+                self!.groups = groups
+                tableView!.reloadData()
+            })
+        }else{
+            // 获取普通的组
+            MLPhotoPickerDAO().getAllGroups({ [weak self](groups) -> Void in
+                self!.groups = groups
+                tableView!.reloadData()
+            })
+        }
     }
     
     func jumpToStatusVc(){

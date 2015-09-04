@@ -41,6 +41,7 @@
 		4880A3921B98B08B009D9644 /* ZLSwiftHeadView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4880A38D1B98B08B009D9644 /* ZLSwiftHeadView.swift */; };
 		4880A3931B98B08B009D9644 /* ZLSwiftRefresh.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 4880A38E1B98B08B009D9644 /* ZLSwiftRefresh.bundle */; };
 		4880A3941B98B08B009D9644 /* ZLSwiftRefreshExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4880A38F1B98B08B009D9644 /* ZLSwiftRefreshExtension.swift */; };
+		4880A3961B992FEF009D9644 /* Demo9ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4880A3951B992FEF009D9644 /* Demo9ViewController.swift */; };
 		488E37071B930687003C37D1 /* MLPhotoAssetsFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 488E37061B930687003C37D1 /* MLPhotoAssetsFooterView.swift */; };
 		48B730EA1B8F1F0200BB20D4 /* MLPhotoPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48B730E91B8F1F0200BB20D4 /* MLPhotoPickerViewController.swift */; };
 		48B730EC1B8F20F700BB20D4 /* MLPhotoPickerDAO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48B730EB1B8F20F700BB20D4 /* MLPhotoPickerDAO.swift */; };
@@ -100,6 +101,7 @@
 		4880A38D1B98B08B009D9644 /* ZLSwiftHeadView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZLSwiftHeadView.swift; sourceTree = "<group>"; };
 		4880A38E1B98B08B009D9644 /* ZLSwiftRefresh.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = ZLSwiftRefresh.bundle; sourceTree = "<group>"; };
 		4880A38F1B98B08B009D9644 /* ZLSwiftRefreshExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZLSwiftRefreshExtension.swift; sourceTree = "<group>"; };
+		4880A3951B992FEF009D9644 /* Demo9ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Demo9ViewController.swift; sourceTree = "<group>"; };
 		488E37061B930687003C37D1 /* MLPhotoAssetsFooterView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MLPhotoAssetsFooterView.swift; sourceTree = "<group>"; };
 		48B730E91B8F1F0200BB20D4 /* MLPhotoPickerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MLPhotoPickerViewController.swift; sourceTree = "<group>"; };
 		48B730EB1B8F20F700BB20D4 /* MLPhotoPickerDAO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MLPhotoPickerDAO.swift; sourceTree = "<group>"; };
@@ -248,6 +250,7 @@
 				487D67AB1B5BE240007871CF /* Demo6ViewController.swift */,
 				480FFE7B1B5E0CD70045556A /* Demo7ViewController.swift */,
 				4828C5131B60D01B00DA9F52 /* Demo8ViewController.swift */,
+				4880A3951B992FEF009D9644 /* Demo9ViewController.swift */,
 			);
 			path = Demo;
 			sourceTree = "<group>";
@@ -409,6 +412,7 @@
 				484987311B4A5A1200051493 /* ViewController.swift in Sources */,
 				4849872F1B4A5A1200051493 /* AppDelegate.swift in Sources */,
 				48EB19AA1B4A7F0400F75A5F /* Demo4ViewController.swift in Sources */,
+				4880A3961B992FEF009D9644 /* Demo9ViewController.swift in Sources */,
 				4828C4DB1B5E7E1500DA9F52 /* MBBaseVisualHeaderView.swift in Sources */,
 				48EB19A81B4A75D600F75A5F /* Demo3ViewController.swift in Sources */,
 				487C43A31B97E43C001574F2 /* MB+UIImageView.swift in Sources */,
