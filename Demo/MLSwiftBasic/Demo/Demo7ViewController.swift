@@ -21,6 +21,10 @@ class Demo7ViewController: MBBaseViewController,UITableViewDataSource,UITableVie
         self.setupTableView()
     }
     
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+    }
+    
     func setupTableView(){
         var tableView = UITableView(frame: self.view.frame, style: .Plain)
         tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: "cell")

@@ -23,87 +23,92 @@ class MBExample: NSObject {
 class ViewController: MBBaseViewController,UITableViewDataSource,UITableViewDelegate {
     
     /// example list
-    lazy var lists:Array<MBExampleGroup> = {
-        // Group1 : <Navigation 导航栏>
-        var groupItem00:MBExample = MBExample()
-        groupItem00.title = "Demo1 (导航栏.标题/图片.设置按钮宽度等)"
-        groupItem00.vc = Demo1ViewController()
-        // create Group
-        var group0 = MBExampleGroup()
-        group0.groupName = "导航栏"
-        group0.examples = [groupItem00]
+    var lists:Array<MBExampleGroup>{
+        get{
+            // Group1 : <Navigation 导航栏>
+            var groupItem00:MBExample = MBExample()
+            groupItem00.title = "Demo1 (导航栏.标题/图片.设置按钮宽度等)"
+            groupItem00.vc = Demo1ViewController()
+            // create Group
+            var group0 = MBExampleGroup()
+            group0.groupName = "导航栏"
+            group0.examples = [groupItem00]
+            
+            // Group2 : <Photo Picker 相册多选>
+            var groupItem10:MBExample = MBExample()
+            groupItem10.title = "Demo2 (相册多选1/简单效果)"
+            groupItem10.vc = Demo2ViewController()
+            var groupItem11:MBExample = MBExample()
+            groupItem11.title = "Demo3 (相册多选2/复杂效果)"
+            groupItem11.vc = Demo3ViewController()
+            var groupItem12:MBExample = MBExample()
+            groupItem12.title = "Demo9 (相册多选3/选择视频)"
+            groupItem12.vc = Demo9ViewController()
+            // create Group
+            var group1 = MBExampleGroup()
+            group1.groupName = "相册多选"
+            group1.examples = [groupItem10,groupItem11,groupItem12]
+            
+            // Group3 : <Visual 导航栏>
+            var groupItem20:MBExample = MBExample()
+            groupItem20.title = "Demo4 (导航视觉效果1)"
+            groupItem20.vc = Demo4ViewController()
+            var groupItem21:MBExample = MBExample()
+            groupItem21.title = "Demo5 (导航视觉效果2)"
+            groupItem21.vc = Demo5ViewController()
+            // create Group
+            var group2 = MBExampleGroup()
+            group2.groupName = "导航视觉效果"
+            group2.examples = [groupItem20,groupItem21]
+            
+            // Group4 : <Refresh 下拉刷新>
+            var groupItem30:MBExample = MBExample()
+            groupItem30.title = "Demo6 (下拉刷新/加载更多 效果1)"
+            groupItem30.vc = Demo6ViewController()
+            var groupItem31:MBExample = MBExample()
+            groupItem31.title = "Demo7 (下拉刷新/加载更多 效果2)"
+            groupItem31.vc = Demo7ViewController()
+            var groupItem32:MBExample = MBExample()
+            groupItem32.title = "Demo8 (下拉刷新/加载更多 自定义动画)"
+            groupItem32.vc = Demo8ViewController()
+            // create Group
+            var group3 = MBExampleGroup()
+            group3.groupName = "下拉刷新"
+            group3.examples = [groupItem30,groupItem31,groupItem32]
+            
+            // Group5 : <Browser 图片浏览器>
+            var group4 = MBExampleGroup()
+            group4.groupName = "《图片浏览器》"
+            group4.examples = []
+            
+            // Group6 : <HUD 提示器>
+            var group5 = MBExampleGroup()
+            group5.groupName = "《HUD》"
+            group5.examples = []
+            
+            // Group7 : <Address 通讯录>
+            var group6 = MBExampleGroup()
+            group6.groupName = "《自定义通讯录》"
+            group6.examples = []
+            
+            // Group8 : <Property 字典转模型>
+            var group7 = MBExampleGroup()
+            group7.groupName = "《字典转模型》"
+            group7.examples = []
+            
+            // Group9 : <Property 字典转模型>
+            var group8 = MBExampleGroup()
+            group8.groupName = "《某某某》项目实践"
+            group8.examples = []
+            
+            return [group0,group1,group2,group3,group4,group5,group6,group7,group8
+            ]
+        }
         
-        // Group2 : <Photo Picker 相册多选>
-        var groupItem10:MBExample = MBExample()
-        groupItem10.title = "Demo2 (相册多选1/简单效果)"
-        groupItem10.vc = Demo2ViewController()
-        var groupItem11:MBExample = MBExample()
-        groupItem11.title = "Demo3 (相册多选2/复杂效果)"
-        groupItem11.vc = Demo3ViewController()
-        var groupItem12:MBExample = MBExample()
-        groupItem12.title = "Demo9 (相册多选3/选择视频)"
-        groupItem12.vc = Demo9ViewController()
-        // create Group
-        var group1 = MBExampleGroup()
-        group1.groupName = "相册多选"
-        group1.examples = [groupItem10,groupItem11,groupItem12]
-        
-        // Group3 : <Visual 导航栏>
-        var groupItem20:MBExample = MBExample()
-        groupItem20.title = "Demo4 (导航视觉效果1)"
-        groupItem20.vc = Demo4ViewController()
-        var groupItem21:MBExample = MBExample()
-        groupItem21.title = "Demo5 (导航视觉效果2)"
-        groupItem21.vc = Demo5ViewController()
-        // create Group
-        var group2 = MBExampleGroup()
-        group2.groupName = "导航视觉效果"
-        group2.examples = [groupItem20,groupItem21]
-        
-        // Group4 : <Refresh 下拉刷新>
-        var groupItem30:MBExample = MBExample()
-        groupItem30.title = "Demo6 (下拉刷新/加载更多 效果1)"
-        groupItem30.vc = Demo6ViewController()
-        var groupItem31:MBExample = MBExample()
-        groupItem31.title = "Demo7 (下拉刷新/加载更多 效果2)"
-        groupItem31.vc = Demo7ViewController()
-        var groupItem32:MBExample = MBExample()
-        groupItem32.title = "Demo8 (下拉刷新/加载更多 自定义动画)"
-        groupItem32.vc = Demo8ViewController()
-        // create Group
-        var group3 = MBExampleGroup()
-        group3.groupName = "下拉刷新"
-        group3.examples = [groupItem30,groupItem31,groupItem32]
-        
-        // Group5 : <Browser 图片浏览器>
-        var group4 = MBExampleGroup()
-        group4.groupName = "《图片浏览器》"
-        group4.examples = []
-        
-        // Group6 : <HUD 提示器>
-        var group5 = MBExampleGroup()
-        group5.groupName = "《HUD》"
-        group5.examples = []
-        
-        // Group7 : <Address 通讯录>
-        var group6 = MBExampleGroup()
-        group6.groupName = "《自定义通讯录》"
-        group6.examples = []
-        
-        // Group8 : <Property 字典转模型>
-        var group7 = MBExampleGroup()
-        group7.groupName = "《字典转模型》"
-        group7.examples = []
-        
-        // Group9 : <Property 字典转模型>
-        var group8 = MBExampleGroup()
-        group8.groupName = "《某某某》项目实践"
-        group8.examples = []
-        
-        return [
-            group0,group1,group2,group3,group4,group5,group6,group7,group8
-        ]
-    }()
+        set{
+            
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
