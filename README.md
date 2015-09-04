@@ -2,7 +2,8 @@
 集合`自定义导航栏`、`下拉刷新/上拉加载更多`、`视觉效果`、`好用分类`等等一系列，却耦合性很低的Swift库!
 
 ### Demo or Gif
-![image](https://github.com/MakeZL/MLSwiftBasic/blob/master/ScreenShots/Demo_1.png)
+<img src="https://github.com/MakeZL/MLSwiftBasic/blob/master/ScreenShots/Demo_1.png" height="500" />
+
 ![image](https://github.com/MakeZL/MLSwiftBasic/blob/master/ScreenShots/Demo_2.gif)
 ![image](https://github.com/MakeZL/MLSwiftBasic/blob/master/ScreenShots/Demo_3.gif)
 ![image](https://github.com/MakeZL/MLSwiftBasic/blob/master/ScreenShots/Demo_4.gif)
