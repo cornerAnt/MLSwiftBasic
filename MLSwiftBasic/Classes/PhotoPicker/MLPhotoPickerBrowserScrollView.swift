@@ -18,8 +18,8 @@ class MLPhotoPickerBrowserScrollView: UIScrollView,MLPhotoPickerBrowserPhotoView
     var isHiddenShowSheet:Bool?
     var photo:MLPhotoAssets?{
         willSet{
-            if newValue!.isKindOfClass(UIImage.self) == true{
-                photoImageView!.image = newValue as? UIImage
+            if (newValue?.image != nil && newValue?.image.isKindOfClass(UIImage.self) != nil) {
+                photoImageView!.image = newValue?.image
                 self.displayImage()
             }else if ((newValue!.originalImage) != nil){
                 photoImageView!.image = newValue?.originalImage

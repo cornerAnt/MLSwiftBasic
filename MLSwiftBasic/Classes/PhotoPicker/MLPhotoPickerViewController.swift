@@ -81,13 +81,6 @@ class MLPhotoPickerViewController: MBBaseViewController {
         self.addNotification()
     }
     
-    override func viewWillDisappear(animated: Bool) {
-        super.viewWillDisappear(animated)
-        
-        self.removeFromParentViewController()
-        NSNotificationCenter.defaultCenter().removeObserver(self)
-    }
-    
     func createNavigationController(){
         pickerGroupVc = MLPhotoGruopViewController()
         var navigationVc = MBNavigationViewController(rootViewController: pickerGroupVc)
@@ -104,9 +97,7 @@ class MLPhotoPickerViewController: MBBaseViewController {
     }
     
     func addNotification(){
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), { () -> Void in
-            NSNotificationCenter.defaultCenter().addObserver(self, selector: "done:", name: MLPhotoTakeDone, object: nil)
-        })
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "done:", name: MLPhotoTakeDone, object: nil)
     }
     
     func done(noti:NSNotification){
@@ -120,5 +111,10 @@ class MLPhotoPickerViewController: MBBaseViewController {
             }
             self.dismissViewControllerAnimated(true, completion: nil)
         })
+    }
+    
+    deinit{
+        self.removeFromParentViewController()
+        NSNotificationCenter.defaultCenter().removeObserver(self)
     }
 }

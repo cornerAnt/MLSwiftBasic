@@ -281,9 +281,7 @@ class MLPhotoPickerBrowserViewController: MBBaseViewController,UICollectionViewD
     }
     
     func done(){
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), { () -> Void in
-            NSNotificationCenter.defaultCenter().postNotificationName(MLPhotoTakeDone, object: self, userInfo: ["selectAssets":self.doneAssets])
-        })
+        NSNotificationCenter.defaultCenter().postNotificationName(MLPhotoTakeDone, object: nil, userInfo: ["selectAssets":self.doneAssets])
         self.dismissViewControllerAnimated(true, completion: nil)
     }
 }

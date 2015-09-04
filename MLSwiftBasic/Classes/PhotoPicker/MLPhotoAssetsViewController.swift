@@ -15,7 +15,7 @@ let KMLPhotoAssetsShowColumnCount = 4
 // ToolBar Height
 let KMLPhotoAssetsToolBarHeight   = 44
 
-class MLPhotoAssetsViewController: MBBaseViewController,MLPhotoCollectionViewDelegate {
+class MLPhotoAssetsViewController: MBBaseViewController,MLPhotoCollectionViewDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate {
     
     /// MLPhotoPickerViewController to content Code condition value.
     var maxCount:NSInteger!{
@@ -44,7 +44,7 @@ class MLPhotoAssetsViewController: MBBaseViewController,MLPhotoCollectionViewDel
                 reSortArray.append(mlAsset)
                 
                 if self.collectionView.dataArray != nil {
-                    for obj in self.collectionView.dataArray {
+                    for obj in self.collectionView.dataArray.reverse() {
                         reSortArray.append(obj)
                     }
                 }
@@ -109,7 +109,7 @@ class MLPhotoAssetsViewController: MBBaseViewController,MLPhotoCollectionViewDel
             }
             
             for asset in newValue {
-                if asset.isKindOfClass(MLPhotoAssets.self) || asset.isKindOfClass(UIImage.self) {
+                if asset.isKindOfClass(MLPhotoAssets.self) {
                     self.selectAssets.append(asset)
                 }
             }
@@ -221,15 +221,14 @@ class MLPhotoAssetsViewController: MBBaseViewController,MLPhotoCollectionViewDel
         
         var count = 0
         if (self.collectionView.selectAssets.count < self.selectAssets.count) {
-            count = self.collectionView.selectAssets.count;
+            count = self.collectionView.selectAssets.count
         }else{
-            count = self.selectAssets.count;
+            count = self.selectAssets.count
         }
         
-        self.maskView.hidden = !(count > 0);
+        self.maskView.hidden = !(count > 0)
         self.maskView.text = "\(count)"
-        self.doneBtn.enabled = (count > 0);
-        self.previewBtn.enabled = (count > 0);
+        self.setBarButtonItemState(count > 0)
     }
     
     func setupToolbar(){
@@ -255,9 +254,7 @@ class MLPhotoAssetsViewController: MBBaseViewController,MLPhotoCollectionViewDel
     }
     
     func done(){
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), { () -> Void in
-            NSNotificationCenter.defaultCenter().postNotificationName(MLPhotoTakeDone, object: self, userInfo: ["selectAssets":self.selectAssets])
-        })
+        NSNotificationCenter.defaultCenter().postNotificationName(MLPhotoTakeDone, object: self, userInfo: ["selectAssets":self.selectAssets])
         self.dismissViewControllerAnimated(true, completion: nil)
     }
     
@@ -271,7 +268,7 @@ class MLPhotoAssetsViewController: MBBaseViewController,MLPhotoCollectionViewDel
         // animation
         self.startAnimation()
 
-        if self.selectPickerAssets != nil && self.selectPickerAssets.count == 0{
+        if self.selectPickerAssets != nil && self.selectPickerAssets.count == 0 {
             self.selectAssets = collectionView.selectAssets
         }else if deleteAssets == nil {
             self.selectAssets.append(collectionView.selectAssets.last!)
@@ -281,21 +278,16 @@ class MLPhotoAssetsViewController: MBBaseViewController,MLPhotoCollectionViewDel
             var selectAssetsCurrentPage = -1;
             for (var i = 0; i < self.selectAssets.count; i++) {
                 var photoAsset:MLPhotoAssets = self.selectAssets[i]
-                if (photoAsset.isKindOfClass(UIImage.self)) {
+                if (photoAsset.image != nil && photoAsset.image.isKindOfClass(UIImage.self)) {
                     continue;
                 }
-
                 if deleteAssets!.asset.defaultRepresentation().url().isEqual(photoAsset.asset.defaultRepresentation().url()) == true{
                     selectAssetsCurrentPage = i
                     break
                 }
             }
             
-            if (
-                (self.selectAssets.count > selectAssetsCurrentPage)
-                    &&
-                    (selectAssetsCurrentPage >= 0)
-                ){
+            if ((self.selectAssets.count > selectAssetsCurrentPage) && selectAssetsCurrentPage >= 0) {
                     if (deleteAssets != nil){
                         self.selectAssets.removeAtIndex(selectAssetsCurrentPage)
                     }
@@ -320,7 +312,40 @@ class MLPhotoAssetsViewController: MBBaseViewController,MLPhotoCollectionViewDel
     DidCamera
     */
     func photoCollectionViewDidCameraSelectCollectionView(collectionView: MLPhotoCollectionView) {
-        
+        var maxCount = (self.maxCount == nil || self.maxCount < 0) ? KMLPhotoShowMaxCount :  self.maxCount
+        if (self.selectAssets.count >= maxCount) {
+            var alertView = UIAlertView(title: "提醒", message: String("选择的图片个数不能大于\(maxCount)"), delegate: nil, cancelButtonTitle: "好的")
+            alertView.show()
+            return
+        }
+        if (UIImagePickerController.isSourceTypeAvailable(.Camera)) {
+            var ctrl = UIImagePickerController()
+            ctrl.delegate = self
+            ctrl.sourceType = .Camera
+            self.presentViewController(ctrl, animated: true, completion: nil)
+        }else{
+            var alertView = UIAlertView(title: "提醒", message: String("请在真机使用哈"), delegate: nil, cancelButtonTitle: "好的")
+            alertView.show()
+        }
+    }
+    
+    func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [NSObject : AnyObject]) {
+        if (UIImagePickerController.isSourceTypeAvailable(.Camera)) {
+            // 处理
+            var image:UIImage = info["UIImagePickerControllerOriginalImage"] as! UIImage
+            // create Asset
+            var imageAsset = MLPhotoAssets()
+            imageAsset.image = image
+            self.selectAssets.append(imageAsset)
+            self.collectionView.selectAssets = self.selectAssets
+            
+            var count = self.selectAssets.count
+            self.maskView.hidden = !(count > 0)
+            self.maskView.text = "\(count)"
+            self.setBarButtonItemState(count > 0)
+            // 刷新当前相册
+            picker.dismissViewControllerAnimated(true, completion: nil)
+        }
     }
     
     func startAnimation(){
@@ -349,19 +374,5 @@ class MLPhotoAssetsViewController: MBBaseViewController,MLPhotoCollectionViewDel
         if let selectAssets = NSArray(array: self.selectAssets) as? Array<MLPhotoAssets> {
             self.groupVc?.selectPickers = selectAssets
         }
-//        let assets = Array(array: self.selectAssets)
-//        self.groupVc?.selectPickers = self.selectAssets as? Array<MLPhotoAssets>
-//        self.groupVc?.selectPickers = self.selectAssets as? Array<MLPhotoAssets>
-        
-//        // Clear
-//        if (self.collectionView.dataArray != nil){
-//            self.collectionView.dataArray = nil
-//        }
-//        self.selectPickerAssets = nil
-//        self.assets = nil
-//        self.collectionView.removeFromSuperview()
-//        self.view.removeFromSuperview()
-//        self.removeFromParentViewController()
-        
     }
 }

@@ -121,10 +121,15 @@ class MLPhotoCollectionView: UICollectionView,UICollectionViewDataSource,UIColle
             if (self.isRecoderSelectPicker == true) {
                 for asset in self.selectAssets {
                     var dataAsset:MLPhotoAssets = self.dataArray[indexPath.item] as MLPhotoAssets
-                    var selectRealAsset = asset
-                    if selectRealAsset.asset.defaultRepresentation().url().isEqual(dataAsset.asset.defaultRepresentation().url()) {
-                        selectsIndexPath.append(number)
+                    if (asset.asset != nil && dataAsset.asset != nil){
+                        var selectRealAsset = asset
+                        if selectRealAsset.asset.defaultRepresentation().url().isEqual(dataAsset.asset.defaultRepresentation().url()) {
+                            selectsIndexPath.append(number)
+                        }
+                    }else{
+                        continue
                     }
+                    
                 }
             }
             
@@ -163,7 +168,7 @@ class MLPhotoCollectionView: UICollectionView,UICollectionViewDataSource,UIColle
                 if (maxCount == 0) {
                     format = "您已经选满了图片呦."
                 }
-                var alertView = UIAlertView(title: "提醒", message: format, delegate: self, cancelButtonTitle: "好的")
+                var alertView = UIAlertView(title: "提醒", message: format, delegate: nil, cancelButtonTitle: "好的")
                 alertView.show()
                 
                 return

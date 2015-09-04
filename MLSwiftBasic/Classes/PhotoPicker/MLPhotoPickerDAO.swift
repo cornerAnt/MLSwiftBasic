@@ -94,13 +94,16 @@ class MLPhotoPickerDAO: NSObject {
 
 class MLPhotoAssets: NSObject{
     var asset:ALAsset!
+    // 包装的Image
+    var image:UIImage!
+    
     lazy var thumbImage:UIImage? = {
         if self.asset != nil {
             var imgRef = self.asset!.thumbnail().takeUnretainedValue()
             let img = UIImage(CGImage: imgRef)
             return img!
         }else{
-            return nil
+            return self.image
         }
     }()
     
@@ -108,7 +111,7 @@ class MLPhotoAssets: NSObject{
         if self.asset != nil {
             return UIImage(CGImage: self.asset.defaultRepresentation().fullScreenImage().takeUnretainedValue())
         }else{
-            return nil
+            return self.image
         }
     }()
 }
