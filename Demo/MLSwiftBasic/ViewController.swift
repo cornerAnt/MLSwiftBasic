@@ -77,9 +77,21 @@ class ViewController: MBBaseViewController,UITableViewDataSource,UITableViewDele
             group3.examples = [groupItem30,groupItem31,groupItem32]
             
             // Group5 : <Browser 图片浏览器>
+            var groupItem40:MBExample = MBExample()
+            groupItem40.title = "Demo10 (图片浏览器/放大缩小)"
+            groupItem40.vc = Demo10ViewController()
+            
+            var groupItem41:MBExample = MBExample()
+            groupItem41.title = "Demo11 (图片浏览器/淡入淡出)"
+            groupItem41.vc = Demo11ViewController()
+            
+            var groupItem42:MBExample = MBExample()
+            groupItem42.title = "Demo12 (图片浏览器/Push模式)"
+            groupItem42.vc = Demo12ViewController()
+            
             var group4 = MBExampleGroup()
             group4.groupName = "《图片浏览器》"
-            group4.examples = []
+            group4.examples = [groupItem40,groupItem41,groupItem42]
             
             // Group6 : <HUD 提示器>
             var group5 = MBExampleGroup()
