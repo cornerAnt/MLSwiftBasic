@@ -113,7 +113,7 @@ class ViewController: MBBaseViewController,UITableViewDataSource,UITableViewDele
             group8.groupName = "《某某某》项目实践"
             group8.examples = []
             
-            return [group0,group1,group2,group3,group4,group5,group6,group7,group8
+            return [group0,group1,group4,group2,group3,group5,group6,group7,group8
             ]
         }
         

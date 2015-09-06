@@ -56,7 +56,7 @@ class MLPhotoPickerBrowserScrollView: UIScrollView,MLPhotoPickerBrowserPhotoView
         self.addSubview(photoImageView!)
         
         // Setup
-        self.backgroundColor = UIColor.redColor()
+        self.backgroundColor = UIColor.blackColor()
         self.delegate = self
         self.showsHorizontalScrollIndicator = false
         self.showsVerticalScrollIndicator = false

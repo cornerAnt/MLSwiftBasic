@@ -31,7 +31,7 @@ class MBNavigationBarView: UIView {
                 }
                 self.titleButton.frame.size.width = self.frame.size.width - NAV_ITEM_LEFT_W - newValue * CGFloat(count)
             }else {
-                self.titleButton.frame.size.width = self.frame.size.width - NAV_ITEM_LEFT_W - newValue
+                self.titleButton.frame.size.width = self.frame.size.width - NAV_ITEM_LEFT_W - NAV_ITEM_RIGHT_W
                 self.rightButton.frame.size.width = newValue
                 self.rightButton.frame.origin.x = self.frame.size.width - newValue
             }
@@ -80,6 +80,7 @@ class MBNavigationBarView: UIView {
                 rightButton.setImage(UIImage(named: allImgs[i] as! String), forState: .Normal)
                 rightButton.frame = CGRectMake(x, NAV_BAR_Y, NAV_ITEM_RIGHT_W, NAV_BAR_HEIGHT) ;
                 rightButton.titleLabel?.font = NAV_ITEM_FONT
+                rightButton.autoresizingMask = .FlexibleRightMargin | .FlexibleLeftMargin
                 self.addSubview(rightButton)
                 rightTitleBtns.addObject(rightButton)
                 
@@ -109,6 +110,7 @@ class MBNavigationBarView: UIView {
                 rightButton.setTitle(newValue[i] as! NSString as String, forState: .Normal)
                 rightButton.frame = CGRectMake(x, NAV_BAR_Y, NAV_ITEM_RIGHT_W, NAV_BAR_HEIGHT) ;
                 rightButton.titleLabel?.font = NAV_ITEM_FONT
+                rightButton.autoresizingMask = .FlexibleRightMargin | .FlexibleLeftMargin
                 self.addSubview(rightButton)
                 self.rightTitleBtns.addObject(rightButton)
                 
@@ -145,14 +147,12 @@ class MBNavigationBarView: UIView {
     lazy var titleButton:UIButton = {
         var titleButton = UIButton.buttonWithType(.Custom) as! UIButton
         titleButton.setTitleColor(NAV_TEXT_COLOR, forState: .Normal)
-        titleButton.frame = CGRectMake(NAV_ITEM_LEFT_W, NAV_BAR_Y, self.frame.size.width - NAV_ITEM_RIGHT_W - NAV_ITEM_LEFT_W, NAV_BAR_HEIGHT);
-        
+        titleButton.frame = CGRectMake(NAV_ITEM_LEFT_W, NAV_BAR_Y, self.frame.size.width - NAV_ITEM_LEFT_W, NAV_BAR_HEIGHT);
         if (self.rightTitles.count > 1){
             titleButton.frame.size.width = self.frame.size.width - NAV_ITEM_RIGHT_W * CGFloat((2 + self.rightTitles.count))
             titleButton.frame.origin.x = CGFloat(self.frame.size.width - titleButton.frame.size.width) * 0.5
         }
-        
-        titleButton.autoresizingMask = .FlexibleWidth
+        titleButton.autoresizingMask = .FlexibleWidth | .FlexibleLeftMargin
         titleButton.titleLabel?.font = NAV_TITLE_FONT
         self.addSubview(titleButton)
         return titleButton
@@ -172,7 +172,8 @@ class MBNavigationBarView: UIView {
         rightButton.setTitleColor(NAV_TEXT_COLOR, forState: .Normal)
         rightButton.frame = CGRectMake(self.frame.size.width - NAV_ITEM_RIGHT_W, NAV_BAR_Y, NAV_ITEM_RIGHT_W, NAV_BAR_HEIGHT) ;
         rightButton.titleLabel?.font = NAV_ITEM_FONT
-    
+        rightButton.autoresizingMask = .FlexibleRightMargin | .FlexibleLeftMargin
+        
         self.addSubview(rightButton)
         return rightButton
     }()

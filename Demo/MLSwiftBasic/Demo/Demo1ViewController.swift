@@ -35,7 +35,7 @@ class Demo1ViewController: MBBaseViewController {
     
     override func rightItemWidth() -> CGFloat {
         // Default return 45
-        return 70
+        return 50
     }
     
 }

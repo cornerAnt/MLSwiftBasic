@@ -2,20 +2,26 @@
 集合`自定义导航栏`、`下拉刷新/上拉加载更多`、`视觉效果`、`好用分类`等等一系列，却耦合性很低的Swift库!
 
 ### Demo or Gif
-<img src="https://github.com/MakeZL/MLSwiftBasic/blob/master/ScreenShots/Demo_1.png" height="500" />
-
-![image](https://github.com/MakeZL/MLSwiftBasic/blob/master/ScreenShots/Demo_2.gif)
-![image](https://github.com/MakeZL/MLSwiftBasic/blob/master/ScreenShots/Demo_3.gif)
-![image](https://github.com/MakeZL/MLSwiftBasic/blob/master/ScreenShots/Demo_4.gif)
-![image](https://github.com/MakeZL/MLSwiftBasic/blob/master/ScreenShots/Demo3.gif)
+<img src="https://github.com/MakeZL/MLSwiftBasic/blob/master/ScreenShots/ScreenShots1.png" height="500" />
+###### 图片选择
+![image](https://github.com/MakeZL/MLSwiftBasic/blob/master/ScreenShots/ScreenShots2.gif)
+##### 图片浏览器(放大缩小/横竖屏切换/Push)
+![image](https://github.com/MakeZL/MLSwiftBasic/blob/master/ScreenShots/ScreenShots4.gif)
+![image](https://github.com/MakeZL/MLSwiftBasic/blob/master/ScreenShots/ScreenShots5.gif)
+![image](https://github.com/MakeZL/MLSwiftBasic/blob/master/ScreenShots/ScreenShots6.gif)
+##### 下拉刷新/上拉加载更多
+![image](https://github.com/MakeZL/MLSwiftBasic/blob/master/ScreenShots/ScreenShots7.gif)
+![image](https://github.com/MakeZL/MLSwiftBasic/blob/master/ScreenShots/ScreenShots8.gif)
+##### 导航栏视觉动画
+![image](https://github.com/MakeZL/MLSwiftBasic/blob/master/ScreenShots/ScreenShots3.gif)
 
 ### 新特性
 
-`图片多选`
+`图片浏览器(支持横竖屏、放大缩小、淡入淡出、Push等)`
+
+`相册多选图片(支持记录选择图片、置顶类似微博、预览选择等等)`
 
 `下拉刷新\上拉加载更多`
-
-`懒人Swift基本框架，正提供各种简单，方便的接口 `
 
 目前支持的功能：
 
@@ -31,13 +37,13 @@
 
 `6> 相册多选图片(支持记录选择图片、置顶类似微博、预览选择等等)` 
 
+`7> 图片浏览器(支持横竖屏、放大缩小、淡入淡出、Push等)`
+
 准备迭代：
 
-7> 提示框HUD
+8> 提示框HUD
 
-8> iOS7的手势
-
-9> 图片浏览器
+9> iOS7的手势
 
 10> 字典转模型
 
