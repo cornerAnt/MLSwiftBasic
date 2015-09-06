@@ -152,6 +152,7 @@ class MBNavigationBarView: UIView {
             titleButton.frame.origin.x = CGFloat(self.frame.size.width - titleButton.frame.size.width) * 0.5
         }
         
+        titleButton.autoresizingMask = .FlexibleWidth
         titleButton.titleLabel?.font = NAV_TITLE_FONT
         self.addSubview(titleButton)
         return titleButton

@@ -297,7 +297,9 @@ class MLPhotoPickerBrowserViewController: MBBaseViewController,UICollectionViewD
     }
     
     func playerVideo(button:UIButton){
-        var asset = self.photos[button.tag];
+        var asset = self.photos[button.tag]
+        
+        #if TARGET_OS_IPHONE
         if (asset.isKindOfClass(MLPhotoAssets.self)){
             // 设置视频播放器
             self.moviePlayer = MPMoviePlayerController(contentURL: asset.asset.defaultRepresentation().url())
@@ -311,6 +313,10 @@ class MLPhotoPickerBrowserViewController: MBBaseViewController,UICollectionViewD
             NSNotificationCenter.defaultCenter().addObserver(self, selector: "playVideoFinished", name: MPMoviePlayerWillExitFullscreenNotification, object: nil)
             self.moviePlayer?.play()
         }
+        #else
+            var alertView = UIAlertView(title: "提示", message: "播放视频请用真机", delegate: self, cancelButtonTitle: "好的")
+            alertView.show()
+        #endif
     }
     
     func playVideoFinished(){

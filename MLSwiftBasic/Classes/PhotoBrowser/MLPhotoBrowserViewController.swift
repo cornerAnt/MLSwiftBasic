@@ -130,6 +130,7 @@ class MLPhotoBrowserViewController: MBBaseViewController,UICollectionViewDataSou
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.view.backgroundColor = UIColor.blackColor()
         self.setNavBarViewBackgroundColor(UIColor.blackColor())
         UIApplication.sharedApplication().setStatusBarHidden(true, withAnimation: .None)
     }
@@ -150,15 +151,17 @@ class MLPhotoBrowserViewController: MBBaseViewController,UICollectionViewDataSou
             self.collectionView.reloadData()
             if (self.currentPage >= 0) {
                 self.collectionView.contentOffset = CGPointMake(CGFloat(self.currentPage) * self.collectionView.frame.width, 0)
-                if (self.currentPage == self.photos.count - 1 && self.photos.count > 1) {
                     dispatch_after(dispatch_time(
                         DISPATCH_TIME_NOW,
                         Int64(0.01 * Double(NSEC_PER_SEC))
                         ), dispatch_get_main_queue(), { () -> Void in
                             // 结束动画
-                            self.collectionView.contentOffset = CGPointMake(CGFloat(self.currentPage) * self.collectionView.frame.width - MLPhotoPickerCollectionViewPadding, 0)
+                            if (self.photos.count == 1 || self.currentPage == self.photos.count - 1){
+                                self.collectionView.contentOffset =  CGPointMake(CGFloat(self.currentPage) * self.collectionView.frame.width, 0)
+                            }else{
+                                self.collectionView.contentOffset = CGPointMake(CGFloat(self.currentPage) * self.collectionView.frame.width, 0)
+                            }
                     })
-                }
             }
             self.setPageLabelPage(self.currentPage)
             
@@ -341,7 +344,6 @@ class MLPhotoBrowserViewController: MBBaseViewController,UICollectionViewDataSou
                     self.collectionView.contentOffset = CGPointMake(CGFloat(self.currentPage) * self.collectionView.frame.width, 0)
             })
         }
-        
     }
     
     
@@ -357,15 +359,18 @@ class MLPhotoBrowserViewController: MBBaseViewController,UICollectionViewDataSou
         if (tempF.size.width < UIScreen.mainScreen().bounds.size.width){
             tempF.size.width = UIScreen.mainScreen().bounds.size.width
         }
-
-        if ((currentPage < self.photos.count - 1) || self.photos.count == 1) {
+        
+        if self.isPush == true && self.currentPage == self.photos.count - 1 {
+            tempF.origin.x = 0;
+        }else if (!(currentPage == self.photos.count - 1 && self.photos.count > 1)){
+            tempF.origin.x = 0;
+        }else if (currentPage < self.photos.count - 1 ||  self.photos.count == 1) {
             tempF.origin.x = 0;
         }else{
             tempF.origin.x = -MLPhotoPickerCollectionViewPadding;
         }
         
         self.collectionView.frame = tempF;
-        
     }
     
     func scrollViewDidEndDecelerating(scrollView: UIScrollView) {
@@ -392,7 +397,7 @@ class MLPhotoBrowserViewController: MBBaseViewController,UICollectionViewDataSou
         flowLayout.minimumLineSpacing = MLPhotoPickerCollectionViewPadding
         flowLayout.itemSize = self.view.frame.size
         flowLayout.scrollDirection = .Horizontal
-        
+
         self.collectionView.alpha = 0.0
         self.collectionView.setCollectionViewLayout(flowLayout, animated: true)
         self.isNowRotation = true

@@ -24,10 +24,10 @@ class MBBaseViewController: UIViewController,MBNavigationBarViewDelegate {
     
     lazy var navBar:MBNavigationBarView = {
         if self.view.viewWithTag(10000001) == nil {
-            println(self)
             var navBar = MBNavigationBarView()
             navBar.tag = 10000001
             navBar.frame = CGRectMake(0, 0, UIScreen.mainScreen().bounds.size.width, TOP_Y)
+            navBar.autoresizingMask = .FlexibleWidth
             navBar.delegate = self
             navBar.backgroundColor = NAV_BG_COLOR
             navBar.title = self.titleStr()
