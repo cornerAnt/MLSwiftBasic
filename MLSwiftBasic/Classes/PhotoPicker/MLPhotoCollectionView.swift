@@ -162,12 +162,11 @@ class MLPhotoCollectionView: UICollectionView,UICollectionViewDataSource,UIColle
         }else{
             // 判断图片数超过最大数或者小于0
             var maxCount = (self.maxCount == nil || self.maxCount < 0) ? KMLPhotoShowMaxCount :  self.maxCount
-            var currentCount = self.selectAssets.count
-            if (currentCount >= maxCount) {
-                var format = "最多只能选择\(maxCount)张图片"
-                if (maxCount == 0) {
-                    format = "您已经选满了图片呦."
-                }
+            if (self.selectAssets.count >= maxCount) {
+//                var format = "最多只能选择\(maxCount)张图片"
+//                if (maxCount == 0) {
+               var format = "您已经选满了图片呦."
+//                }
                 var alertView = UIAlertView(title: "提醒", message: format, delegate: nil, cancelButtonTitle: "好的")
                 alertView.show()
                 
@@ -191,6 +190,7 @@ class MLPhotoCollectionView: UICollectionView,UICollectionViewDataSource,UIColle
         }
         
         cellImgView.isMaskSelected = (cellImgView.isKindOfClass(MLPhotoPickerCellImageView.self)) && !cellImgView.isMaskSelected;
+        
     }
     
     func collectionView(collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionReusableView {

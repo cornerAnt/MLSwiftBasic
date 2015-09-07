@@ -18,13 +18,22 @@ let KMLPhotoAssetsToolBarHeight   = 44
 class MLPhotoAssetsViewController: MBBaseViewController,MLPhotoCollectionViewDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate {
     
     /// MLPhotoPickerViewController to content Code condition value.
-    var maxCount:NSInteger!{
+    var privateTempMaxCount:Int?
+    var maxCount:Int!{
         willSet{
             if (newValue == nil){
                 return
             }
-            if (self.selectAssets.count == newValue){
-                self.collectionView.maxCount = 0
+            
+            self.privateTempMaxCount = self.privateTempMaxCount ?? newValue
+
+            if (self.selectPickerAssets != nil){
+                if (self.selectAssets.count == newValue){
+                    self.maxCount = 0
+                }else if (self.selectPickerAssets.count - self.selectAssets.count > 0) {
+                    self.maxCount = self.privateTempMaxCount
+                }
+                self.collectionView.maxCount = self.maxCount
             }else{
                 self.collectionView.maxCount = newValue
             }
@@ -216,7 +225,6 @@ class MLPhotoAssetsViewController: MBBaseViewController,MLPhotoCollectionViewDel
     }
     
     func refresh(noti:NSNotification){
-        
         var userInfo = noti.userInfo as! [NSObject: Array<MLPhotoAssets>]
         var assets = userInfo["selectAssets"]
         
@@ -231,6 +239,13 @@ class MLPhotoAssetsViewController: MBBaseViewController,MLPhotoCollectionViewDel
             count = self.collectionView.selectAssets.count
         }else{
             count = self.selectAssets.count
+        }
+        
+        // 刷新下最小的页数
+        if self.maxCount == nil {
+            self.maxCount = KMLPhotoShowMaxCount
+        }else{
+            self.maxCount = self.selectAssets.count + (self.privateTempMaxCount! - self.selectAssets.count)
         }
         
         self.maskView.hidden = !(count > 0)
@@ -298,7 +313,8 @@ class MLPhotoAssetsViewController: MBBaseViewController,MLPhotoCollectionViewDel
                     if (deleteAssets != nil){
                         self.selectAssets.removeAtIndex(selectAssetsCurrentPage)
                     }
-                    
+                
+                    collectionView.selectAssets = self.selectAssets
                     self.collectionView.selectsIndexPath.removeObject(NSNumber(integer: selectAssetsCurrentPage))
             }
         }
@@ -313,6 +329,13 @@ class MLPhotoAssetsViewController: MBBaseViewController,MLPhotoCollectionViewDel
         self.maskView.hidden = !(count > 0)
         self.maskView.text = "\(count)"
         self.setBarButtonItemState((count > 0))
+        
+        // 刷新下最小的页数
+        if self.maxCount == nil {
+            self.maxCount = KMLPhotoShowMaxCount
+        }else{
+            self.maxCount = self.selectAssets.count + (self.privateTempMaxCount! - self.selectAssets.count)
+        }
     }
     
     /**
@@ -321,7 +344,7 @@ class MLPhotoAssetsViewController: MBBaseViewController,MLPhotoCollectionViewDel
     func photoCollectionViewDidCameraSelectCollectionView(collectionView: MLPhotoCollectionView) {
         var maxCount = (self.maxCount == nil || self.maxCount < 0) ? KMLPhotoShowMaxCount :  self.maxCount
         if (self.selectAssets.count >= maxCount) {
-            var alertView = UIAlertView(title: "提醒", message: String("选择的图片个数不能大于\(maxCount)"), delegate: nil, cancelButtonTitle: "好的")
+            var alertView = UIAlertView(title: "提醒", message: String("您已经选满了图片呦."), delegate: nil, cancelButtonTitle: "好的")
             alertView.show()
             return
         }
