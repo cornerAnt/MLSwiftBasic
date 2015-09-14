@@ -104,16 +104,20 @@ class ViewController: MBBaseViewController,UITableViewDataSource,UITableViewDele
             group6.examples = []
             
             // Group8 : <Property 字典转模型>
+            var groupItem70:MBExample = MBExample()
+            groupItem70.title = "Demo13 字典转模型 - Meters"
+            groupItem70.vc = Demo13ViewController()
+            
             var group7 = MBExampleGroup()
             group7.groupName = "《字典转模型》"
-            group7.examples = []
+            group7.examples = [groupItem70]
             
             // Group9 : <Property 字典转模型>
             var group8 = MBExampleGroup()
             group8.groupName = "《某某某》项目实践"
             group8.examples = []
             
-            return [group0,group1,group4,group2,group3,group5,group6,group7,group8
+            return [group7,group1,group4,group2,group3,group0,group5,group6,group8
             ]
         }
         

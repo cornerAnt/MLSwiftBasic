@@ -14,7 +14,7 @@ let MLPhotoPickerBrowserCellIdentifier = "MLPhotoPickerCellIdentifier"
 
 class MLPhotoPickerBrowserViewController: MBBaseViewController,UICollectionViewDataSource,UICollectionViewDelegate,MLPhotoPickerBrowserScrollViewDelegate {
 
-    var moviePlayer:MPMoviePlayerController?
+    var moviePlayer:MPMoviePlayerViewController!
     var doneAssets:Array<MLPhotoAssets>!
     var photos:Array<MLPhotoAssets>!{
         willSet{
@@ -302,16 +302,18 @@ class MLPhotoPickerBrowserViewController: MBBaseViewController,UICollectionViewD
         #if TARGET_OS_IPHONE
         if (asset.isKindOfClass(MLPhotoAssets.self)){
             // 设置视频播放器
-            self.moviePlayer = MPMoviePlayerController(contentURL: asset.asset.defaultRepresentation().url())
-            self.moviePlayer!.allowsAirPlay = true
-            self.moviePlayer?.scalingMode = .AspectFit
-            self.moviePlayer!.view.frame = self.view.frame
-            self.view.addSubview(self.moviePlayer!.view)
             
-            NSNotificationCenter.defaultCenter().addObserver(self, selector: "playVideoFinished", name: MPMoviePlayerPlaybackDidFinishNotification, object: nil)
+            self.moviePlayer = MPMoviePlayerViewController(contentURL: asset.asset.defaultRepresentation().url())
+
+            NSNotificationCenter.defaultCenter().addObserver(self, selector: "playVideoFinished:", name: MPMoviePlayerPlaybackDidFinishNotification, object: nil)
             
-            NSNotificationCenter.defaultCenter().addObserver(self, selector: "playVideoFinished", name: MPMoviePlayerWillExitFullscreenNotification, object: nil)
-            self.moviePlayer?.play()
+            NSNotificationCenter.defaultCenter().addObserver(self, selector: "playVideoFinished:", name: MPMoviePlayerWillExitFullscreenNotification, object: nil)
+            self.view.addSubview(self.moviePlayer.view)
+            
+            self.moviePlayer.moviePlayer
+            var player = self.moviePlayer.moviePlayer
+            player.prepareToPlay()
+            player.play()
         }
         #else
             var alertView = UIAlertView(title: "提示", message: "播放视频请用真机", delegate: self, cancelButtonTitle: "好的")
@@ -319,15 +321,17 @@ class MLPhotoPickerBrowserViewController: MBBaseViewController,UICollectionViewD
         #endif
     }
     
-    func playVideoFinished(){
+    func playVideoFinished(noti:NSNotification){
+        var player = noti.object as? MPMoviePlayerController
+        player?.stop()
         // 取消监听
         NSNotificationCenter.defaultCenter().removeObserver(self, name: MPMoviePlayerPlaybackDidFinishNotification , object: nil)
         NSNotificationCenter.defaultCenter().removeObserver(self, name: MPMoviePlayerWillExitFullscreenNotification , object: nil)
-     
+        
         UIView.animateWithDuration(0.25, animations: { () -> Void in
-            self.moviePlayer?.view.alpha = 0.0
+            player!.view.alpha = 0.0
         }) { (flag) -> Void in
-            self.moviePlayer?.view.removeFromSuperview()
+            player!.view.removeFromSuperview()
         }
     }
     

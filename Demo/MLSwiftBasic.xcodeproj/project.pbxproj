@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		480FFE7C1B5E0CD70045556A /* Demo7ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 480FFE7B1B5E0CD70045556A /* Demo7ViewController.swift */; };
 		48143ECE1B67804A008DE6F3 /* MLProgressHUD.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48143ECD1B67804A008DE6F3 /* MLProgressHUD.swift */; };
+		481DA57C1BA699090015338B /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 481DA57B1BA699090015338B /* Helpers.swift */; };
 		4828C4D11B5E7E1500DA9F52 /* MBBaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4828C4BF1B5E7E1500DA9F52 /* MBBaseViewController.swift */; };
 		4828C4D21B5E7E1500DA9F52 /* MBNavigationBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4828C4C01B5E7E1500DA9F52 /* MBNavigationBarView.swift */; };
 		4828C4D31B5E7E1500DA9F52 /* MBNavigationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4828C4C11B5E7E1500DA9F52 /* MBNavigationViewController.swift */; };
@@ -46,6 +47,8 @@
 		488CDD451B9A89F30049520C /* MLPhotoBrowser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 488CDD441B9A89F30049520C /* MLPhotoBrowser.swift */; };
 		488CDD481B9AB7580049520C /* MLPhotoBrowserPhotoScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 488CDD471B9AB7580049520C /* MLPhotoBrowserPhotoScrollView.swift */; };
 		488E37071B930687003C37D1 /* MLPhotoAssetsFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 488E37061B930687003C37D1 /* MLPhotoAssetsFooterView.swift */; };
+		4891BA2E1B9DE6CB0020BB38 /* Demo13ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4891BA2D1B9DE6CB0020BB38 /* Demo13ViewController.swift */; };
+		4891BA321B9DE8A70020BB38 /* Meters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4891BA311B9DE8A70020BB38 /* Meters.swift */; };
 		48AD35461B9976FD00094E65 /* Demo10ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48AD35451B9976FD00094E65 /* Demo10ViewController.swift */; };
 		48B730EA1B8F1F0200BB20D4 /* MLPhotoPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48B730E91B8F1F0200BB20D4 /* MLPhotoPickerViewController.swift */; };
 		48B730EC1B8F20F700BB20D4 /* MLPhotoPickerDAO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48B730EB1B8F20F700BB20D4 /* MLPhotoPickerDAO.swift */; };
@@ -56,6 +59,8 @@
 		48EB19A61B4A6FA500F75A5F /* makezl.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 48EB19A51B4A6FA500F75A5F /* makezl.jpeg */; };
 		48EB19A81B4A75D600F75A5F /* Demo3ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48EB19A71B4A75D600F75A5F /* Demo3ViewController.swift */; };
 		48EB19AA1B4A7F0400F75A5F /* Demo4ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48EB19A91B4A7F0400F75A5F /* Demo4ViewController.swift */; };
+		48ED7A211BA011F8000FAD4E /* Mirror.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48ED7A1F1BA011F8000FAD4E /* Mirror.swift */; };
+		48ED7A291BA2AD5A000FAD4E /* github-iphone.json in Resources */ = {isa = PBXBuildFile; fileRef = 48ED7A281BA2AD5A000FAD4E /* github-iphone.json */; };
 		B18EC92244471551DEE9B517 /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2205C8976E646C8957B57B46 /* Pods.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 /* End PBXBuildFile section */
 
@@ -74,6 +79,7 @@
 		44A8BC0B5C8C5845EA51FE48 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		480FFE7B1B5E0CD70045556A /* Demo7ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Demo7ViewController.swift; sourceTree = "<group>"; };
 		48143ECD1B67804A008DE6F3 /* MLProgressHUD.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MLProgressHUD.swift; sourceTree = "<group>"; };
+		481DA57B1BA699090015338B /* Helpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Helpers.swift; sourceTree = "<group>"; };
 		4828C4BF1B5E7E1500DA9F52 /* MBBaseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MBBaseViewController.swift; sourceTree = "<group>"; };
 		4828C4C01B5E7E1500DA9F52 /* MBNavigationBarView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MBNavigationBarView.swift; sourceTree = "<group>"; };
 		4828C4C11B5E7E1500DA9F52 /* MBNavigationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MBNavigationViewController.swift; sourceTree = "<group>"; };
@@ -115,6 +121,8 @@
 		488CDD441B9A89F30049520C /* MLPhotoBrowser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MLPhotoBrowser.swift; sourceTree = "<group>"; };
 		488CDD471B9AB7580049520C /* MLPhotoBrowserPhotoScrollView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MLPhotoBrowserPhotoScrollView.swift; sourceTree = "<group>"; };
 		488E37061B930687003C37D1 /* MLPhotoAssetsFooterView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MLPhotoAssetsFooterView.swift; sourceTree = "<group>"; };
+		4891BA2D1B9DE6CB0020BB38 /* Demo13ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Demo13ViewController.swift; sourceTree = "<group>"; };
+		4891BA311B9DE8A70020BB38 /* Meters.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Meters.swift; sourceTree = "<group>"; };
 		48AD35451B9976FD00094E65 /* Demo10ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Demo10ViewController.swift; sourceTree = "<group>"; };
 		48B730E91B8F1F0200BB20D4 /* MLPhotoPickerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MLPhotoPickerViewController.swift; sourceTree = "<group>"; };
 		48B730EB1B8F20F700BB20D4 /* MLPhotoPickerDAO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MLPhotoPickerDAO.swift; sourceTree = "<group>"; };
@@ -125,6 +133,8 @@
 		48EB19A51B4A6FA500F75A5F /* makezl.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = makezl.jpeg; sourceTree = "<group>"; };
 		48EB19A71B4A75D600F75A5F /* Demo3ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Demo3ViewController.swift; sourceTree = "<group>"; };
 		48EB19A91B4A7F0400F75A5F /* Demo4ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Demo4ViewController.swift; sourceTree = "<group>"; };
+		48ED7A1F1BA011F8000FAD4E /* Mirror.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Mirror.swift; sourceTree = "<group>"; };
+		48ED7A281BA2AD5A000FAD4E /* github-iphone.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "github-iphone.json"; sourceTree = "<group>"; };
 		D32A1DEAC7D40307C61E917E /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -176,6 +186,7 @@
 		4828C4BC1B5E7E1500DA9F52 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				4891BA2C1B9DE5E90020BB38 /* Meters */,
 				48AD35441B99769100094E65 /* PhotoBrowser */,
 				4880A38A1B98B08B009D9644 /* Refresh */,
 				48B730E81B8F1EC700BB20D4 /* PhotoPicker */,
@@ -270,6 +281,7 @@
 		484987611B4A5F3A00051493 /* Demo */ = {
 			isa = PBXGroup;
 			children = (
+				48ED7A281BA2AD5A000FAD4E /* github-iphone.json */,
 				48EB19A51B4A6FA500F75A5F /* makezl.jpeg */,
 				484987621B4A5F4500051493 /* Demo1ViewController.swift */,
 				484987661B4A665600051493 /* Demo2ViewController.swift */,
@@ -283,6 +295,7 @@
 				48AD35451B9976FD00094E65 /* Demo10ViewController.swift */,
 				48CEC6A61B9B4AA200D9D96D /* Demo11ViewController.swift */,
 				48CEC6A81B9B50A200D9D96D /* Demo12ViewController.swift */,
+				4891BA2D1B9DE6CB0020BB38 /* Demo13ViewController.swift */,
 			);
 			path = Demo;
 			sourceTree = "<group>";
@@ -308,6 +321,16 @@
 				4880A38E1B98B08B009D9644 /* ZLSwiftRefresh.bundle */,
 			);
 			path = Refresh;
+			sourceTree = "<group>";
+		};
+		4891BA2C1B9DE5E90020BB38 /* Meters */ = {
+			isa = PBXGroup;
+			children = (
+				481DA57B1BA699090015338B /* Helpers.swift */,
+				48ED7A1F1BA011F8000FAD4E /* Mirror.swift */,
+				4891BA311B9DE8A70020BB38 /* Meters.swift */,
+			);
+			path = Meters;
 			sourceTree = "<group>";
 		};
 		48AD35441B99769100094E65 /* PhotoBrowser */ = {
@@ -430,6 +453,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				484987341B4A5A1200051493 /* Main.storyboard in Resources */,
+				48ED7A291BA2AD5A000FAD4E /* github-iphone.json in Resources */,
 				4880A3931B98B08B009D9644 /* ZLSwiftRefresh.bundle in Resources */,
 				486CC1491B91BC8B00798F68 /* MLPhotoPicker.bundle in Resources */,
 				484987391B4A5A1200051493 /* LaunchScreen.xib in Resources */,
@@ -527,19 +551,23 @@
 				4828C4D11B5E7E1500DA9F52 /* MBBaseViewController.swift in Sources */,
 				48B730EC1B8F20F700BB20D4 /* MLPhotoPickerDAO.swift in Sources */,
 				488CDD481B9AB7580049520C /* MLPhotoBrowserPhotoScrollView.swift in Sources */,
+				481DA57C1BA699090015338B /* Helpers.swift in Sources */,
 				4828C5141B60D01B00DA9F52 /* Demo8ViewController.swift in Sources */,
 				484987631B4A5F4500051493 /* Demo1ViewController.swift in Sources */,
 				4880A39E1B994C07009D9644 /* ZLSwiftFootView.swift in Sources */,
 				487D67AC1B5BE240007871CF /* Demo6ViewController.swift in Sources */,
 				488E37071B930687003C37D1 /* MLPhotoAssetsFooterView.swift in Sources */,
 				48AD35461B9976FD00094E65 /* Demo10ViewController.swift in Sources */,
+				4891BA2E1B9DE6CB0020BB38 /* Demo13ViewController.swift in Sources */,
 				480FFE7C1B5E0CD70045556A /* Demo7ViewController.swift in Sources */,
 				48B730EA1B8F1F0200BB20D4 /* MLPhotoPickerViewController.swift in Sources */,
 				486CC1471B91B92800798F68 /* MLPhotoCollectionView.swift in Sources */,
 				48143ECE1B67804A008DE6F3 /* MLProgressHUD.swift in Sources */,
 				48B730F51B90667800BB20D4 /* MLPhotoPickerGroupCell.swift in Sources */,
+				4891BA321B9DE8A70020BB38 /* Meters.swift in Sources */,
 				487C43A21B97E43C001574F2 /* MB+UIColor.swift in Sources */,
 				4828C4D21B5E7E1500DA9F52 /* MBNavigationBarView.swift in Sources */,
+				48ED7A211BA011F8000FAD4E /* Mirror.swift in Sources */,
 				48CEC6A91B9B50A200D9D96D /* Demo12ViewController.swift in Sources */,
 				4880A3A01B994C07009D9644 /* ZLSwiftRefreshExtension.swift in Sources */,
 			);
