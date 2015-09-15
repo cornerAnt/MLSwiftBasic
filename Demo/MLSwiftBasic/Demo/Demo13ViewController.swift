@@ -97,8 +97,8 @@ class Demo13ViewController: MBBaseViewController,UITableViewDataSource,UITableVi
         var p:Person = Person.mt_modelForWithDict(["age":NSNumber(integer: 10),"name":"zhanglei","sex":"0"]) as! Person
         
         var end = CFAbsoluteTimeGetCurrent();
-        println("-------MakeZL--------");
         println("消耗的时间：\(end - start)s");
+        println("-------MakeZL--------");
         println("数据是：\(p) name = \(p.name), age = \(p.age)....")
     }
     
@@ -120,8 +120,8 @@ class Demo13ViewController: MBBaseViewController,UITableViewDataSource,UITableVi
             ) as! Person
         
         var end = CFAbsoluteTimeGetCurrent();
-        println("-------MakeZL--------");
         println("消耗的时间：\(end - start)s");
+        println("-------MakeZL--------");
         println("数据是：\(p) name = \(p.name), Dog:\(p.dog) dogName:\(p.dog?.dogName)")
     }
     
@@ -153,8 +153,8 @@ class Demo13ViewController: MBBaseViewController,UITableViewDataSource,UITableVi
             ) as! Person
         
         var end = CFAbsoluteTimeGetCurrent();
-        println("-------MakeZL--------");
         println("消耗的时间：\(end - start)s");
+        println("-------MakeZL--------");
         println("\(p) name = \(p.name), Dog:\(p.dog) dogName:\(p.dog?.dogName)")
         
         for var i = 0; i < p.peoples?.count; i++ {
@@ -173,8 +173,8 @@ class Demo13ViewController: MBBaseViewController,UITableViewDataSource,UITableVi
             ReposModel.mt_modelForWithDict(dict as [NSObject: AnyObject]) as! ReposModel
         }
         var end = CFAbsoluteTimeGetCurrent();
-        println("-------MakeZL--------");
         println("100条数据消耗的时间：\(end - start)s");
+        println("-------MakeZL--------");
     }
     
     override func titleStr() -> String {

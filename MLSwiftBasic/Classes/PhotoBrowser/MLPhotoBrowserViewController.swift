@@ -174,6 +174,12 @@ class MLPhotoBrowserViewController: MBBaseViewController,UICollectionViewDataSou
         mainView.autoresizingMask = .FlexibleWidth | .FlexibleHeight;
         UIApplication.sharedApplication().keyWindow?.addSubview(mainView)
         
+        var mainBgView = UIView(frame: UIScreen.mainScreen().bounds)
+        mainBgView.alpha = 0.0
+        mainBgView.backgroundColor = UIColor.blackColor()
+        mainBgView.autoresizingMask = .FlexibleWidth | .FlexibleHeight;
+        mainView.addSubview(mainBgView)
+        
         self.reloadData()
         
         var toImageView = self.photos[self.currentPage].toView
@@ -181,7 +187,7 @@ class MLPhotoBrowserViewController: MBBaseViewController,UICollectionViewDataSou
         imageView.userInteractionEnabled = true
         imageView.contentMode = .ScaleAspectFill;
         imageView.clipsToBounds = true
-        mainView.addSubview(imageView)
+        mainBgView.addSubview(imageView)
         mainView.clipsToBounds = true
         
         var thumbImage:UIImage? = self.photos[self.currentPage].toView!.image
@@ -244,6 +250,7 @@ class MLPhotoBrowserViewController: MBBaseViewController,UICollectionViewDataSou
                         mainView.alpha = 0.0
                     }else{
                         mainView.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0)
+                        mainBgView.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0)
                         imageView.frame = originalFrame
                     }
                 }, completion: { (flag) -> Void in
@@ -257,6 +264,7 @@ class MLPhotoBrowserViewController: MBBaseViewController,UICollectionViewDataSou
             if (self.status == MLPhotoBrowserAnimationAnimationStatus.MLPhotoBrowserAnimationAnimationStatusFade                ){
                 mainView.alpha = 0.0
             }else{
+                mainBgView.alpha = 1.0
                 imageView.frame = ZLPhotoRect.setMaxMinZoomScalesForCurrentBoundWithImageView(imageView)
             }
         }) { (flag) -> Void in
