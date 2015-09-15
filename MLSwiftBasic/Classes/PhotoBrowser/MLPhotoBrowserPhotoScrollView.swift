@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Kingfisher
 
 @objc protocol MLPhotoBrowserPhotoScrollViewDelegate: NSObjectProtocol{
     func photoBrowserPhotoScrollViewDidSingleClick()

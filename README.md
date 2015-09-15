@@ -59,7 +59,7 @@ source 'https://github.com/CocoaPods/Specs.git'
 platform :ios, '8.0'
 use_frameworks!
 
-pod 'MLSwiftBasic', '~> 1.1.1'
+pod 'MLSwiftBasic', '~> 1.2.0'
 ``` 
 
 

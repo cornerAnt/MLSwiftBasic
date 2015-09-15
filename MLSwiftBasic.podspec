@@ -16,7 +16,7 @@ Pod::Spec.new do |s|
   #
 
   s.name         = "MLSwiftBasic"
-  s.version      = "1.1.1"
+  s.version      = "1.2.0"
   s.summary      = "UI and animation of the basic framework of swift!"
   s.homepage     = "https://github.com/MakeZL/MLSwiftBasic"
 
@@ -93,7 +93,7 @@ Pod::Spec.new do |s|
   #
 
   # s.resource  = "icon.png"
-  s.resource = "MLSwiftBasic/ZLSwiftRefresh.bundle"
+  s.resource = "MLSwiftBasic/**/*.bundle"
 
   # s.preserve_paths = "FilesToSave", "MoreFilesToSave"
 
