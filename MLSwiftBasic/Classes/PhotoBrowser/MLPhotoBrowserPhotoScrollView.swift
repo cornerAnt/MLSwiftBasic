@@ -35,7 +35,7 @@ class MLPhotoBrowserPhotoScrollView: UIScrollView,MLPhotoBrowserPhotoViewDelegat
 //            }
             
             // 网络URL
-          self.photoImageView?.kf_setImageWithURL(newValue!.photoURL!, placeholderImage: thumbImage, optionsInfo: nil, progressBlock: { (receivedSize, totalSize) -> () in
+          self.photoImageView!.kf_setImageWithURL(newValue!.photoURL!, placeholderImage: thumbImage, optionsInfo: nil, progressBlock: { (receivedSize, totalSize) -> () in
                 
             }, completionHandler: { (image, error, cacheType, imageURL) -> () in
                 if ((image) != nil) {

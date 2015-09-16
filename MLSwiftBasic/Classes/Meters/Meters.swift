@@ -9,6 +9,12 @@
 import UIKit
 
 var KStaticOcKeys:[String:String]?
+var KStaticLastClassName:String?
+
+var KLastMirror:Mirror<NSObject>?
+var KLastMirrorType:MirrorType?
+var kLastArrAny:[Any.Type]?
+var KLastFirstN:NSString?
 
 extension NSObject{
     
@@ -29,10 +35,7 @@ extension NSObject{
             if dict[keys] != nil {
                 if let array = dict[keys] as? [AnyObject]{
                     var arrayModelFromString = NSObject.cutForArrayString("\(type)".convertOptionals())
-                    
                     NSObject.arrayWithModel(object, array: array, fromString: arrayModelFromString, dataDictionary: dict, withDictKey: keys)
-                    
-//                    object.arrayWithModel(array, fromString: arrayModelFromString, dataDictionary: dict, withDictKey: keys, fromMirror: mirror)
                 }else{
                     if let newObj: AnyObject = NSObject.customObject(mirror, keyValue: mirror.typesShortName[i+1],index: i+1){
                         var di:[NSObject: AnyObject] = (dict[keys] as? [NSObject: AnyObject])!
@@ -57,26 +60,38 @@ extension NSObject{
             let di: AnyObject = array[i]
             
             if let oc = obj.new() as? NSObject {
-                let mirror = Mirror(oc)
+                if (KStaticLastClassName == nil || KStaticLastClassName != string){
+                    
+                    KLastMirrorType = reflect(oc)
+                    KLastMirror = Mirror(oc)
+                    kLastArrAny = KLastMirror!.types
+                    KLastFirstN = ("\(KLastMirror!.firstName)" as NSString)
+                    
+                    KStaticLastClassName = string
+                }
                 
-                if (di.allKeys.count > 0) {
-                    var iCount:UInt32 = 0
-                    let iss = class_copyIvarList(object_getClass(oc), &iCount)
-                    for var n = 0; n < Int(iCount); n++ {
-                        let k:String = String.fromCString(ivar_getName(iss[n]))!
-//                        let type = "\(mirror.types[n+1])"
-                        
-//                        if type.rangeOfString("MLSwiftBasic", options: .CaseInsensitiveSearch, range: Range(start: 0,end: count(type)), locale: nil)?.isEmpty == false{
-//                            if let newObj: AnyObject = NSObject.customObject(mirror, keyValue: k, index: i+1) {
-//                                var dataDict:[NSObject: AnyObject] = (di[key] as? [NSObject: AnyObject])!
-//                                NSObject.mt_modelValueForDict(newObj as! NSObject, dict: dataDict)
-//                                oc.setValue(newObj, forKey:k)
-//                            }else{
-//                                oc.setValue(di[k], forKey:k)
-//                            }
-//                        }else{
+                var iCount:UInt32 = 0
+                let iss = class_copyIvarList(object_getClass(oc), &iCount)
+                for var n = 0; n < Int(iCount); n++ {
+                    let ivar = iss[n]
+                    let k:String = String.fromCString(ivar_getName(ivar))!
+                    let type = (KLastMirrorType![n+1].1.valueType)
+                    
+                    switch type {
+                        case _ as Swift.Optional<String>.Type, _ as Swift.Optional<NSNumber>.Type:
                             oc.setValue(di[k], forKey:k)
-//                        }
+                            break
+                        case _ as
+                            Swift.Optional<Int>.Type,_ as Swift.Optional<Int64>.Type,_ as Swift.Optional<Float>.Type,_ as Swift.Optional<Double>.Type,_ as Swift.Optional<Bool>.Type :
+                            oc.setValue("\(di[k])", forKey:k)
+                            break
+                        default :
+                            if let newObj: AnyObject = NSObject.customObject(KLastMirror!, keyValue: k, index: i+1) {
+                                var dataDict:[NSObject: AnyObject] = (di[key] as? [NSObject: AnyObject])!
+                                NSObject.mt_modelValueForDict(newObj as! NSObject, dict: dataDict)
+                                oc.setValue(newObj, forKey:k)
+                            }
+                            break
                     }
                 }
                 vals.append(oc)

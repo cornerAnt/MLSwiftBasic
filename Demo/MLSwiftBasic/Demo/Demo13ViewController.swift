@@ -16,13 +16,13 @@ class Dog: NSObject {
 class Person: NSObject {
     var name:String?
     var age:NSNumber?
-    var person:Person?
-    var dog:Dog?
-    var peoples:Array<Person>?
+    var person:Person!
+    var dog:Dog!
+    var peoples:Array<Person>!
 }
 
-
 class GitHubRepoModel:NSObject {
+    
     var type:String?
     var created:String?
     var pushed_at:String?
@@ -35,8 +35,16 @@ class GitHubRepoModel:NSObject {
     var fork:NSNumber?
     var size:NSNumber?
     var followers:NSNumber?
-    var name:NSNumber?
+    //    var name:NSNumber?
+    var name2:String?
     var created_at:String?
+    
+    ///
+    var reflectKeyPath:[String:String] = {
+        [
+            "name2":"name"
+        ]
+    }()
 }
 
 class ReposModel: NSObject {
