@@ -109,16 +109,19 @@ class ViewController: MBBaseViewController,UITableViewDataSource,UITableViewDele
             groupItem70.vc = Demo13ViewController()
             
             var group7 = MBExampleGroup()
-            group7.groupName = "《字典转模型》"
+            group7.groupName = "字典转模型"
             group7.examples = [groupItem70]
+            
+            var group9 = MBExampleGroup()
+            group9.groupName = "《MLAutoLayout》"
+            group9.examples = []
             
             // Group9 : <Property 字典转模型>
             var group8 = MBExampleGroup()
             group8.groupName = "《某某某》项目实践"
             group8.examples = []
             
-            return [group7,group1,group4,group2,group3,group0,group5,group6,group8
-            ]
+            return [group0,group7,group1,group4,group2,group3,group5,group6,group9,group8]
         }
         
         set{
