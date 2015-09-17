@@ -11,6 +11,12 @@ import UIKit
 /// 测试模型
 class Dog: NSObject {
     var dogName: String?
+    var age: NSNumber?
+    var reflectKeyPath:[String:String] = {
+        [
+            "age":"dogAge"
+        ]
+    }()
 }
 
 class Person: NSObject {
@@ -35,16 +41,9 @@ class GitHubRepoModel:NSObject {
     var fork:NSNumber?
     var size:NSNumber?
     var followers:NSNumber?
-    //    var name:NSNumber?
-    var name2:String?
+    var name:String?
     var created_at:String?
     
-    ///
-    var reflectKeyPath:[String:String] = {
-        [
-            "name2":"name"
-        ]
-    }()
 }
 
 class ReposModel: NSObject {
@@ -59,6 +58,7 @@ class Demo13ViewController: MBBaseViewController,UITableViewDataSource,UITableVi
         "复杂的字典 -》模型 (模型里面包含了模型)",
         "复杂的字典 -》模型 (模型里面包含了模型，又包含了数组)",
         "测试100条数据+100条数组的字典 -》模型 (模型里面包含数组模型)",
+        "反射字典的key值",
     ]
     
     override func viewDidLoad() {
@@ -96,6 +96,8 @@ class Demo13ViewController: MBBaseViewController,UITableViewDataSource,UITableVi
             self.testMeters3()
         }else if indexPath.row == 3{
             self.testMeters4()
+        }else if indexPath.row == 4{
+            self.testMeters5()
         }
     }
     
@@ -180,9 +182,17 @@ class Demo13ViewController: MBBaseViewController,UITableViewDataSource,UITableVi
         for (var i = 0; i < 100; ++i) {
             ReposModel.mt_modelForWithDict(dict as [NSObject: AnyObject]) as! ReposModel
         }
-        var end = CFAbsoluteTimeGetCurrent();
-        println("100条数据消耗的时间：\(end - start)s");
-        println("-------MakeZL--------");
+        var end = CFAbsoluteTimeGetCurrent()
+        println("100条数据消耗的时间：\(end - start)s")
+        println("-------MakeZL--------")
+    }
+    
+    func testMeters5(){
+        var dog: AnyObject = Dog.mt_modelForWithDict([
+                "dogName":"妞妞",
+                "dogAge" : NSNumber(int: 10)
+            ])
+        println("\(dog.dogName) Age is \(dog.age)")
     }
     
     override func titleStr() -> String {

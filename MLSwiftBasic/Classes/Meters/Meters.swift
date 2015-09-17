@@ -18,42 +18,60 @@ var KLastFirstN:NSString?
 
 extension NSObject{
     
-    class func mt_modelForWithDict(dict:[NSObject: AnyObject])->AnyObject{
+    public class func mt_modelForWithDict(dict:[NSObject: AnyObject])->AnyObject{
         var object = self.new()
         return NSObject.mt_modelValueForDict(object,dict: dict)
     }
     
-    class func mt_modelValueForDict(object:NSObject, dict: [NSObject: AnyObject])->AnyObject{
+    private class func mt_modelValueForDict(object:NSObject, dict: [NSObject: AnyObject])->AnyObject{
         let mirror = Mirror(object)
         var ivarCount:UInt32 = 0
         let ivars = class_copyIvarList(object_getClass(object), &ivarCount)
         
+        var reflectKeys:Any?
         for var i = 0; i < Int(ivarCount); i++ {
             var keys:String = String.fromCString(ivar_getName(ivars[i]))!
+            if keys == "reflectKeyPath"{
+                reflectKeys = mirror.values[i+1]
+                break
+            }
+        }
+        
+        for var i = 0; i < Int(ivarCount); i++ {
+            var key:String = String.fromCString(ivar_getName(ivars[i]))!
+            var newKey:String?
+            if reflectKeys != nil {
+                newKey = (reflectKeys as! [String:String])[key] ?? key
+            }else{
+                newKey = key
+            }
+            
             var type:Any.Type = mirror.types[i+1]
-
-            if dict[keys] != nil {
-                if let array = dict[keys] as? [AnyObject]{
-                    var arrayModelFromString = NSObject.cutForArrayString("\(type)".convertOptionals())
-                    NSObject.arrayWithModel(object, array: array, fromString: arrayModelFromString, dataDictionary: dict, withDictKey: keys)
-                }else{
-                    if let newObj: AnyObject = NSObject.customObject(mirror, keyValue: mirror.typesShortName[i+1],index: i+1){
-                        var di:[NSObject: AnyObject] = (dict[keys] as? [NSObject: AnyObject])!
-                        NSObject.mt_modelValueForDict(newObj as! NSObject, dict: di)
-                        object.setValue(newObj, forKey:keys)
+            
+            if dict[newKey!] != nil {
+                switch type {
+                case _ as Swift.Optional<String>.Type, _ as Swift.Optional<NSNumber>.Type:
+                    object.setValue(dict[newKey!], forKey:key)
+                    break
+                case _ as
+                    Swift.Optional<Int>.Type,_ as Swift.Optional<Int64>.Type,_ as Swift.Optional<Float>.Type,_ as Swift.Optional<Double>.Type,_ as Swift.Optional<Bool>.Type :
+                    object.setValue("\(dict[newKey!])", forKey:key)
+                    break
+                default :
+                    if let array = dict[newKey!] as? [AnyObject]{
+                        var arrayModelFromString = NSObject.cutForArrayString("\(type)".convertOptionals())
+                        NSObject.arrayWithModel(object, array: array, fromString: arrayModelFromString, dataDictionary: dict, withDictKey: newKey!)
                     }
-                    else if (dict[keys] != nil){
-                        object.setValue(dict[keys], forKey:keys)
-                    }else{
-                        object.setValue("", forKey:keys)
-                    }
+                    break
                 }
             }
+            
+            
         }
         return object
     }
     
-    class func arrayWithModel(object:AnyObject,array:Array<AnyObject>, fromString string:String, dataDictionary dict:[NSObject: AnyObject], withDictKey key:String){
+    private class func arrayWithModel(object:AnyObject,array:Array<AnyObject>, fromString string:String, dataDictionary dict:[NSObject: AnyObject], withDictKey key:String){
         var vals:Array<AnyObject> = Array()
         if let obj: AnyClass = NSClassFromString(string) {
             for var i = 0; i < count(array); i++ {
@@ -72,9 +90,25 @@ extension NSObject{
                 
                 var iCount:UInt32 = 0
                 let iss = class_copyIvarList(object_getClass(oc), &iCount)
+                var reflectKeys:Any?
+                for var i = 0; i < Int(iCount); i++ {
+                    var keys:String = String.fromCString(ivar_getName(iss[i]))!
+                    if keys == "reflectKeyPath"{
+                        reflectKeys = KLastMirror!.values[i+1]
+                        break
+                    }
+                }
+                
                 for var n = 0; n < Int(iCount); n++ {
                     let ivar = iss[n]
                     let k:String = String.fromCString(ivar_getName(ivar))!
+                    var newKey:String?
+                    if reflectKeys != nil {
+                        newKey = (reflectKeys as! [String:String])[k] ?? k
+                    }else{
+                        newKey = k
+                    }
+                    
                     let type = (KLastMirrorType![n+1].1.valueType)
                     
                     switch type {
@@ -83,11 +117,11 @@ extension NSObject{
                             break
                         case _ as
                             Swift.Optional<Int>.Type,_ as Swift.Optional<Int64>.Type,_ as Swift.Optional<Float>.Type,_ as Swift.Optional<Double>.Type,_ as Swift.Optional<Bool>.Type :
-                            oc.setValue("\(di[k])", forKey:k)
+                            oc.setValue("\(di[newKey!])", forKey:k)
                             break
                         default :
                             if let newObj: AnyObject = NSObject.customObject(KLastMirror!, keyValue: k, index: i+1) {
-                                var dataDict:[NSObject: AnyObject] = (di[key] as? [NSObject: AnyObject])!
+                                var dataDict:[NSObject: AnyObject] = (di[newKey!] as? [NSObject: AnyObject])!
                                 NSObject.mt_modelValueForDict(newObj as! NSObject, dict: dataDict)
                                 oc.setValue(newObj, forKey:k)
                             }
@@ -104,7 +138,7 @@ extension NSObject{
     }
     
     /// Return Instance Custom Object or nil object.
-    class func customObject(mirror:Mirror<NSObject>,keyValue key:String,index:Int)->AnyObject?{
+    private class func customObject(mirror:Mirror<NSObject>,keyValue key:String,index:Int)->AnyObject?{
         if (KStaticOcKeys != nil && KStaticOcKeys![key] != nil){
             return nil
         }
@@ -122,12 +156,12 @@ extension NSObject{
     }
     
     /// Flag String Is Array Object.
-    class func isArrayForString(str:String) -> Bool {
+    private class func isArrayForString(str:String) -> Bool {
         return str.hasPrefix("Swift.Array<")
     }
     
     /// Cut Swift ArrayModel to String. ---> convert SwiftObject
-    class func cutForArrayString(str:String) -> String {
+    private class func cutForArrayString(str:String) -> String {
         var strM = NSMutableString(string: str)
         if NSObject.isArrayForString(str) {
             strM.replaceOccurrencesOfString("Swift.Array<", withString: "", options: .CaseInsensitiveSearch, range: NSMakeRange(0, strM.length))
