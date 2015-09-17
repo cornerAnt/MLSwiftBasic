@@ -58,7 +58,11 @@ extension NSObject{
                     object.setValue("\(dict[newKey!])", forKey:key)
                     break
                 default :
-                    if let array = dict[newKey!] as? [AnyObject]{
+                    if let newObj: AnyObject = NSObject.customObject(mirror, keyValue: mirror.typesShortName[i+1],index: i+1){
+                        var di:[NSObject: AnyObject] = (dict[newKey!] as? [NSObject: AnyObject])!
+                        NSObject.mt_modelValueForDict(newObj as! NSObject, dict: di)
+                        object.setValue(newObj, forKey:key)
+                    }else if let array = dict[newKey!] as? [AnyObject]{
                         var arrayModelFromString = NSObject.cutForArrayString("\(type)".convertOptionals())
                         NSObject.arrayWithModel(object, array: array, fromString: arrayModelFromString, dataDictionary: dict, withDictKey: newKey!)
                     }

@@ -59,6 +59,7 @@ class Demo13ViewController: MBBaseViewController,UITableViewDataSource,UITableVi
         "复杂的字典 -》模型 (模型里面包含了模型，又包含了数组)",
         "测试100条数据+100条数组的字典 -》模型 (模型里面包含数组模型)",
         "反射字典的key值",
+        "复杂的反射字典的key值",
     ]
     
     override func viewDidLoad() {
@@ -98,13 +99,19 @@ class Demo13ViewController: MBBaseViewController,UITableViewDataSource,UITableVi
             self.testMeters4()
         }else if indexPath.row == 4{
             self.testMeters5()
+        }else if indexPath.row == 5{
+            self.testMeters6()
         }
     }
     
     func testMeters1(){
-        
         var start = CFAbsoluteTimeGetCurrent()
-        var p:Person = Person.mt_modelForWithDict(["age":NSNumber(integer: 10),"name":"zhanglei","sex":"0"]) as! Person
+        var p:Person = Person.mt_modelForWithDict(
+            [
+             "age":NSNumber(integer: 10),
+             "name":"zhanglei","sex":"0"
+            ]
+            ) as! Person
         
         var end = CFAbsoluteTimeGetCurrent();
         println("消耗的时间：\(end - start)s");
@@ -193,6 +200,21 @@ class Demo13ViewController: MBBaseViewController,UITableViewDataSource,UITableVi
                 "dogAge" : NSNumber(int: 10)
             ])
         println("\(dog.dogName) Age is \(dog.age)")
+    }
+    
+    func testMeters6(){
+        var person: Person = Person.mt_modelForWithDict(
+            [
+                "age":NSNumber(integer: 10),
+                "name":"zhanglei",
+                "sex":"0",
+                "dog":[
+                    "dogName":"妞妞",
+                    "dogAge" : NSNumber(int: 10)
+                ]
+            ]
+        ) as! Person
+        println("personName:\(person.name) dog : < \(person.dog?.dogName) Age is \(person.dog?.age) >")
     }
     
     override func titleStr() -> String {
