@@ -88,7 +88,6 @@ class Demo13ViewController: MBBaseViewController,UITableViewDataSource,UITableVi
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        
         if indexPath.row == 0 {
             self.testMeters1()
         }else if indexPath.row == 1{
@@ -104,6 +103,9 @@ class Demo13ViewController: MBBaseViewController,UITableViewDataSource,UITableVi
         }
     }
     
+    /**
+        简单字典 -》模型
+    */
     func testMeters1(){
         var start = CFAbsoluteTimeGetCurrent()
         var p:Person = Person.mt_modelForWithDict(
@@ -119,6 +121,9 @@ class Demo13ViewController: MBBaseViewController,UITableViewDataSource,UITableVi
         println("数据是：\(p) name = \(p.name), age = \(p.age)....")
     }
     
+    /**
+        复杂的字典 -》模型 (模型里面包含了模型)
+    */
     func testMeters2(){
         
         var start = CFAbsoluteTimeGetCurrent()
@@ -142,6 +147,9 @@ class Demo13ViewController: MBBaseViewController,UITableViewDataSource,UITableVi
         println("数据是：\(p) name = \(p.name), Dog:\(p.dog) dogName:\(p.dog?.dogName)")
     }
     
+    /**
+        复杂的字典 -》模型 (模型里面包含了模型，又包含了数组)
+    */
     func testMeters3(){
         
         var start = CFAbsoluteTimeGetCurrent()
@@ -180,6 +188,9 @@ class Demo13ViewController: MBBaseViewController,UITableViewDataSource,UITableVi
         }
     }
     
+    /**
+        测试100次+100条数组的字典 -》模型 (模型里面包含数组模型)
+    */
     func testMeters4(){
         var url = NSBundle.mainBundle().URLForResource("github-iphone.json", withExtension: nil)
         var data = NSData(contentsOfURL: url!)
@@ -190,18 +201,25 @@ class Demo13ViewController: MBBaseViewController,UITableViewDataSource,UITableVi
             ReposModel.mt_modelForWithDict(dict as [NSObject: AnyObject]) as! ReposModel
         }
         var end = CFAbsoluteTimeGetCurrent()
-        println("100条数据消耗的时间：\(end - start)s")
+        println("测试100次+100条数组数据消耗的时间：\(end - start)s")
         println("-------MakeZL--------")
     }
     
+    /**
+        反射字典的key值
+    */
     func testMeters5(){
         var dog: AnyObject = Dog.mt_modelForWithDict([
                 "dogName":"妞妞",
                 "dogAge" : NSNumber(int: 10)
             ])
-        println("\(dog.dogName) Age is \(dog.age)")
+        println("数据是：\(dog.dogName) Age is \(dog.age)")
+        println("-------MakeZL--------")
     }
     
+    /**
+        复杂的反射字典的key值
+    */
     func testMeters6(){
         var person: Person = Person.mt_modelForWithDict(
             [
@@ -214,7 +232,8 @@ class Demo13ViewController: MBBaseViewController,UITableViewDataSource,UITableVi
                 ]
             ]
         ) as! Person
-        println("personName:\(person.name) dog : < \(person.dog?.dogName) Age is \(person.dog?.age) >")
+        println("数据是：personName:\(person.name) dog : < \(person.dog?.dogName) Age is \(person.dog?.age) >")
+        println("-------MakeZL--------")
     }
     
     override func titleStr() -> String {
